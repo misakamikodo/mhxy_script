@@ -17,7 +17,7 @@ class Ghost:
     _startTimestamp = None
     __chaseWin = None
     __chasepos = 1
-    __doublePointNumPer200 = 1
+    __doublePointNumPer100 = 1
 
     def __init__(self, picNo=0) -> None:
         conn = ConfigParser()
@@ -37,7 +37,7 @@ class Ghost:
             self.maxRound = maxRound
         if doublePointNumPer200 is not None:
             print("读取配置：领双数为：" + str(doublePointNumPer200))
-            self.__doublePointNumPer200 = doublePointNumPer200
+            self.__doublePointNumPer100 = doublePointNumPer200
         print("读取配置：调整窗口大小：" + str(resize))
 
         init(int(picNo), resizeToNice=resize)  # True
@@ -60,7 +60,7 @@ class Ghost:
         cooldown(2)
         Util.doubleClick(11, 1.5)
         cooldown(2)
-        for each in range(0, self.__doublePointNumPer200):
+        for each in range(0, self.__doublePointNumPer100):
             Util.leftClick(20, 16)
         cooldown(2)
         Util.doubleClick(23, 3.5)
@@ -71,7 +71,7 @@ class Ghost:
         # 领任务
         pyautogui.leftClick(location.x, location.y)
         # 校验双倍 self.__count % 25 == 0
-        if self.__count % 25 == 0 and self.__doublePointNumPer200 != -1:
+        if self.__count % 25 == 0 and self.__doublePointNumPer100 != -1:
             self.getPoint()
         # +3 整点第二个任务
         print("关闭对话框 ", self.__chaseWin)
