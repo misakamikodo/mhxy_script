@@ -27,7 +27,7 @@ class Ghost:
         conn.read(file_path)
         chasepos = int(conn.get('main', 'chasepos'))
         maxRound = int(conn.get('main', 'maxRound'))
-        doublePointNumPer200 = int(conn.get('main', 'doublePointNumPer200'))
+        doublePointNumPer100 = int(conn.get('main', 'doublePointNumPer100'))
         resize = bool(int(conn.get('main', 'resize')))
         if chasepos is not None:
             print("读取配置：任务位置为：" + str(chasepos))
@@ -35,9 +35,9 @@ class Ghost:
         if maxRound is not None:
             print("读取配置：捉鬼轮数为：" + str(maxRound))
             self.maxRound = maxRound
-        if doublePointNumPer200 is not None:
-            print("读取配置：领双数为：" + str(doublePointNumPer200))
-            self.__doublePointNumPer100 = doublePointNumPer200
+        if doublePointNumPer100 is not None:
+            print("读取配置：领双数为：" + str(doublePointNumPer100))
+            self.__doublePointNumPer100 = doublePointNumPer100
         print("读取配置：调整窗口大小：" + str(resize))
 
         init(int(picNo), resizeToNice=resize)  # True
