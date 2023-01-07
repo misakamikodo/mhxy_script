@@ -5,27 +5,27 @@ class Fuben:
     _fix = 5.6
     _fubenIdx = 0
     _fubenPos = [
-        ("xiashi", 13, 15),
-        # ("xiashi", 7, 15),
+        # ("xiashi", 13, 15),
+        ("xiashi", 7, 15),
 
         ("norm", 19, 15),
-        # ("norm", 13, 15),
-        # ("norm", 7, 15)
+        ("norm", 13, 15),
+        ("norm", 7, 15)
     ]
     config = {
         # 'lastFuben': r'resources/fuben/lvyanrumeng.png',
         # 'lastFuben': r'resources/fuben/erchongying.png',
         'lastFuben': r'resources/fuben/jinchanxin.png',
 
-        # 'avatar': r'resources/small/avatar_mll.png',
-        'avatar': r'resources/small/avatar_spl.png',
+        'avatar': r'resources/small/avatar_mll.png',
+        # 'avatar': r'resources/small/avatar_spl.png',
         # 'avatar': r'resources/small/avatar_hmr.png',
         # 'avatar': r'resources/small/avatar_wmr.png',
 
         # 'zhen': r'resources/small/zhen_hu5.png',
         # 'zhen': r'resources/small/zhen_long.png',
-        'zhen': r'resources/small/zhen_ying.png',
-        # 'zhen': r'resources/small/zhen_tian.png',
+        # 'zhen': r'resources/small/zhen_ying.png',
+        'zhen': r'resources/small/zhen_tian.png',
     }
 
     def _changan(self):
