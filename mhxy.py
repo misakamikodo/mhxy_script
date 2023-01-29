@@ -253,8 +253,7 @@ def newDayCloseCheck(do):
     if datetime.datetime.now().hour == 0 and (not newDayClick):
         cooldown(12)
         newDay = Util.locateCenterOnScreen(r'resources/origin/new_day.png')
-        if newDay is not None:
-            do(newDay)
+        do(newDay)
         newDayClick = True
 
 def init(idx=0, resizeToNice=False):

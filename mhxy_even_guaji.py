@@ -1,6 +1,7 @@
 from pyautogui import FailSafeException
 
 from mhxy_mine import *
+from mhxy_other_fuben import *
 from mhxy_shopping2 import *
 from mhxy_shopping import *
 from mhxy_fuben import *
@@ -11,6 +12,18 @@ from game_process import *
 if __name__ == '__main__':
     try:
         print("start task....")
+        # print("跟队520")
+        # cf = CheckFuben()
+        # cf.main()
+        # while datetime.datetime.now().hour <= 2:
+        #     cooldown(60)
+
+        # print("抢公示")
+        # shopping = Shopping2()
+        # shopping.openSop()
+        # shopping.shopping2()
+        # shopping.close()
+
         # print("捉鬼")
         # ghost = Ghost(picNo = 0)
         # ghost.maxRound = 4
@@ -20,21 +33,15 @@ if __name__ == '__main__':
         # process.closeMoniqi()
         # process.moveZhuomianban2Origin()
 
-        print("抢公示")
-        # shopping = Shopping2()
-        # shopping.openSop()
-        # shopping.shopping2()
-        # shopping.close()
-
         print("挖矿")
         mine = Mine()
         mine.mineMain()
 
-        # print("抢法宝碎片")
-        # shopping = Shopping()
-        # shopping.hour = 12
-        # shopping.openSop()
-        # shopping.do()
+        print("收非珍品")
+        shopping = Shopping()
+        shopping.hour = 6
+        shopping.openSop()
+        shopping.do()
 
         print("关机")
         # shopping.close()

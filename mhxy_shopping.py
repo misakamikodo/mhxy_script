@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from mhxy import *
 
 
@@ -7,17 +5,23 @@ class Shopping:
     mark = True
     hour = 99
     _lastBuyTime = None
-    _cooldown = 1.5
+    _cooldown = 2
+    # meigui suipian
+    __mode = 'suipian'
 
     def __init__(self) -> None:
         init()
-        self._lastBuyTime = datetime.now().timestamp()
+        self._lastBuyTime = datetime.datetime.now().timestamp()
         super().__init__()
 
     def _refresh(self):
         leftTab = winRelativeXY(5, 8.5)
         pyautogui.leftClick(leftTab[0], leftTab[1])
-        itemTab = winRelativeXY(11, 9)
+        itemTab = ()
+        if self.__mode == "suipian":
+            itemTab = winRelativeXY(11, 9)
+        elif self.__mode == "meigui":
+            itemTab = winRelativeXY(11, 9 + 2.4)
         pyautogui.leftClick(itemTab[0], itemTab[1])
 
     def _multiSelect(self):
@@ -30,7 +34,9 @@ class Shopping:
         buyTab = winRelativeXY(24, 18.5)
         pyautogui.leftClick(buyTab[0], buyTab[1])
         # 如果是多数量的尝试选择最大数量,否则注释
-        self._multiSelect()
+        if self.__mode == "suipian":
+            self._multiSelect()
+
         buy2Tab = winRelativeXY(16, 17)
         pyautogui.leftClick(buy2Tab[0], buy2Tab[1])
 
@@ -60,12 +66,12 @@ class Shopping:
                                                    region=(frame.left, frame.top, frame.right, frame.bottom))
                 if noMoney is not None:
                     break
-                self._lastBuyTime = datetime.now().timestamp()
+                self._lastBuyTime = datetime.datetime.now().timestamp()
             # 七点停止
-            if datetime.now().hour == self.hour:
+            if datetime.datetime.now().hour == self.hour:
                 break
             # 20分钟没买到东西
-            if datetime.now().timestamp() - self._lastBuyTime > 60 * 20:
+            if datetime.datetime.now().timestamp() - self._lastBuyTime > 60 * 20:
                 self._cooldown = 12
             cooldown(self._cooldown)
 

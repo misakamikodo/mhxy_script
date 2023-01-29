@@ -100,6 +100,8 @@ class _FstStandPoint(_StandPoint):
 
     def newDayCloseDiag(self):
         def do(newDay):
+            if newDay is None:
+                return
             pyautogui.leftClick(newDay.x, newDay.y)
             cooldown(1)
             Util.leftClick(-1, -3)

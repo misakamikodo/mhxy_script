@@ -58,12 +58,13 @@ class Ghost:
 
     def getPoint(self):
         cooldown(2)
-        Util.doubleClick(11, 1.5)
+        Util.leftClick(11, 1.5)
         cooldown(2)
         for each in range(0, self.__doublePointNumPer100):
             Util.leftClick(20, 16)
+            cooldown(0.2)
         cooldown(2)
-        Util.doubleClick(23, 3.5)
+        Util.leftClick(23, 3.5)
         cooldown(2)
         pass
 
@@ -84,10 +85,12 @@ class Ghost:
         pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=2, button=pyautogui.LEFT)
 
     def __newDayCloseDiagDo(self, newDay):
+        self.__chasepos += 1
+        if newDay is None:
+            return
         pyautogui.leftClick(newDay.x, newDay.y)
         cooldown(1)
         Util.leftClick(-1, -3)
-        # self.__chasepos += 1
 
     def ghost(self):
         # _thread.start_new_thread(resumeIfDisconnect, ("Thread-1", 2,))
@@ -124,7 +127,7 @@ class Ghost:
                     print("完成一千双")
                     # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
-            if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 20 * 60:
+            if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 25 * 60:
                 Util.leftClick(self.__chaseWin[0], self.__chaseWin[1])
                 naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
                 # 闹钟提醒

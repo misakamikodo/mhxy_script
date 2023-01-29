@@ -81,4 +81,5 @@ class GameProcess:
 if __name__ == '__main__':
     resize = GameProcess()
     resize.moveZhuomianban()
+    # resize.moveZhuomianban2Origin()
     # resize.moveMoniqi()
