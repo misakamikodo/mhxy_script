@@ -6,7 +6,7 @@ class Shopping2:
     _startTime = datetime.datetime.now()
     #  购买时间点 没差3分钟需要至少设置一个
     _timeList = [
-        datetime.datetime(_startTime.year, _startTime.month, _startTime.day, 21, 42),
+        datetime.datetime(_startTime.year, _startTime.month, _startTime.day, 2, 19),
     ]
     # _total = len(_timeList)
     _total = 1

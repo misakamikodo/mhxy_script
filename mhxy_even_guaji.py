@@ -27,7 +27,7 @@ if __name__ == '__main__':
         # print("捉鬼")
         # ghost = Ghost(picNo = 0)
         # ghost.maxRound = 4
-        # ghost.getDialog()
+        # ghost.getDialog()zzzzzzzzzzzzzzzzzzzzzzzzzzz
         # ghost.ghost()
         # process = GameProcess()
         # process.closeMoniqi()
@@ -39,12 +39,12 @@ if __name__ == '__main__':
 
         print("收非珍品")
         shopping = Shopping()
-        shopping.hour = 6
+        shopping.hour = 8
         shopping.openSop()
         shopping.do()
 
         print("关机")
         # shopping.close()
-        os.system("shutdown -s")
+        # os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

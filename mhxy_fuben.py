@@ -6,10 +6,10 @@ class Fuben:
     _fubenIdx = 0
     _fubenPos = [
         # ("xiashi", 13, 15),
-        ("xiashi", 7, 15),
+        # ("xiashi", 7, 15),
 
-        # ("norm", 19, 15),
-        ("norm", 13, 15),
+        ("norm", 19, 15),
+        # ("norm", 13, 15),
         ("norm", 7, 15)
     ]
     config = {

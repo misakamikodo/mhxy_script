@@ -71,9 +71,6 @@ class Ghost:
     def _startMission(self, location):
         # 领任务
         pyautogui.leftClick(location.x, location.y)
-        # 校验双倍 self.__count % 25 == 0
-        if self.__count % 25 == 0 and self.__doublePointNumPer100 != -1:
-            self.getPoint()
         # +3 整点第二个任务
         print("关闭对话框 ", self.__chaseWin)
         cooldown(1)
@@ -81,8 +78,15 @@ class Ghost:
         if five is not None:
             # 按取消
             pyautogui.leftClick(five.left + five.width - 120, five.top + five.height - 20)
-        # 关对话 + 追踪
-        pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=2, button=pyautogui.LEFT)
+        # 校验双倍 self.__count % 25 == 0
+        if self.__count % 25 == 0 and self.__doublePointNumPer100 != -1:
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=1, button=pyautogui.LEFT)
+            cooldown(0.2)
+            self.getPoint()
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=1, button=pyautogui.LEFT)
+        else:
+            # 关对话 + 追踪
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=2, button=pyautogui.LEFT)
 
     def __newDayCloseDiagDo(self, newDay):
         self.__chasepos += 1

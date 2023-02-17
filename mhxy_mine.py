@@ -2,7 +2,6 @@ from mhxy import *
 
 
 class _MinePoint:
-    # color = 0
     wait = 10
     pic = 10
     offsetY = 0
@@ -21,9 +20,10 @@ _normMineList = [
     _MinePoint(3, r'resources/mine/norm_purple_mine.png'),
     _MinePoint(5, r'resources/mine/norm_blue_mine.png'),
     _MinePoint(5, r'resources/mine/norm_blue_shade_mine.png'),
-    _MinePoint(7, r'resources/mine/norm_green_mine.png'),
 
+    # _MinePoint(7, r'resources/mine/norm_green_mine.png'),
     # MinePoint(7, r'resources/mine/norm_green_shade_mine.png'),
+
     # MinePoint(10, r'resources/mine/norm_grey_mine.png'),
     # MinePoint(10, r'resources/mine/norm_grey_shade_mine.png')
     # 采集

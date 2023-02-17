@@ -43,8 +43,8 @@ class Shopping:
     def do(self):
         init()
         while self.mark:
-            # 找三次是否有有廉价商品 r'resources/shop/item600.png',
-            itemPic = [r'resources/shop/item.png']
+            # 找三次是否有有廉价商品 r'resources/shop/item600.png',r'resources/shop/suipian.png',r'resources/shop/meigui.png',
+            itemPic = [r'resources/shop/' + self.__mode + '.png']
             point = None
             for each in itemPic:
                 point = pyautogui.locateCenterOnScreen(each, region=(frame.left, frame.top, frame.right, frame.bottom),
