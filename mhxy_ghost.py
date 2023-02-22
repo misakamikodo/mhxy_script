@@ -52,8 +52,15 @@ class Ghost:
         Util.leftClick(3, 5)
         cooldown(2)
         mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
+        i = 0
+        while mission is None and i in range(0, 2):
+            pyautogui.moveTo(winRelativeX(10), winRelativeY(13.9))
+            pyautogui.dragTo(winRelativeX(10), winRelativeY(6.9), duration=0.8)
+            cooldown(1)
+            mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
+            i += 1
         if mission is not None:
-            cooldown(3)
+            cooldown(1)
             pyautogui.leftClick(mission.x + relativeX2Act(3.5), mission.y + relativeY2Act(0.2))
 
     def getPoint(self):
@@ -95,6 +102,17 @@ class Ghost:
         pyautogui.leftClick(newDay.x, newDay.y)
         cooldown(1)
         Util.leftClick(-1, -3)
+
+    def go(self):
+        cooldown(1)
+        Util.leftClick(6.8, 1.5)
+        cooldown(0.5)
+        Util.leftClick(3, 5)
+        cooldown(1)
+        tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
+        if tag is not None:
+            cooldown(1)
+            pyautogui.leftClick(tag.x + relativeX2Act(3.5), tag.y + relativeY2Act(0.2))
 
     def ghost(self):
         # _thread.start_new_thread(resumeIfDisconnect, ("Thread-1", 2,))

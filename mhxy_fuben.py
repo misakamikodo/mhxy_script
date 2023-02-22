@@ -2,14 +2,14 @@ from mhxy import *
 
 
 class Fuben:
-    _fix = 5.6
+    _fix = 5.6 + 2
     _fubenIdx = 0
     _fubenPos = [
         # ("xiashi", 13, 15),
         # ("xiashi", 7, 15),
 
-        ("norm", 19, 15),
-        # ("norm", 13, 15),
+        # ("norm", 19, 15),
+        ("norm", 13, 15),
         ("norm", 7, 15)
     ]
     config = {
@@ -28,6 +28,10 @@ class Fuben:
         # 'zhen': r'resources/small/zhen_ying.png',
         # 'zhen': r'resources/small/zhen_tian.png',
     }
+
+    def __init__(self, idx=0) -> None:
+        # init(resizeToNice=True)
+        init(idx=idx, resizeToNice=False)
 
     def _changan(self):
         return Util.locateCenterOnScreen(r'resources/fuben/activity.png')
@@ -75,8 +79,16 @@ class Fuben:
             Util.leftClick(3, 5)
             cooldown(1)
             lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
+            i = 0
+            while lastFuben is None and i in range(0, 0):
+                #  TODO
+                pyautogui.moveTo(winRelativeX(10), winRelativeY(13.9))
+                pyautogui.dragTo(winRelativeX(10), winRelativeY(6.9), duration=0.8)
+                cooldown(1)
+                lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
+                i += 1
             if lastFuben is not None:
-                cooldown(2)
+                cooldown(1)
                 pyautogui.leftClick(lastFuben.x + relativeX2Act(3.5), lastFuben.y + relativeY2Act(0.2))
                 cooldown(4.5)
                 Util.leftClick(-4, 11)
@@ -95,6 +107,4 @@ class Fuben:
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
     print("start task....")
-    # init(resizeToNice=True)
-    init(idx=0, resizeToNice=False)
     Fuben().fuben()

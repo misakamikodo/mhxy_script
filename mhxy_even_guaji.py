@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
         print("收非珍品")
         shopping = Shopping()
-        shopping.hour = 8
+        shopping.hour = 7
         shopping.openSop()
         shopping.do()
 
