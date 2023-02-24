@@ -27,7 +27,7 @@ if __name__ == '__main__':
         # print("捉鬼")
         # ghost = Ghost(picNo = 0)
         # ghost.maxRound = 4
-        # ghost.getDialog()zzzzzzzzzzzzzzzzzzzzzzzzzzz
+        # ghost.getDialog()
         # ghost.ghost()
         # process = GameProcess()
         # process.closeMoniqi()
@@ -37,9 +37,13 @@ if __name__ == '__main__':
         mine = Mine()
         mine.mineMain()
 
+        # print("挖矿2")
+        # mine = Mine(idx=1)
+        # mine.mineMain()
+
         print("收非珍品")
         shopping = Shopping()
-        shopping.hour = 7
+        shopping.hour = 9
         shopping.openSop()
         shopping.do()
 

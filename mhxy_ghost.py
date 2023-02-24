@@ -9,15 +9,21 @@ from pyautogui import FailSafeException
 
 from mhxy import *
 
-
 class Ghost:
     maxRound = 99
+    # 程序运行标志
     _flag = True
+    # 是否发生跨天
+    __newDayClick = False
     __count = 0
+    # 捉鬼开始时间
+    __beginHour = 23
     _startTimestamp = None
     __chaseWin = None
+    # 任务位置
     __chasepos = 1
-    __doublePointNumPer100 = 1
+    # 自动领双数
+    __doublePointNumPer100 = -1
 
     def __init__(self, picNo=0) -> None:
         conn = ConfigParser()
@@ -42,8 +48,11 @@ class Ghost:
 
         init(int(picNo), resizeToNice=resize)  # True
 
-        self.__chaseWin = (winRelativeX(-1), winRelativeY(6 + 2 * self.__chasepos))
+        self.__chaseWin = (winRelativeX(-1), winRelativeY(6))
         super().__init__()
+
+    def __chaseWinFix(self):
+        return relativeY2Act(2 * (self.__chasepos + (1 if self.__newDayClick and self.__beginHour != 0 else 0)))
 
     def getDialog(self):
         cooldown(1)
@@ -87,16 +96,18 @@ class Ghost:
             pyautogui.leftClick(five.left + five.width - 120, five.top + five.height - 20)
         # 校验双倍 self.__count % 25 == 0
         if self.__count % 25 == 0 and self.__doublePointNumPer100 != -1:
-            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=1, button=pyautogui.LEFT)
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1] + self.__chaseWinFix(), clicks=1,
+                            button=pyautogui.LEFT)
             cooldown(0.2)
             self.getPoint()
-            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=1, button=pyautogui.LEFT)
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1] + self.__chaseWinFix(), clicks=1,
+                            button=pyautogui.LEFT)
         else:
             # 关对话 + 追踪
-            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1], clicks=2, button=pyautogui.LEFT)
+            pyautogui.click(self.__chaseWin[0], self.__chaseWin[1] + self.__chaseWinFix(), clicks=2,
+                            button=pyautogui.LEFT)
 
     def __newDayCloseDiagDo(self, newDay):
-        self.__chasepos += 1
         if newDay is None:
             return
         pyautogui.leftClick(newDay.x, newDay.y)
@@ -123,7 +134,8 @@ class Ghost:
             # 是否继续捉鬼弹窗 虽然使用确定即可，但是截图截得长了，所以locateOnScreen获取相对截图右下点的位置
             completeLocation = Util.locateOnScreen('resources/ghost/complete_ghost0.png')
             startLocation = None
-            newDayCloseCheck(self.__newDayCloseDiagDo)
+            if newDayCloseCheck(self.__newDayCloseDiagDo):
+                self.__newDayClick = True
 
             if completeLocation is None:
                 # 对话框：捉鬼任务选项。
@@ -150,7 +162,7 @@ class Ghost:
                     # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 25 * 60:
-                Util.leftClick(self.__chaseWin[0], self.__chaseWin[1])
+                Util.leftClick(self.__chaseWin[0], self.__chaseWin[1] + self.__chaseWinFix())
                 naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
                 # 闹钟提醒
                 naozhong.start()

@@ -215,9 +215,9 @@ class Mine:
     __lastMineTime = datetime.datetime.now().timestamp()
     mark = True
 
-    def __init__(self) -> None:
+    def __init__(self, idx=0) -> None:
         super().__init__()
-        init(resizeToNice=False)
+        init(resizeToNice=False, idx=idx)
         _initForMine()
         self.__lastMineTime = datetime.datetime.now().timestamp()
 

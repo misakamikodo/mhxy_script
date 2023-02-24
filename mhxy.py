@@ -40,6 +40,8 @@ frameSize = [0, 0]
 
 frameSizeCm = [28.1, 21.8]
 
+# 是否发生跨天
+_newDayClick = False
 
 # relativeSize = lambda x, y: (frameSize[0] * x / frameSizeCm[0],
 #                              frameSize[1] * y / frameSizeCm[1])
@@ -246,15 +248,15 @@ def resize2Nice(windows):
     pyautogui.dragTo(windows.left + (niceSize[0] - resizeOffset[0]), windows.top + (niceSize[1] - resizeOffset[1]),
                      duration=1.3)
 
-newDayClick = False
-
 def newDayCloseCheck(do):
-    global newDayClick
-    if datetime.datetime.now().hour == 0 and (not newDayClick):
-        cooldown(12)
+    global _newDayClick
+    if datetime.datetime.now().hour == 0 and (not _newDayClick):
+        _newDayClick = True
+        cooldown(8)
         newDay = Util.locateCenterOnScreen(r'resources/origin/new_day.png')
         do(newDay)
-        newDayClick = True
+        return True
+    return False
 
 def init(idx=0, resizeToNice=False):
     global frameSizeCm
