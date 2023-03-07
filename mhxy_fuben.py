@@ -4,11 +4,11 @@ from mhxy import *
 class Fuben:
     _fix = 5.6 + 2
     _fubenIdx = 0
-    _fubenPos = [
+    fubenPos = [
         # ("xiashi", 13, 15),
-        # ("xiashi", 7, 15),
+        ("xiashi", 7, 15),
 
-        # ("norm", 19, 15),
+        ("norm", 19, 15),
         ("norm", 13, 15),
         ("norm", 7, 15)
     ]
@@ -64,13 +64,13 @@ class Fuben:
 
         #  进入第一个副本为起点
         doUntil2Changan()
-        if self._fubenIdx >= len(self._fubenPos):
+        if self._fubenIdx >= len(self.fubenPos):
             return False
-        elif self._fubenPos[self._fubenIdx][0] == "xiashi":
+        elif self.fubenPos[self._fubenIdx][0] == "xiashi":
             # 已领取的侠士任务所在坐标
             Util.leftClick(-3, self._fix)
             cooldown(2.0)
-            Util.leftClick(self._fubenPos[self._fubenIdx][1], self._fubenPos[self._fubenIdx][2])
+            Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
             self._fubenIdx += 1
         else:
             cooldown(1)
@@ -94,7 +94,7 @@ class Fuben:
                 Util.leftClick(-4, 11)
                 cooldown(2)
                 # 下一个副本
-                Util.leftClick(self._fubenPos[self._fubenIdx][1], self._fubenPos[self._fubenIdx][2])
+                Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
                 self._fubenIdx += 1
         return True
 

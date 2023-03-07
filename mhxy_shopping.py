@@ -5,7 +5,7 @@ class Shopping:
     mark = True
     hour = 99
     _lastBuyTime = None
-    _cooldown = 2
+    _cooldown = 10
     # meigui suipian
     __mode = 'suipian'
 
@@ -57,10 +57,11 @@ class Shopping:
             # 两次都没有刷新列表
             if point is None:
                 self._refresh()
+                cooldown(self._cooldown)
             else:
                 # 如果有则购买
                 pyautogui.leftClick(point.x, point.y)
-                self._cooldown = 2
+                self._cooldown = 10
                 self._buy()
                 noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
                                                    region=(frame.left, frame.top, frame.right, frame.bottom))
@@ -72,13 +73,18 @@ class Shopping:
                 break
             # 20分钟没买到东西
             if datetime.datetime.now().timestamp() - self._lastBuyTime > 60 * 20:
-                self._cooldown = 12
+                self._cooldown = 30
             cooldown(self._cooldown)
 
-    def openSop(self):
+    def openShop(self):
         cooldown(5)
         Util.leftClick(1, 6)
         cooldown(5)
+
+    def closeShop(self):
+        cooldown(1)
+        Util.leftClick(-2.5, 3.5)
+        cooldown(1)
 
 
 if __name__ == '__main__':

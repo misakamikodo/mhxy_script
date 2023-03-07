@@ -1,6 +1,6 @@
 from pyautogui import FailSafeException
 
-from mhxy_mine import *
+from mhxy_mine_withshop import *
 from mhxy_other_fuben import *
 from mhxy_shopping2 import *
 from mhxy_shopping import *
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         # shopping.close()
 
         # print("捉鬼")
-        # ghost = Ghost(picNo = 0)
+        # ghost = Ghost(idx = 0)
         # ghost.maxRound = 4
         # ghost.getDialog()
         # ghost.ghost()
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         # process.moveZhuomianban2Origin()
 
         print("挖矿")
-        mine = Mine()
+        mine = MineWithShop()
         mine.mineMain()
 
         # print("挖矿2")
@@ -44,11 +44,11 @@ if __name__ == '__main__':
         print("收非珍品")
         shopping = Shopping()
         shopping.hour = 9
-        shopping.openSop()
+        shopping.openShop()
         shopping.do()
 
         print("关机")
         # shopping.close()
-        # os.system("shutdown -s")
+        os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')
