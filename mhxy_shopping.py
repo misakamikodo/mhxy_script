@@ -56,8 +56,8 @@ class Shopping:
             #                                            confidence=0.8)
             # 两次都没有刷新列表
             if point is None:
-                self._refresh()
                 cooldown(self._cooldown)
+                self._refresh()
             else:
                 # 如果有则购买
                 pyautogui.leftClick(point.x, point.y)
