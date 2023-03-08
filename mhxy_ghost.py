@@ -163,7 +163,7 @@ class Ghost:
                     self._startGhostDo()
                 if self._count % 25 == 0:
                     print("完成一千双")
-                    pl.playsound('resources/common/music.mp3')
+                    # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 25 * 60:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())

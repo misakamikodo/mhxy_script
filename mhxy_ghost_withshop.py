@@ -45,6 +45,7 @@ class GhostWithShop(Ghost):
                 buy2Tab = winRelativeXY(14, 15)
                 pyautogui.leftClick(buy2Tab[0], buy2Tab[1])
             else:
+                # 刷新列表
                 cooldown(10)
                 leftTab = winRelativeXY(4, 7.5)
                 pyautogui.leftClick(leftTab[0], leftTab[1])

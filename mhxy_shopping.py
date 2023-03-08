@@ -74,7 +74,6 @@ class Shopping:
             # 20分钟没买到东西
             if datetime.datetime.now().timestamp() - self._lastBuyTime > 60 * 20:
                 self._cooldown = 30
-            cooldown(self._cooldown)
 
     def openShop(self):
         cooldown(5)
