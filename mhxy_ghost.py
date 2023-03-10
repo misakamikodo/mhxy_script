@@ -21,7 +21,7 @@ class Ghost:
     _startTimestamp = None
     _chaseWin = None
     # 任务位置
-    _chasepos = 1
+    chasepos = 1
     # 自动领双数
     _doublePointNumPer100 = -1
 
@@ -37,7 +37,6 @@ class Ghost:
         resize = bool(int(conn.get('main', 'resize')))
         if chasepos is not None:
             print("读取配置：任务位置为：" + str(chasepos))
-            self._chasepos = chasepos - 1
         if maxRound is not None:
             print("读取配置：捉鬼轮数为：" + str(maxRound))
             self.maxRound = maxRound
@@ -48,11 +47,11 @@ class Ghost:
 
         init(int(idx), resizeToNice=resize)  # True
 
-        self._chaseWin = (winRelativeX(-1), winRelativeY(6))
+        self._chaseWin = (winRelativeX(-1), winRelativeY(4))
         super().__init__()
 
     def _chaseWinFix(self):
-        return relativeY2Act(2 * (self._chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
+        return relativeY2Act(2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
 
     def getDialog(self):
         cooldown(1)
@@ -63,8 +62,8 @@ class Ghost:
         mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
         i = 0
         while mission is None and i in range(0, 2):
-            pyautogui.moveTo(winRelativeX(10), winRelativeY(13.9))
-            pyautogui.dragTo(winRelativeX(10), winRelativeY(6.9), duration=0.8)
+            pyautogui.moveTo(winRelativeX(10), winRelativeY(12.5))
+            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
             cooldown(1)
             mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
             i += 1

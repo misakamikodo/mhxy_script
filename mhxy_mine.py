@@ -235,24 +235,26 @@ class Mine:
                     p = (mine.wait, point.x, point.y)
                     # 点击矿
                     pyautogui.leftClick(point.x, point.y - mine.offsetY)  # -20 采集
+                    if point.y <= frame.top + relativeY2Act(3):
+                        continue
                     res = waitMoveOk()
-                    if res and point.y > frame.top + relativeY2Act(3):
+                    # 出现采矿按钮并且点位不会碰到地图
+                    if res:
                         # 点击挖
                         self._lastMineTime = datetime.datetime.now().timestamp()
-                        posMove = (frame.right - relativeX2Act(5),
-                                   frame.bottom - relativeY2Act(3.5))
-                        pyautogui.leftClick(posMove[0], posMove[1])
-                        count += 1
-                        # 根据颜色等待 3-5-7-10 秒
-                        if p[0] == -1:
-                            pyautogui.click(frameSize[0] >> 1, frameSize[1] >> 1, clicks=10, duration=0.08,
-                                            button=pyautogui.LEFT)
-                        else:
-                            cooldown(p[0] + 1)
-                    else:
+                        Util.leftClick(-5, -3.5)
+                        cooldown(4)
+                        # 验证码的出现规则目前是每一天时间出现一次，可以先手动挖一两轮再挂
                         yanzhen = Util.locateCenterOnScreen(r'resources/mine/yanzhen.png')
                         if yanzhen is not None:
                             pl.playsound('resources/common/music.mp3')
+                        count += 1
+                        # 根据颜色等待 3-5-7-10 秒
+                        if p[0] == -1:
+                            # 五级采矿点 -1 表示连续中间十次完成采矿
+                            pyautogui.click(frameSize[0] >> 1, frameSize[1] >> 1, clicks=10, duration=0.08, button=pyautogui.LEFT)
+                        else:
+                            cooldown(p[0] - 3)
                 else:
                     count += 1
 

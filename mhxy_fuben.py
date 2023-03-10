@@ -76,14 +76,13 @@ class Fuben:
             cooldown(1)
             Util.leftClick(7.5, 1.5)
             cooldown(0.5)
-            Util.leftClick(3, 5)
+            Util.leftClick(3, 5.5)
             cooldown(1)
             lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
             i = 0
-            while lastFuben is None and i in range(0, 0):
-                #  TODO
-                pyautogui.moveTo(winRelativeX(10), winRelativeY(13.9))
-                pyautogui.dragTo(winRelativeX(10), winRelativeY(6.9), duration=0.8)
+            while lastFuben is None and i in range(0, 2):
+                pyautogui.moveTo(winRelativeX(10), winRelativeY(12.5))
+                pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
                 cooldown(1)
                 lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
                 i += 1

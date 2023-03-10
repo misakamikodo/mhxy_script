@@ -178,7 +178,7 @@ def doNormFubenMission():
 
 
 def cooldown(second):
-    time.sleep(second)
+    time.sleep(max(0, second))
 
 
 class Util:
@@ -225,7 +225,7 @@ class Util:
         pyautogui.hotkey('Ctrl', 'v')
 
     @staticmethod
-    def oci(region, type=None):
+    def ocr(region, type=None):
         # 识别汉字
         img = pyautogui.screenshot(
             region=(winRelativeX(region[0]), winRelativeY(region[1]), winRelativeX(region[2]), winRelativeY(region[3])))
