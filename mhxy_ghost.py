@@ -47,7 +47,7 @@ class Ghost:
 
         init(int(idx), resizeToNice=resize)  # True
 
-        self._chaseWin = (winRelativeX(-1), winRelativeY(4))
+        self._chaseWin = (winRelativeX(-1), winRelativeY(3.5))
         super().__init__()
 
     def _chaseWinFix(self):
@@ -57,7 +57,7 @@ class Ghost:
         cooldown(1)
         Util.leftClick(7.5, 1.5)
         cooldown(1)
-        Util.leftClick(3, 5)
+        Util.leftClick(3, 4.5)
         cooldown(2)
         mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
         i = 0
@@ -117,9 +117,16 @@ class Ghost:
         cooldown(1)
         Util.leftClick(6.8, 1.5)
         cooldown(0.5)
-        Util.leftClick(3, 5)
+        Util.leftClick(3, 4.7)
         cooldown(1)
         tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
+        i = 0
+        while tag is None and i in range(0, 2):
+            pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
+            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
+            cooldown(1)
+            tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
+            i += 1
         if tag is not None:
             cooldown(1)
             pyautogui.leftClick(tag.x + relativeX2Act(3.5), tag.y + relativeY2Act(0.2))
