@@ -51,7 +51,7 @@ class Ghost:
         super().__init__()
 
     def _chaseWinFix(self):
-        return relativeY2Act(2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
+        return relativeY2Act(2 * (1 + self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
 
     def getDialog(self):
         cooldown(1)
