@@ -34,18 +34,18 @@ if __name__ == '__main__':
         # process.moveZhuomianban2Origin()
 
         print("挖矿")
-        mine = MineWithShop()
+        mine = Mine()
         mine.mineMain()
+
+        # print("收非珍品")
+        # shopping = Shopping()
+        # shopping.hour = 18
+        # shopping.openShop()
+        # shopping.do()
 
         # print("挖矿2")
         # mine = Mine(idx=1)
         # mine.mineMain()
-
-        print("收非珍品")
-        shopping = Shopping()
-        shopping.hour = 9
-        shopping.openShop()
-        shopping.do()
 
         print("关机")
         # shopping.close()
