@@ -37,6 +37,7 @@ class Ghost:
         resize = bool(int(conn.get('main', 'resize')))
         if chasepos is not None:
             print("读取配置：任务位置为：" + str(chasepos))
+            self.chasepos = chasepos
         if maxRound is not None:
             print("读取配置：捉鬼轮数为：" + str(maxRound))
             self.maxRound = maxRound
@@ -51,7 +52,7 @@ class Ghost:
         super().__init__()
 
     def _chaseWinFix(self):
-        return relativeY2Act(2 * (1 + self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
+        return relativeY2Act(2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
 
     def getDialog(self):
         cooldown(1)
