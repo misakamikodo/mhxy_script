@@ -95,9 +95,10 @@ class Bangpai:
 
     def do(self, chaseWin):
         while not self._finish():
-            pyautogui.leftClick(chaseWin[0], chaseWin[1])
 
             idx, locate, itemIdx = self._findPic()
+
+            pyautogui.leftClick(chaseWin[0], chaseWin[1])
 
             while locate is None:
                 if battling():
@@ -108,6 +109,7 @@ class Bangpai:
                     # 没法判断特征图片的任务都能通过不断点击追踪完成
                     pyautogui.leftClick(chaseWin[0], chaseWin[1])
                 cooldown(1)
+
             self._mayMissionList[idx].complete(locate, itemIdx=itemIdx)
             cooldown(1)
 
@@ -117,4 +119,4 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
     init()
-    Bangpai().do((winRelativeX(-4), winRelativeY(5.8 + 0)))
+    Bangpai().do((winRelativeX(-0.5), winRelativeY(5.8 + 0)))

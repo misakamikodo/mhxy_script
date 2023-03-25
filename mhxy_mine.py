@@ -247,7 +247,12 @@ class Mine:
                         # 验证码的出现规则目前是每一天时间出现一次，可以先手动挖一两轮再挂
                         yanzhen = Util.locateCenterOnScreen(r'resources/mine/yanzhen.png')
                         if yanzhen is not None:
-                            pl.playsound('resources/common/music.mp3')
+                            # 挖到验证码停止，然后等10秒手动验证（大概两轮就出，所以没选择报警）
+                            self.mark = False
+                            cooldown(10)
+                            return
+                            # 报警提示
+                            # pl.playsound('resources/common/music.mp3')
                         count += 1
                         # 根据颜色等待 3-5-7-10 秒
                         if p[0] == -1:
