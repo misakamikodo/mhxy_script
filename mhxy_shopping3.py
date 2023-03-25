@@ -18,8 +18,8 @@ class Shopping3:
         buyTab = (frame.right - relativeX2Act(5), frame.bottom - relativeY2Act(3))
         pyautogui.leftClick(buyTab[0], buyTab[1])
         cooldown(0.1)
-        confirmTab = (frame.left + relativeX2Act(13.5), frame.top + relativeY2Act(8.5))
-        # confirmTab = (frame.left + relativeX2Act(8), frame.top + relativeY2Act(14))
+        # confirmTab = (frame.left + relativeX2Act(13.5), frame.top + relativeY2Act(8.5))
+        confirmTab = (frame.left + relativeX2Act(8), frame.top + relativeY2Act(14))
         pyautogui.leftClick(confirmTab[0], confirmTab[1])
 
     def _timeApproach(self):
