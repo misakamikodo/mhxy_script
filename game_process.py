@@ -2,6 +2,7 @@ import os
 
 from mhxy import *
 
+
 class GameProcess:
     moveOffset = (60, 20)
 
@@ -9,7 +10,7 @@ class GameProcess:
         windows = pyautogui.getAllWindows()
         zhuomianban = (71, 963)
         i = 0
-        for item in list(filter(lambda x: x.title.startswith("《梦幻西游"), windows)):
+        for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
             item.activate()
             print(item)
             pyautogui.moveTo(item.right - resizeOffset[0], item.bottom - resizeOffset[1])
@@ -29,7 +30,7 @@ class GameProcess:
 
     def moveZhuomianban2Origin(self):
         windows = pyautogui.getAllWindows()
-        item = list(filter(lambda x: x.title.startswith("《梦幻西游"), windows))[0]
+        item = list(filter(lambda x: x.title.startswith("梦幻西游"), windows))[0]
         item.activate()
         print(item)
         pyautogui.moveTo(item.right - resizeOffset[0], item.bottom - resizeOffset[1])

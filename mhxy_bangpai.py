@@ -119,4 +119,4 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
     init()
-    Bangpai().do((winRelativeX(-0.5), winRelativeY(5.8 + 0)))
+    Bangpai().do((winRelativeX(-0.5), winRelativeY(6 + 0)))

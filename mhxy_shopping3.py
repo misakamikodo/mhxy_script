@@ -1,5 +1,3 @@
-import datetime
-
 from mhxy import *
 
 class Shopping3:

@@ -98,6 +98,12 @@ class Fuben:
                 self._fubenIdx += 1
         return True
 
+    def loginIn(self):
+        cooldown(1)
+        Util.leftClick(12, 11.5)
+        cooldown(5)
+        Util.leftClick(12, 13.5)
+
     def fuben(self):
         while self._do():
             cooldown(2)

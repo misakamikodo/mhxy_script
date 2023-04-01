@@ -1,5 +1,6 @@
-import time
 import datetime
+import json
+import time
 
 import pyautogui
 from pygetwindow import PyGetWindowException
@@ -264,7 +265,7 @@ def init(idx=0, resizeToNice=False):
     def getFrameSize(idx):
         windows = None
         while windows is None or windows.left < 0:
-            windowsList = pyautogui.getWindowsWithTitle('《梦幻西游》手游')
+            windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
             windowsList = list(filter(lambda x: x.left > 0, windowsList))
             windowsList.sort(key=lambda x: x.left)
             if len(windowsList) > 0:
@@ -302,3 +303,32 @@ def init(idx=0, resizeToNice=False):
         windows.activate()
     except PyGetWindowException:
         pass
+
+
+def parse_request(request):
+    raw_list = request.split("\r\n")
+    # GET /search?sourceid=chrome&ie=UTF-8&q=ergterst HTTP/1.1
+    fst = raw_list[0].split(' ')
+    request = {"method": fst[0], "url": fst[1]}
+    for index in range(1, len(raw_list)):
+        item = raw_list[index].split(":")
+        if len(item) == 2:
+            request.update({item[0].lstrip(' '): item[1].lstrip(' ')})
+    return request
+
+class DateEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            return json.JSONEncoder.default(self, obj)
+
+def __avgShoujueNum(p=None):
+    if p is None:
+        p = [3, 4, 18, 18, 18, 30]
+    n = len(p)
+    avg = sum(p) / n
+    last = 0
+    for i in range(n - 1, -1, -1):
+        last = n / (n - i) + last
+    return last * avg
