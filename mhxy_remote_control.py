@@ -53,7 +53,7 @@ def tcpServer():
                     continue
                 info = data.decode()
                 action = json.loads(info)["action"]
-                if action.startswith('/_api/do520') and _520Thread is None:
+                if action.startswith('do520') and _520Thread is None:
                     _520Thread = threading.Thread(target=do520, daemon=True)
                     _520Thread.start()
                 # 发送请求数据
