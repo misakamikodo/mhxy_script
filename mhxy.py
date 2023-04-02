@@ -323,12 +323,8 @@ class DateEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
-def __avgShoujueNum(p=None):
-    if p is None:
-        p = [3, 4, 18, 18, 18, 30]
-    n = len(p)
-    avg = sum(p) / n
+def __avgShoujueNum(n=4):
     last = 0
     for i in range(n - 1, -1, -1):
         last = n / (n - i) + last
-    return last * avg
+    return last

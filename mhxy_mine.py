@@ -1,5 +1,4 @@
 from mhxy import *
-import playsound as pl
 
 
 class _MinePoint:
@@ -235,7 +234,7 @@ class Mine:
                     p = (mine.wait, point.x, point.y)
                     # 点击矿
                     pyautogui.leftClick(point.x, point.y - mine.offsetY)  # -20 采集
-                    if point.y <= frame.top + relativeY2Act(3):
+                    if point.y <= frame.top + relativeY2Act(3.5):
                         continue
                     res = waitMoveOk()
                     # 出现采矿按钮并且点位不会碰到地图
