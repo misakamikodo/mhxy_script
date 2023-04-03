@@ -1,6 +1,8 @@
-import datetime
+import socket
+import threading
 
 from mhxy import *
+
 
 # 收纹饰 宝宝胚子
 class Shopping2:
@@ -12,26 +14,24 @@ class Shopping2:
     __mostOldTime=None
     _datetimeList = [
     ]
-    # _total = len(_timeList)
-    _total = 1
-    #  购买成功数量
+    # 购买成功数量
     _count = 0
+    # 运行标识
     _flag = True
 
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 12, 20)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 7, 50)
         # TODO
         self._timeList = [
-            (2, 8),
-            (2, 24),
-            (0, 54),
-            (0, 6),
-            (0, 11),
-            (3, 38),
-            (3, 47),
-            (3, 18),
+            (0, 19),
+            (2, 59),
+            (3, 3),
+            (3, 23),
+            (1, 54),
+            (2, 56),
+            (2, 24)
         ]
         for each in self._timeList:
             self._datetimeList.append(self._startTime + datetime.timedelta(hours=each[0], minutes=each[1]))
@@ -62,38 +62,67 @@ class Shopping2:
 
     def _timeApproach(self):
         now = datetime.datetime.now()
-        oldCount = 0
+        oldArr = []
         for time in self._datetimeList:
             # 三分钟开始刷新页面
             sj1 = now - datetime.timedelta(minutes=2)
             sj2 = now + datetime.timedelta(minutes=1)
             # 三分钟内
             if sj1 < time and sj2 > time:
-                return True
-            elif now > time:
-                oldCount += 1
-            # print(time, sj1)
-        if oldCount == len(self._datetimeList):
-            # 全部过期
-            self._flag = False
-            print("全部过期1")
-        return False
+                return time
+            elif now > sj2:
+                oldArr.append(time)
+        return None
 
-    class _End(Exception):
-        pass
+    def __tcpServer(self):  # TCP服务
+        with socket.socket(socket.AF_INET,
+                           socket.SOCK_STREAM) as s:  # AF_INET表示socket网络层使用IP协议，SOCK_STREAM表示socket传输层使用tcp协议
+            # 绑定服务器地址和端口
+            s.bind(("0.0.0.0", 7368))
+            # 启动服务监听
+            s.listen(10)
+            print('等待用户接入……')
+            while True:
+                # 等待客户端连接请求,获取connSock
+                conn, addr = s.accept()
+                print('远端客户:{} 接入系统！！！'.format(addr))
+                conn.send(json.dumps({"startTime": self._startTime}, cls=DateEncoder).encode())
+                # with conn:
+                print('接收请求信息……')
+                # 接收请求信息
+                data = conn.recv(1024)
+                try:
+                    if not data:
+                        print('err not data (花生壳在ping)')
+                        continue
+                    info = data.decode()
+                    datetimeList = json.loads(info)["datetimeList"]
+                    if datetimeList is not None:
+                        for each in datetimeList:
+                            self._datetimeList.append(datetime.datetime.strptime(each, "%Y-%m-%d %H:%M:%S"))
+                    # 发送请求数据
+                    conn.send(f'{info}'.encode())
+                    print('发送返回完毕！！！')
+                finally:
+                    conn.close()
+            s.close()
 
     def shopping2(self):
+        threading.Thread(target=self.__tcpServer, daemon=True).start()
+
         while self._flag:
             if datetime.datetime.now() >= self.__mostOldTime:
-                print("全部过期2")
+                print("全部过期")
                 print(self.__mostOldTime)
-                self._flag = False
-                break
-            # 因为可能存在重复购买情况，所以先不考虑
-            # if self._count >= self._total:
-            #     self._flag = False
+                # self._flag = False
+                # break
+                cooldown(30)
+                continue
+            # 被挤掉线
+            # if Util.locateCenterOnScreen(r'resources/origin/offline.png') is not None:
             #     break
-            while self._timeApproach():
+            time = self._timeApproach()
+            while time is not None:
                 # 找三次是否有商品
                 itemPic = [r'resources/shop/item_2.png']
                 point = None
@@ -113,11 +142,16 @@ class Shopping2:
                     noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
                                                        region=(frame.left, frame.top, frame.right, frame.bottom))
                     if noMoney is not None:
-                        print("没钱")
+                        print("没钱了")
                         self._flag = False
-                        raise self._End()
+                    else:
+                        cooldown(5)
+                        self._refresh()
+                        # 会只删除第一个出现的
+                        self._datetimeList.remove(time)
                     self._count += 1
                 cooldown(2)
+                time = self._timeApproach()
             cooldown(30)
 
 

@@ -91,7 +91,7 @@ class Fuben:
                 pyautogui.leftClick(lastFuben.x + relativeX2Act(3.5), lastFuben.y + relativeY2Act(0.2))
                 cooldown(4.5)
                 #  11
-                Util.leftClick(-4, 9.5)
+                Util.leftClick(-4, 11)
                 cooldown(2)
                 # 下一个副本
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])

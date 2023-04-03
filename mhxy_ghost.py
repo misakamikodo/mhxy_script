@@ -1,13 +1,14 @@
-import sys
 import datetime as dt
-from configparser import ConfigParser
 import os
-import playsound as pl
+import sys
 import threading
+from configparser import ConfigParser
 
+import playsound as pl
 from pyautogui import FailSafeException
 
 from mhxy import *
+
 
 class Ghost:
     maxRound = 99
@@ -48,7 +49,7 @@ class Ghost:
 
         init(int(idx), resizeToNice=resize)  # True
 
-        self._chaseWin = (winRelativeX(-1), winRelativeY(3.5))
+        self._chaseWin = (winRelativeX(-1), winRelativeY(3.7))
         super().__init__()
 
     def _chaseWinFix(self):

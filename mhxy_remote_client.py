@@ -15,7 +15,8 @@ def tcpClient(inData):
     # 创建客户套接字
     with socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM) as s:
         # 尝试连接服务器
-        s.connect(("192.168.222.132", 7368))
+        s.connect(("127.0.0.1", 7368))
+        # s.connect(("192.168.222.132", 7368))
         # s.connect(("rdp.bonelf.com", 35671))
         print('连接服务成功！！')
         # 通信循环
