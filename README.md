@@ -1,6 +1,6 @@
 梦幻西游手游脚本
 
-安装完包依赖后还至少需要opencv支持。
+安装完包依赖后还至少需要opencv-python支持(pip install opencv-python)。
 
 屏幕分辨率1920*1080可直接使用，否则拉了代码后首先再mhxy.py中修改originSize（打开桌面版后桌面版的像素大小，=frameSize实际值），niceSize（使用game_process调整的小窗口像素大小，部分脚本使用小窗口）（以上两个通过game_process的控制台输出可以看到），resizeOffset（调整窗口大小时对右下角操作使用的偏移量，取能使用的值即可，应该不用改），frameSizeCm（为了方便编写，像素大小换算的厘米值），其次修改替换需要脚本的截图，最后改脚本中写死的厘米值。
 
