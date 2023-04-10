@@ -2,7 +2,7 @@ from mhxy import *
 
 
 class Fuben:
-    _fix = 5.6 + 2
+    _xiashi_fix = 5.6 + 0
     _fubenIdx = 0
     fubenPos = [
         # ("xiashi", 13, 15),
@@ -18,15 +18,15 @@ class Fuben:
         'lastFuben': r'resources/fuben/jinchanxin.png',
         # 'lastFuben': r'resources/fuben/liulisui.png',
 
-        # 'avatar': r'resources/small/avatar_mll.png',
-        'avatar': r'resources/small/avatar_spl.png',
+        'avatar': r'resources/small/avatar_mll.png',
+        # 'avatar': r'resources/small/avatar_spl.png',
         # 'avatar': r'resources/small/avatar_hmr.png',
         # 'avatar': r'resources/small/avatar_wmr.png',
 
         # 'zhen': r'resources/small/zhen_hu5.png',
-        'zhen': r'resources/small/zhen_long.png',
+        # 'zhen': r'resources/small/zhen_long.png',
         # 'zhen': r'resources/small/zhen_ying.png',
-        # 'zhen': r'resources/small/zhen_tian.png',
+        'zhen': r'resources/small/zhen_tian.png',
     }
 
     def __init__(self, idx=0) -> None:
@@ -68,7 +68,7 @@ class Fuben:
             return False
         elif self.fubenPos[self._fubenIdx][0] == "xiashi":
             # 已领取的侠士任务所在坐标
-            Util.leftClick(-3, self._fix)
+            Util.leftClick(-3, self._xiashi_fix)
             cooldown(2.0)
             Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
             self._fubenIdx += 1
@@ -89,9 +89,10 @@ class Fuben:
             if lastFuben is not None:
                 cooldown(1)
                 pyautogui.leftClick(lastFuben.x + relativeX2Act(3.5), lastFuben.y + relativeY2Act(0.2))
-                cooldown(4.5)
+                cooldown(5)
+                se = Util.locateCenterOnScreen(r'resources/fuben/selectfuben.png')
                 #  11
-                Util.leftClick(-4, 11)
+                pyautogui.leftClick(se.x, se.y)
                 cooldown(2)
                 # 下一个副本
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
@@ -100,7 +101,8 @@ class Fuben:
 
     def loginIn(self):
         cooldown(1)
-        Util.leftClick(12, 11.5)
+        loginInBtn = Util.locateCenterOnScreen(r'resources/fuben/loginin.png')
+        pyautogui.leftClick(loginInBtn.x, loginInBtn.y)
         cooldown(5)
         Util.leftClick(12, 13.5)
 

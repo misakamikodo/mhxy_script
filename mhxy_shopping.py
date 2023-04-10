@@ -41,7 +41,6 @@ class Shopping:
         pyautogui.leftClick(buy2Tab[0], buy2Tab[1])
 
     def do(self):
-        init()
         while self.mark:
             # 找三次是否有有廉价商品 r'resources/shop/item600.png',r'resources/shop/suipian.png',r'resources/shop/meigui.png',
             # itemPic = [r'resources/shop/' + self.__mode + '.png']
