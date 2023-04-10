@@ -87,7 +87,7 @@ def do520():
 
     fuben.fuben()
 
-    ghost = GhostWithShop(idx=0)
+    ghost = Ghost(idx=0)
     ghost.maxRound = 5
     ghost.chasepos = 1
     ghost.go()
