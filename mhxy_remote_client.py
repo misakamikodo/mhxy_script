@@ -46,4 +46,7 @@ if __name__ == '__main__':
     # for each in json.loads(data)["datetimeList"]:
     #     print(datetime.strptime(each, "%Y-%m-%d %H:%M:%S"))
     # tcpClient(data)
-    tcpClient(json.dumps({"action": "do520"}))
+
+    tcpClient(json.dumps({"action": "relogin"}))
+
+    # tcpClient(json.dumps({"action": "do520"}))

@@ -77,14 +77,11 @@ class _FstStandPoint(_StandPoint):
         # 选择花果山
         posMap = None
         if self.map == "huaguo":
-            posMap = (bigMap.right - relativeX2Act(1.5),
-                      bigMap.top + relativeY2Act(5))
+            posMap = (-4.5, 8.3)
             print("click 花果山", posMap)
         elif self.map == "daxue":
-            posMap = (bigMap.left + relativeX2Act(11.5),
-                      bigMap.top + relativeY2Act(2.5))
-        pyautogui.leftClick(posMap[0],
-                            posMap[1])
+            posMap = (11, 6.3)
+        Util.leftClick(posMap[0], posMap[1])
         # self.newDayCloseDiag()
         # 打开小地图
         posSmallMap = (frame.left + relativeX2Act(3.5),

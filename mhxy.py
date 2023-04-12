@@ -29,8 +29,6 @@ class Frame:
 
 # 窗口左上侧位置
 frame = Frame(0, 0)
-# 大地图
-bigMap = Frame(0, 0)
 
 # 窗口固定大小
 originSize = [1040, 807]
@@ -294,11 +292,6 @@ def init(idx=0, resizeToNice=False):
     frame.right = frame.left + frameSize[0]
     frame.bottom = frame.top + frameSize[1]
     print("窗口四角位置:", frame)
-    bigMap.left = frame.left + (1.2 / frameSizeCm[0]) * frameSize[0]
-    bigMap.top = frame.top + (3.7 / frameSizeCm[1]) * frameSize[1]
-    bigMap.right = frame.right - (1.2 / frameSizeCm[0]) * frameSize[0]
-    bigMap.bottom = frame.bottom - (2.9 / frameSizeCm[1]) * frameSize[1]
-    print("大地图:", bigMap)
     try:
         windows.activate()
     except PyGetWindowException:

@@ -11,7 +11,7 @@ class Shopping2:
     #  购买时间点 没差3分钟需要至少设置一个
     _timeList = [
     ]
-    __mostOldTime=None
+    __mostOldTime = None
     _datetimeList = [
     ]
     # 购买成功数量
@@ -22,21 +22,15 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 7, 50)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 8, 2)
         # TODO
         self._timeList = [
-            (0, 19),
-            (2, 59),
-            (3, 3),
-            (3, 23),
-            (1, 54),
-            (2, 56),
-            (2, 24)
         ]
         for each in self._timeList:
             self._datetimeList.append(self._startTime + datetime.timedelta(hours=each[0], minutes=each[1]))
         print(self._datetimeList)
-        self.__mostOldTime = max(self._datetimeList)
+        if len(self._datetimeList) > 0:
+            self.__mostOldTime = max(self._datetimeList)
         super().__init__()
 
     def openSop(self):
@@ -96,10 +90,14 @@ class Shopping2:
                         print('err not data (花生壳在ping)')
                         continue
                     info = data.decode()
-                    datetimeList = json.loads(info)["datetimeList"]
+                    jsonData = json.loads(info)
+                    datetimeList = jsonData.get("datetimeList")
                     if datetimeList is not None:
                         for each in datetimeList:
                             self._datetimeList.append(datetime.datetime.strptime(each, "%Y-%m-%d %H:%M:%S"))
+                        self.__mostOldTime = max(self._datetimeList)
+                    elif jsonData.get("action") == "relogin":
+                        self.relogin()
                     # 发送请求数据
                     conn.send(f'{info}'.encode())
                     print('发送返回完毕！！！')
@@ -107,11 +105,22 @@ class Shopping2:
                     conn.close()
             s.close()
 
+    def relogin(self):
+        cooldown(1)
+        Util.leftClick(14, 12.5)
+        cooldown(5)
+        Util.leftClick(14, 11.7)
+        cooldown(5)
+        Util.leftClick(14, 15)
+        cooldown(5)
+        self.openSop()
+        Util.leftClick(26.5, 10)
+
     def shopping2(self):
         threading.Thread(target=self.__tcpServer, daemon=True).start()
 
         while self._flag:
-            if datetime.datetime.now() >= self.__mostOldTime:
+            if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime:
                 print("全部过期")
                 print(self.__mostOldTime)
                 # self._flag = False
@@ -127,7 +136,8 @@ class Shopping2:
                 itemPic = [r'resources/shop/item_2.png']
                 point = None
                 for each in itemPic:
-                    point = pyautogui.locateCenterOnScreen(each, region=(frame.left, frame.top, frame.right, frame.bottom),
+                    point = pyautogui.locateCenterOnScreen(each,
+                                                           region=(frame.left, frame.top, frame.right, frame.bottom),
                                                            confidence=0.99)
                     if point is not None:
                         break
