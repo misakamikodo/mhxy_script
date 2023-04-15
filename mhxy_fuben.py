@@ -13,20 +13,7 @@ class Fuben:
         ("norm", 7, 15)
     ]
     config = {
-        # 'lastFuben': r'resources/fuben/lvyanrumeng.png',
-        # 'lastFuben': r'resources/fuben/erchongying.png',
-        'lastFuben': r'resources/fuben/jinchanxin.png',
-        # 'lastFuben': r'resources/fuben/liulisui.png',
-
-        'avatar': r'resources/small/avatar_mll.png',
-        # 'avatar': r'resources/small/avatar_spl.png',
-        # 'avatar': r'resources/small/avatar_hmr.png',
-        # 'avatar': r'resources/small/avatar_wmr.png',
-
-        # 'zhen': r'resources/small/zhen_hu5.png',
-        # 'zhen': r'resources/small/zhen_long.png',
-        # 'zhen': r'resources/small/zhen_ying.png',
-        'zhen': r'resources/small/zhen_tian.png',
+        'lastFuben': r'resources/small/fuben_flag.png'
     }
 
     def __init__(self, idx=0) -> None:
@@ -46,7 +33,7 @@ class Fuben:
             elif Util.locateCenterOnScreen(r'resources/fuben/skipJuqing.png') is not None:
                 # 跳过剧情动画
                 Util.leftClick(-3, 7)
-            elif Util.locateCenterOnScreen(self.config['avatar']) is None:
+            elif Util.locateCenterOnScreen(r'resources/small/blood.png') is None:
                 # 阅读剧情
                 Util.leftClick(-3, 1.8)
             else:
@@ -88,7 +75,7 @@ class Fuben:
                 i += 1
             if lastFuben is not None:
                 cooldown(1)
-                pyautogui.leftClick(lastFuben.x + relativeX2Act(3.5), lastFuben.y + relativeY2Act(0.2))
+                pyautogui.leftClick(lastFuben.x + relativeX2Act(3), lastFuben.y + relativeY2Act(0.2))
                 cooldown(5)
                 se = Util.locateCenterOnScreen(r'resources/fuben/selectfuben.png')
                 #  11

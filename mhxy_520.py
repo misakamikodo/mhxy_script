@@ -14,14 +14,6 @@ if __name__ == '__main__':
             ("norm", 13, 15),
             ("norm", 7, 15)
         ]
-        fuben.config['lastFuben'] = r'resources/fuben/jinchanxin.png'
-        # fuben.config['lastFuben'] = r'resources/fuben/erchongying.png'
-        # fuben.config['avatar'] = r'resources/small/avatar_gjl.png'
-        # fuben.config['avatar'] = r'resources/small/avatar_spl.png'
-        # fuben.config['avatar'] = r'resources/small/avatar_wmr.png'
-        fuben.config['avatar'] = r'resources/small/avatar_mll.png'
-        fuben.config['zhen'] = r'resources/small/zhen_tian.png'
-        # fuben.config['zhen'] = r'resources/small/zhen_long.png'
         fuben.fuben()
 
         ghost = Ghost(idx=0)

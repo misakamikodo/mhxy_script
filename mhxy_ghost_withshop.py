@@ -5,7 +5,7 @@ class GhostWithShop(Ghost):
     __shopFlag = True
 
     def shop(self):
-        while Util.locateOnScreen(r'resources/small/zhen_tian.png') is None:
+        while Util.locateOnScreen(r'resources/small/enter_battle_flag.png') is None:
             cooldown(3)
         Util.leftClick(1, 2)
         cooldown(1)
