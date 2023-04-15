@@ -5,7 +5,7 @@ class AutoBattle:
     def do(self):
         click = False
         while True:
-            if battling(r'resources/common/enter_battle_flag.png'):
+            if battling(r'resources/small/enter_battle_flag.png'):
                 if not click:
                     cooldown(3)
                     Util.leftClick(-1.2, -1.2)
