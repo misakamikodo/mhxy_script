@@ -45,7 +45,7 @@ class Fuben:
             changanPos = self._changan()
             while changanPos is None:
                 # 找不到头像则正在对话点击头像位置跳过 直到找到头像位置
-                doUtilFindPic([r'resources/fuben/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip)
+                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip)
                 changanPos = self._changan()
                 cooldown(2)
 
