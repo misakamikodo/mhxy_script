@@ -4,7 +4,7 @@ from mhxy import *
 
 
 class GameProcess:
-    moveOffset = (60, 20)
+    _moveOffset = (60, 20)
 
     def __moveZhuomianbanFunc(self, size):
         windows = pyautogui.getAllWindows()
@@ -13,16 +13,15 @@ class GameProcess:
         for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
             item.activate()
             print(item)
+            if item.left < 0:
+                print("notSafe")
             pyautogui.moveTo(item.right - resizeOffset[0], item.bottom - resizeOffset[1])
             pyautogui.dragTo(item.left + (size[0] - resizeOffset[0]), item.top + (size[1] - resizeOffset[1]),
                              duration=1)
-            if item.left < 0:
-                print("notSafe")
-            else:
-                pyautogui.moveTo(item.left + self.moveOffset[0], item.top + self.moveOffset[1])
-                cooldown(1)
-                pyautogui.dragTo(zhuomianban[i] + self.moveOffset[0], 0 + self.moveOffset[1], duration=1)
-                i += 1
+            pyautogui.moveTo(item.left + self._moveOffset[0], item.top + self._moveOffset[1])
+            cooldown(1)
+            pyautogui.dragTo(zhuomianban[i] + self._moveOffset[0], 0 + self._moveOffset[1], duration=1)
+            i += 1
             print("处理后：", item)
 
     def moveZhuomianban(self):
@@ -40,35 +39,20 @@ class GameProcess:
         print("处理后：", item)
 
     def moveMoniqi(self):
-        global niceSize, resizeOffset, windows, item
-        moniqi = (64, 969)
-        niceSize = (907, 545)
-        resizeOffset = (1, 2)
+        self.__moveMoniqiFunc(niceSize)
+
+    def __moveMoniqiFunc(self, size):
         windows = pyautogui.getAllWindows()
         i = 0
-        windowsList = list(filter(lambda x: x.title.startswith("MuMu模拟器"), windows))
-
-        def splitFun(title):
-            s = title.split("-", 2)
-            return int(s[1]) if len(s) > 1 else 0
-
-        windowsList.sort(key=lambda x: splitFun(x.title))
-        for item in windowsList:
+        for item in list(filter(lambda x: x.title.startswith("梦幻西游 - "), windows)):
             item.activate()
             print(item)
-            pyautogui.moveTo(item.right - resizeOffset[0], item.bottom - resizeOffset[1])
-            pyautogui.dragTo(item.left + (niceSize[0] - resizeOffset[0]), item.top + (niceSize[1] - resizeOffset[1]),
-                             duration=1)
-            pyautogui.dragTo(item.left + (niceSize[0] - resizeOffset[0]), item.top + (niceSize[1] - resizeOffset[1]),
-                             duration=1)
             if item.left < 0:
                 print("notSafe")
-            else:
-                pyautogui.moveTo(item.left + self.moveOffset[0], item.top + self.moveOffset[1])
-                cooldown(1)
-                pyautogui.dragTo(moniqi[i] + self.moveOffset[0], 496 + self.moveOffset[1], duration=1)
-                pyautogui.dragTo(moniqi[i] + self.moveOffset[0], 496 + self.moveOffset[1], duration=1)
-                i += 1
+            pyautogui.moveTo(item.right - 5, item.top + 15)
+            pyautogui.dragTo(item.left + (size[0] - 5), item.top + 15,
+                             duration=1)
+            i += 1
             print("处理后：", item)
 
 
@@ -83,4 +67,5 @@ if __name__ == '__main__':
     resize = GameProcess()
     resize.moveZhuomianban()
     # resize.moveZhuomianban2Origin()
+    # 模拟器分辨率设置为：1600*1095 再调整窗口大小可使用脚本
     # resize.moveMoniqi()

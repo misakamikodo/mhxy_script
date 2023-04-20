@@ -2,7 +2,7 @@ from mhxy import *
 
 
 class Fuben:
-    _xiashi_fix = 5.6 + 0
+    xiashi_fix = 5.6 + 0
     _fubenIdx = 0
     fubenPos = [
         # ("xiashi", 13, 15),
@@ -55,7 +55,7 @@ class Fuben:
             return False
         elif self.fubenPos[self._fubenIdx][0] == "xiashi":
             # 已领取的侠士任务所在坐标
-            Util.leftClick(-3, self._xiashi_fix)
+            Util.leftClick(-3, self.xiashi_fix)
             cooldown(2.0)
             Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
             self._fubenIdx += 1

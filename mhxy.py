@@ -266,6 +266,14 @@ def init(idx=0, resizeToNice=False):
             windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
             windowsList = list(filter(lambda x: x.left > 0, windowsList))
             windowsList.sort(key=lambda x: x.left)
+
+            moniqiWin = pyautogui.getWindowsWithTitle("梦幻西游 - MuMu模拟器")
+            if moniqiWin is not None:
+                moniqiWin = list(filter(lambda x: x.left > 0, moniqiWin))
+                moniqiWin.sort(key=lambda x: x.left)
+                for each in moniqiWin:
+                    windowsList.append(each)
+
             if len(windowsList) > 0:
                 windows = windowsList[idx]
             cooldown(0.5)
