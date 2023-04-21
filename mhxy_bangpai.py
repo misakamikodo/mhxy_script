@@ -95,11 +95,8 @@ class Bangpai:
 
     def do(self, chaseWin):
         while not self._finish():
-
-            idx, locate, itemIdx = self._findPic()
-
             pyautogui.leftClick(chaseWin[0], chaseWin[1])
-
+            idx, locate, itemIdx = self._findPic()
             while locate is None:
                 if battling():
                     cooldown(4)
