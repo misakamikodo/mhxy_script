@@ -37,7 +37,7 @@ class Menpai:
         startPos = start()
         if startPos is not None:
             pyautogui.leftClick(startPos.x, startPos.y)
-        escapeBattleDo(do, battleingPic=r'resources/origin/zhen_tian.png')
+        escapeBattleDo(do)
 
 
 # 副本 进入第一个副本为起点
@@ -45,4 +45,4 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
     init()
-    Menpai().menpai((winRelativeX(-4), winRelativeY(5.8)))
+    Menpai().menpai((winRelativeX(-3), winRelativeY(5.8 + 0)))

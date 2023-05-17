@@ -70,7 +70,7 @@ class Fuben:
             while lastFuben is None and i in range(0, 2):
                 pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
                 pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-                cooldown(1)
+                cooldown(1.5)
                 lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
                 i += 1
             if lastFuben is not None:
@@ -89,7 +89,8 @@ class Fuben:
     def loginIn(self):
         cooldown(1)
         loginInBtn = Util.locateCenterOnScreen(r'resources/fuben/loginin.png')
-        pyautogui.leftClick(loginInBtn.x, loginInBtn.y)
+        if loginInBtn is not None:
+            pyautogui.leftClick(loginInBtn.x, loginInBtn.y)
         cooldown(5)
         Util.leftClick(12, 13.5)
 

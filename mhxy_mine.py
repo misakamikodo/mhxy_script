@@ -35,13 +35,12 @@ class MineUtil:
     @staticmethod
     def closeSmallMap(type):
         if type == "daxue":
-            pos = (frame.right - relativeX2Act(7),
-                   frame.top + relativeY2Act(6))
+            pos = (-7, 6)
+        elif type == "changshou":
+            pos = (-6, 6)
         else:
-            pos = (frame.right - relativeX2Act(7.8),
-                   frame.top + relativeY2Act(3.8))
-        pyautogui.leftClick(pos[0],
-                            pos[1])
+            pos = (-7.8, 3.8)
+        Util.leftClick(pos[0], pos[1])
 
 
 class _StandPoint:
@@ -67,7 +66,7 @@ class _FstStandPoint(_StandPoint):
             self.mineList = mineList
 
     def move2Point(self):
-        self.newDayCloseDiag()
+        # self.newDayCloseDiag()
         # 打开大地图
         posBigMap = (frame.left + relativeX2Act(1),
                      frame.top + relativeY2Act(2))
@@ -81,6 +80,8 @@ class _FstStandPoint(_StandPoint):
             print("click 花果山", posMap)
         elif self.map == "daxue":
             posMap = (11, 6.3)
+        elif self.map == "changshou":
+            posMap = (3.5, 11.2)
         Util.leftClick(posMap[0], posMap[1])
         # self.newDayCloseDiag()
         # 打开小地图
@@ -175,6 +176,25 @@ class Mine:
         _NormStandPoint(
             10, 14, cooldown=3
         )
+
+        # _FstStandPoint(
+        #     7, 8.4, map="changshou", cooldown=6
+        # ),
+        # _NormStandPoint(
+        #     13.5, 9, map="changshou", cooldown=4
+        # ),
+        # _NormStandPoint(
+        #     13.5, 11, map="changshou", cooldown=3
+        # ),
+        # _NormStandPoint(
+        #     -15, 14, map="changshou", cooldown=3
+        # ),
+        # _NormStandPoint(
+        #     18.5, 14.5, map="changshou", cooldown=4
+        # ),
+        # _NormStandPoint(
+        #     20, 10, map="changshou", cooldown=5
+        # )
     )
 
     # 小地图
@@ -253,7 +273,8 @@ class Mine:
                         # 根据颜色等待 3-5-7-10 秒
                         if p[0] == -1:
                             # 五级采矿点 -1 表示连续中间十次完成采矿
-                            pyautogui.click(frameSize[0] >> 1, frameSize[1] >> 1, clicks=10, duration=0.08, button=pyautogui.LEFT)
+                            pyautogui.click(frameSize[0] >> 1, frameSize[1] >> 1, clicks=10, duration=0.08,
+                                            button=pyautogui.LEFT)
                         else:
                             cooldown(p[0] - 3)
                 else:

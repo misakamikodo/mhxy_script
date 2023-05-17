@@ -126,7 +126,7 @@ class Ghost:
         while tag is None and i in range(0, 2):
             pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
             pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-            cooldown(1)
+            cooldown(1.5)
             tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
             i += 1
         if tag is not None:

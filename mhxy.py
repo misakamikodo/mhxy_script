@@ -100,9 +100,11 @@ def battling(battleingPic=r'resources/origin/zhen_tian.png'):
 # 关闭任务侧边栏
 def closeMission():
     Util.leftClick(-7, 4.3)
+    # print("关闭任务侧边栏")
+    # pyautogui.hotkey('alt', 'p')
 
 # 结束战斗后进行操作
-def escapeBattleDo(do, battleingPic=r'resources/origin/zhen_tian.png', battleDoFunc=None):
+def escapeBattleDo(do, battleingPic=r'resources/small/enter_battle_flag.png', battleDoFunc=None):
     alreadyDo = False
     battleDo = False
     while True:
