@@ -1,4 +1,5 @@
 import os
+import sys
 
 from mhxy import *
 
@@ -64,8 +65,11 @@ class GameProcess:
         os.system(pro)
 
 if __name__ == '__main__':
+    type = int(0 if len(sys.argv) <= 1 else sys.argv[1])
     resize = GameProcess()
-    resize.moveZhuomianban()
-    # resize.moveZhuomianban2Origin()
+    if type == 0:
+        resize.moveZhuomianban()
+    else:
+        resize.moveZhuomianban2Origin()
     # 模拟器分辨率设置为：1600*1095 再调整窗口大小可使用脚本
     # resize.moveMoniqi()

@@ -287,7 +287,6 @@ class Mine:
         notChange = True
         while self.mark:
             self._mining(standPoint.mineList)
-            # mine = mining()
             now = datetime.datetime.now()
             minute = now.minute
             second = now.second

@@ -6,7 +6,7 @@ class Shopping:
     hour = 99
     _lastBuyTime = None
     _cooldown = 10
-    # meigui suipian
+    # meigui suipian jifenquan
     __mode = 'suipian'
 
     def __init__(self) -> None:
@@ -22,6 +22,8 @@ class Shopping:
             itemTab = winRelativeXY(11, 9)
         elif self.__mode == "meigui":
             itemTab = winRelativeXY(11, 9 + 2.4)
+        elif self.__mode == "jifenquan":
+            itemTab = winRelativeXY(11, 13)
         pyautogui.leftClick(itemTab[0], itemTab[1])
 
     def _multiSelect(self):
@@ -34,17 +36,19 @@ class Shopping:
         buyTab = winRelativeXY(24, 18.5)
         pyautogui.leftClick(buyTab[0], buyTab[1])
         # 如果是多数量的尝试选择最大数量,否则注释
-        if self.__mode == "suipian":
+        if self.__mode in ["suipian", "jifenquan"]:
             self._multiSelect()
 
+        # buy2Tab = winRelativeXY(18.5, 5)
         buy2Tab = winRelativeXY(16, 17)
         pyautogui.leftClick(buy2Tab[0], buy2Tab[1])
 
     def do(self):
-        while self.mark:
+        buyCount = 0
+        while self.mark and Util.locateCenterOnScreen(r'resources/shop/shop_item.png') is not None:
             # 找三次是否有有廉价商品 r'resources/shop/item600.png',r'resources/shop/suipian.png',r'resources/shop/meigui.png',
-            # itemPic = [r'resources/shop/' + self.__mode + '.png']
-            itemPic = [r'resources/shop/suipian.png']
+            itemPic = [r'resources/shop/' + self.__mode + '.png']
+            # itemPic = [r'resources/shop/suipian.png']
             point = None
             for each in itemPic:
                 point = pyautogui.locateCenterOnScreen(each, region=(frame.left, frame.top, frame.right, frame.bottom),
@@ -56,6 +60,7 @@ class Shopping:
             #                                            confidence=0.8)
             # 两次都没有刷新列表
             if point is None:
+                buyCount = 0
                 cooldown(self._cooldown)
                 self._refresh()
             else:
@@ -63,6 +68,10 @@ class Shopping:
                 pyautogui.leftClick(point.x, point.y)
                 self._cooldown = 10
                 self._buy()
+                buyCount += 1
+                if buyCount >= 20:
+                    self.mark = False
+                    break
                 noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
                                                    region=(frame.left, frame.top, frame.right, frame.bottom))
                 if noMoney is not None:
@@ -76,9 +85,22 @@ class Shopping:
                 self._cooldown = 30
 
     def openShop(self):
-        cooldown(5)
+        cooldown(3)
         Util.leftClick(1, 6)
-        cooldown(5)
+        for i in range(0, 3):
+            pyautogui.moveTo(winRelativeX(5), winRelativeY(17))
+            pyautogui.dragTo(winRelativeX(5), winRelativeY(9), duration=1)
+            cooldown(0.3)
+        fabao = Util.locateCenterOnScreen("resources/shop/category.png")
+        if fabao is not None:
+            pyautogui.leftClick(fabao.x, fabao.y)
+            cooldown(0.1)
+            Util.leftClick(11, 9)
+            cooldown(0.2)
+            self.closeShop()
+            cooldown(0.2)
+            Util.leftClick(1, 6)
+        cooldown(3)
 
     def closeShop(self):
         cooldown(1)

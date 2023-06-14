@@ -96,6 +96,9 @@ def winPercentXY(x, y):
 def battling(battleingPic=r'resources/origin/zhen_tian.png'):
     return Util.locateOnScreen(battleingPic) is not None
 
+def notBattling(notBattlingPic):
+    return Util.locateOnScreen(notBattlingPic) is not None
+
 
 # 关闭任务侧边栏
 def closeMission():
@@ -104,11 +107,15 @@ def closeMission():
     # pyautogui.hotkey('alt', 'p')
 
 # 结束战斗后进行操作
-def escapeBattleDo(do, battleingPic=r'resources/small/enter_battle_flag.png', battleDoFunc=None):
+def escapeBattleDo(do,
+                   notBattlingPic=None,
+                   battleingPic=r'resources/small/enter_battle_flag.png',
+                   battleDoFunc=None):
     alreadyDo = False
     battleDo = False
     while True:
-        if not battling(battleingPic=battleingPic):
+        if (battleingPic is not None and not battling(battleingPic=battleingPic)) or \
+                (notBattlingPic is not None and notBattling(notBattlingPic)):
             battleDo = False
             if not alreadyDo:
                 # 脱离战斗
@@ -135,6 +142,7 @@ def escapeBattleDo(do, battleingPic=r'resources/small/enter_battle_flag.png', ba
             else:
                 # 战斗中当已完成了动作
                 cooldown(2)
+
 
 
 def doUtilFindPic(pic, do):

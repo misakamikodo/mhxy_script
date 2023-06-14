@@ -49,11 +49,15 @@ class Ghost:
 
         init(int(idx), resizeToNice=resize)  # True
 
-        self._chaseWin = (winRelativeX(-1), winRelativeY(3.7))
+        self._chaseWin = (-1, 3.7)
         super().__init__()
 
     def _chaseWinFix(self):
-        return relativeY2Act(2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0)))
+        print("_newDayClick:", self._newDayClick)
+        print("_beginHour:", self._beginHour)
+        fix = 2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0))
+        print("chasepos:", fix / 2)
+        return fix
 
     def getDialog(self):
         cooldown(1)
@@ -97,16 +101,13 @@ class Ghost:
             pyautogui.leftClick(five.left + five.width - 120, five.top + five.height - 20)
         # 校验双倍 self.__count % 25 == 0
         if self._count % 25 == 0 and self._doublePointNumPer100 != -1:
-            pyautogui.click(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix(), clicks=1,
-                            button=pyautogui.LEFT)
+            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
             cooldown(0.2)
             self.getPoint()
-            pyautogui.click(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix(), clicks=1,
-                            button=pyautogui.LEFT)
+            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
         else:
             # 关对话 + 追踪
-            pyautogui.click(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix(), clicks=2,
-                            button=pyautogui.LEFT)
+            Util.click(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix(), clicks=2, buttons=pyautogui.LEFT)
 
     def _newDayCloseDiagDo(self, newDay):
         if newDay is None:
@@ -171,7 +172,7 @@ class Ghost:
                     self._startGhostDo()
                 if self._count % 25 == 0:
                     print("完成一千双")
-                    pl.playsound('resources/common/music.mp3')
+                    # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 25 * 60:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
