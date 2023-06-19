@@ -28,6 +28,8 @@ class Menpai:
                 pyautogui.leftClick(reachPos.x, reachPos.y)
             else:
                 pyautogui.leftClick(startPos.x, startPos.y)
+                cooldown(0.2)
+                Util.leftClick(-4, 12.5)
                 pyautogui.doubleClick(chaseWin[0], chaseWin[1])
                 while reachPos is None:
                     reachPos = reach()
@@ -45,4 +47,4 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
     init()
-    Menpai().menpai((winRelativeX(-3), winRelativeY(5.8 + 0)))
+    Menpai().menpai((winRelativeX(-3), winRelativeY(5.8 + 2)))
