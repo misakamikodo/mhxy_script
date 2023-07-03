@@ -48,7 +48,7 @@ class Shopping3:
         while True:
             while self._timeApproach():
                 # 找三次是否有商品
-                itemPic = r'resources/shop/item_2.png'
+                itemPic = r'resources/shop/item_3.png'
                 point = Util.locateCenterOnScreen(itemPic)
                 # 两次都没有刷新列表
                 if point is None:
