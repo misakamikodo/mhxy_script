@@ -5,15 +5,18 @@ class AutoBattle:
     def do(self):
         click = False
         while True:
+            # linglongshi = Util.locateCenterOnScreen(r'resources/small/linglongshi.png')
+            # if linglongshi is not None:
+            #     pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
             if battling(r'resources/small/enter_battle_flag.png'):
                 if not click:
-                    cooldown(3)
+                    cooldown(2)
                     Util.leftClick(-1.2, -1.2)
                     click = True
-                cooldown(5)
+                cooldown(2)
             else:
                 click = False
-                cooldown(5)
+                cooldown(2)
 
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5

@@ -37,8 +37,9 @@ class Fuben:
                 # 阅读剧情
                 Util.leftClick(-3, 1.8)
             else:
-                # 追踪任务
-                Util.leftClick(-3, 5.5)
+                # 追踪任务 如果 xiashi_fix 不是在第一个任务，可能会使得 到长安点到第一个任务出现弹窗使得脚本出错，此时确认下没到达长安，可降低发生的概率
+                if self.xiashi_fix < 6 or self._changan() is None:
+                    Util.leftClick(-3, 5.5)
             cooldown(1)
 
         def doUntil2Changan():
@@ -53,12 +54,13 @@ class Fuben:
         doUntil2Changan()
         if self._fubenIdx >= len(self.fubenPos):
             return False
-        elif self.fubenPos[self._fubenIdx][0] == "xiashi":
-            # 已领取的侠士任务所在坐标
-            Util.leftClick(-3, self.xiashi_fix)
-            cooldown(2.0)
-            Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
-            self._fubenIdx += 1
+        # elif self.fubenPos[self._fubenIdx][0] == "xiashi":
+        #     # 已领取的侠士任务所在坐标
+        #     Util.leftClick(-3, self.xiashi_fix)
+        #     cooldown(2.0)
+        #     Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
+        #     self._fubenIdx += 1
+        #     print("下一个副本" + str(print("下一个副本" + str())))
         else:
             cooldown(1)
             Util.leftClick(7.5, 1.5)
@@ -81,9 +83,13 @@ class Fuben:
                 #  11
                 pyautogui.leftClick(se.x, se.y)
                 cooldown(2)
+                if self.fubenPos[self._fubenIdx][0] == "xiashi":
+                    Util.leftClick(9, 5)
+                    cooldown(1)
                 # 下一个副本
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
                 self._fubenIdx += 1
+                print("下一个副本" + str(print("下一个副本" + str())))
         return True
 
     def loginIn(self):

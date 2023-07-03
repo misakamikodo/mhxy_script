@@ -44,6 +44,7 @@ class Shopping:
         pyautogui.leftClick(buy2Tab[0], buy2Tab[1])
 
     def do(self):
+        # 一次刷新购买的次数
         buyCount = 0
         while self.mark and Util.locateCenterOnScreen(r'resources/shop/shop_item.png') is not None:
             # 找三次是否有有廉价商品 r'resources/shop/item600.png',r'resources/shop/suipian.png',r'resources/shop/meigui.png',
@@ -69,7 +70,7 @@ class Shopping:
                 self._cooldown = 10
                 self._buy()
                 buyCount += 1
-                if buyCount >= 20:
+                if buyCount >= 50:
                     self.mark = False
                     break
                 noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
@@ -87,6 +88,7 @@ class Shopping:
     def openShop(self):
         cooldown(3)
         Util.leftClick(1, 6)
+        cooldown(0.3)
         for i in range(0, 3):
             pyautogui.moveTo(winRelativeX(5), winRelativeY(17))
             pyautogui.dragTo(winRelativeX(5), winRelativeY(9), duration=1)

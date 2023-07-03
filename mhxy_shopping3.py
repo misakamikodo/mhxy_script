@@ -3,7 +3,11 @@ from mhxy import *
 class Shopping3:
     _approached = False
     _startTime = datetime.datetime.now()
-    _time = datetime.datetime(_startTime.year, _startTime.month, _startTime.day, 13, 22)
+    _time = datetime.datetime(_startTime.year, _startTime.month, _startTime.day, 3, 38)
+
+    def __init__(self) -> None:
+        init()
+        super().__init__()
 
     def _refresh(self):
         cooldown(0.2)
@@ -12,6 +16,7 @@ class Shopping3:
         Util.leftClick(23, 18.5)
 
     def _buy(self):
+        print("购买商品")
         cooldown(0.1)
         buyTab = (frame.right - relativeX2Act(5), frame.bottom - relativeY2Act(3))
         pyautogui.leftClick(buyTab[0], buyTab[1])
@@ -31,6 +36,11 @@ class Shopping3:
             return True
         return False
 
+    def close(self):
+        cooldown(2)
+        Util.leftClick(-2.5, 3.5)
+        cooldown(2)
+
     class _End(Exception):
         pass
 
@@ -39,14 +49,11 @@ class Shopping3:
             while self._timeApproach():
                 # 找三次是否有商品
                 itemPic = r'resources/shop/item_2.png'
-                point = pyautogui.locateCenterOnScreen(itemPic,
-                                                       region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                       confidence=0.95)
+                point = Util.locateCenterOnScreen(itemPic)
                 # 两次都没有刷新列表
                 if point is None:
                     self._refresh()
                 else:
-                    print("购买商品")
                     # 如果有则购买
                     pyautogui.leftClick(point.x, point.y)
                     self._buy()
@@ -59,6 +66,6 @@ class Shopping3:
 # 不关注、靠搜索抢
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
+    # pyautogui.PAUSE = 2
     print("start task....")
-    init()
     Shopping3().shopping3()
