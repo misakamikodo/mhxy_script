@@ -6,6 +6,7 @@ class Shopping:
     hour = 99
     _lastBuyTime = None
     _cooldown = 10
+    categoryPos = winRelativeXY(5, 8.5)
     # meigui suipian jifenquan
     __mode = 'suipian'
 
@@ -15,8 +16,7 @@ class Shopping:
         super().__init__()
 
     def _refresh(self):
-        leftTab = winRelativeXY(5, 8.5)
-        pyautogui.leftClick(leftTab[0], leftTab[1])
+        pyautogui.leftClick(self.categoryPos[0], self.categoryPos[1])
         itemTab = ()
         if self.__mode == "suipian":
             itemTab = winRelativeXY(11, 9)
@@ -99,9 +99,7 @@ class Shopping:
             cooldown(0.1)
             Util.leftClick(11, 9)
             cooldown(0.2)
-            self.closeShop()
-            cooldown(0.2)
-            Util.leftClick(1, 6)
+            self.categoryPos = (fabao.x, fabao.y)
         cooldown(3)
 
     def closeShop(self):
