@@ -49,7 +49,7 @@ class Ghost:
 
         init(int(idx), resizeToNice=resize)  # True
 
-        self._chaseWin = (-1, 3.7)
+        self._chaseWin = (-1, 3.5)
         super().__init__()
 
     def _chaseWinFix(self):
