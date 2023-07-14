@@ -8,7 +8,7 @@ class Mihunta:
     def mihunta(self, chaseWin):
         # 流程任务
         def do():
-            Util.leftClick(chaseWin[0], chaseWin[1])
+            pyautogui.leftClick(chaseWin[0], chaseWin[1])
             reachPos = self._reach()
             times = 0
             while reachPos is None:
