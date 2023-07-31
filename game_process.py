@@ -1,4 +1,3 @@
-import os
 import sys
 
 from mhxy import *
@@ -45,7 +44,7 @@ class GameProcess:
     def __moveMoniqiFunc(self, size):
         windows = pyautogui.getAllWindows()
         i = 0
-        for item in list(filter(lambda x: x.title.startswith("梦幻西游 - "), windows)):
+        for item in list(filter(lambda x: x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - "), windows)):
             item.activate()
             print(item)
             if item.left < 0:

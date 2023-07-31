@@ -291,6 +291,8 @@ def init(idx=0, resizeToNice=False):
         frameSize[1] = windows.height
         return windows
 
+    # 如果你是使用notepad++中添加命令运行则需要修改下工作目录，比如
+    # os.chdir("D:\workspace\pyproject\mhxy_script")
     # pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
 

@@ -1,12 +1,15 @@
 from mhxy import *
 
+# 使用搜索截胡商品
 class Shopping3:
     _approached = False
-    _startTime = datetime.datetime.now()
-    _time = datetime.datetime(_startTime.year, _startTime.month, _startTime.day, 3, 38)
+    _startTime = None
 
     def __init__(self) -> None:
         init()
+        now = datetime.datetime.now()
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 40)
+        self._time = self._startTime + datetime.timedelta(hours=1, minutes=2)
         super().__init__()
 
     def _refresh(self):

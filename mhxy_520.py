@@ -6,7 +6,6 @@ if __name__ == '__main__':
     try:
         print("start task....")
         fuben = Fuben(idx=0)
-        fuben.xiashi_fix = 5.6
         fuben.fubenPos = [
             # ("xiashi", 13, 15),
             ("xiashi", 7, 15),
@@ -18,10 +17,11 @@ if __name__ == '__main__':
         fuben.fuben()
 
         ghost = Ghost(idx=0)
-        ghost.maxRound = 5
+        ghost.maxRound = 2
         ghost.chasepos = 1
         ghost.go()
         ghost.ghost()
-        pl.playsound('resources/common/music.mp3')
+        # pl.playsound('resources/common/music.mp3')
+        # os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

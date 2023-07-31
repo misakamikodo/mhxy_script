@@ -4,7 +4,7 @@ import threading
 from mhxy import *
 
 
-# 收纹饰 宝宝胚子
+# 关注购买 收纹饰 宝宝胚子
 class Shopping2:
     # 购买总商品数
     _startTime = None
@@ -22,13 +22,15 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 8, 2)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 14)
         # TODO
         self._timeList = [
+            (1, 17)
         ]
         for each in self._timeList:
-            self._datetimeList.append(self._startTime + datetime.timedelta(hours=each[0], minutes=each[1]))
-        print(self._datetimeList)
+            dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
+            self._datetimeList.append(dt)
+            print(format(dt))
         if len(self._datetimeList) > 0:
             self.__mostOldTime = max(self._datetimeList)
         super().__init__()
@@ -123,10 +125,10 @@ class Shopping2:
             if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime:
                 print("全部过期")
                 print(self.__mostOldTime)
-                # self._flag = False
-                # break
-                cooldown(30)
-                continue
+                self._flag = False
+                break
+                # cooldown(30)
+                # continue
             # 被挤掉线
             # if Util.locateCenterOnScreen(r'resources/origin/offline.png') is not None:
             #     break

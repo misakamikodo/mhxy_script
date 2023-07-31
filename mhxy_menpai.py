@@ -33,7 +33,7 @@ class Menpai:
                 pyautogui.leftClick(reachPos.x, reachPos.y)
             elif startPos is not None:
                 pyautogui.leftClick(startPos.x, startPos.y)
-                cooldown(0.2)
+                cooldown(1)
                 Util.leftClick(-4, 12.5)
                 cooldown(0.2)
                 pyautogui.doubleClick(chaseWin[0], chaseWin[1])

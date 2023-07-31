@@ -1,6 +1,6 @@
 from mhxy import *
 
-
+# 非珍品
 class Shopping:
     mark = True
     hour = 99

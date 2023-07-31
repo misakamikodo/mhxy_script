@@ -51,9 +51,9 @@ if __name__ == '__main__':
         # mine.mineMain()
 
         # 1
-        print("收非珍品")
+        # print("收非珍品")
         # shopping = Shopping()
-        # shopping.hour = 8
+        # shopping.hour = 7
         # shopping.openShop()
         # shopping.do()
 
@@ -63,11 +63,8 @@ if __name__ == '__main__':
 
         print("关机")
         # shopping.close()
-        # if datetime.datetime.now().hour != 8:
+        # if datetime.datetime.now().hour != 7:
         #     pl.playsound('resources/common/music.mp3')
-        # else:
-        #     process = GameProcess()
-        #     process.moveZhuomianban()
-        # os.system("shutdown -s")
+        os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

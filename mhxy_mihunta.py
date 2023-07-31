@@ -21,6 +21,7 @@ class Mihunta:
                     # 10秒左右还没进入战斗 重新追踪
                     pyautogui.leftClick(chaseWin[0], chaseWin[1])
                     times = 0
+            cooldown(1)
             pyautogui.leftClick(reachPos.x, reachPos.y)
 
         escapeBattleDo(do)
