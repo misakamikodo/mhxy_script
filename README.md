@@ -1,4 +1,4 @@
-梦幻西游手游脚本
+# 梦幻西游手游脚本
 
 安装完包依赖后还至少需要opencv-python支持(pip install opencv-python)。
 
@@ -9,3 +9,24 @@
 运行的时候需要给.py文件或者ide赋予管理员权限，要不然程序窗口失去焦点后就无法操作控制鼠标。
 
 有条件的可以搞个虚拟机运行，这样就不会占用电脑了
+
+## 文件说明
+* mhxy_520 520/320/550 任务汇总
+* mhxy_even_guaji 常用挂机系列汇总 可用于晚间挂机
+* mhxy_bangpai 帮派任务
+* mhxy_fuben 日常副本任务
+* mhxy_ghost 抓鬼
+* mhxy_ghost_withshop 抓鬼+收碎片(可改收其他非珍品)
+* mhxy_menpai 周一门派
+* mhxy_haidi 周三海底
+* mhxy_mihunta 周五迷魂塔
+* mhxy_auto_battle 自动战斗工具 可用于混“28怒”、玲珑石等任务挂机
+* mhxy_hanhua 喊话工具
+* mhxy_mine 挖矿
+* mhxy_mine_withshop 挖矿+收碎片(可改收其他非珍品)
+* mhxy_remote_control 远程控制模块 例如接收指令执行520(可改其他程序)
+* mhxy_remote_client 用于对接 mhxy_shoopping2 和 mhxy_remote_control 的工具
+* mhxy_shopping 蹲非珍品
+* mhxy_shopping2 蹲珍品
+* mhxy_shopping3 截胡珍品
+* mhxy_shopping4 多商品选一购买
