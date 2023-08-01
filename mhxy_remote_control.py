@@ -67,7 +67,6 @@ def do520():
     global _520Thread
     print("start 520....")
     fuben = Fuben(idx=0)
-    fuben.xiashi_fix = 5.8 + 2
     fuben.fubenPos = [
         # ("xiashi", 13, 15),
          ("xiashi", 7, 15),

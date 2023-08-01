@@ -341,3 +341,26 @@ def __avgShoujueNum(n=4):
     for i in range(n - 1, -1, -1):
         last = n / (n - i) + last
     return last
+
+
+
+class PicNode(object):
+
+    def __init__(self, elem, completeFunc=None):
+        if completeFunc is None:
+            self.completeFunc = self.complete
+        else:
+            self.completeFunc = completeFunc
+        self.elem = elem
+        # [PicNode]
+        self.next = None
+
+    def complete(self, locate, chaseWin):
+        pyautogui.leftClick(locate.x, locate.y)
+        cooldown(0.2)
+        # 叶子节点需要关闭对话
+        Util.leftClick(chaseWin[0], chaseWin[1])
+
+    def __str__(self) -> str:
+        return str(self.elem)
+
