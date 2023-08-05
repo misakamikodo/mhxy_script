@@ -12,7 +12,7 @@ class Bangpai:
         # 结束状态 下一步是root（除了finish标志）
         leafNode = []
 
-        def clickFunc(self, locate, chaseWin):
+        def clickFunc(locate, chaseWin):
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.2)
 
