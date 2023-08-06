@@ -1,14 +1,14 @@
 from mhxy import *
 
-class Bangpai:
+class Bangpai(MhxyScript):
     # 结束状态
     _rootList = []
 
     _allList = []
 
-    def __init__(self, idx=0) -> None:
-        # init(resizeToNice=True)
-        init(idx=idx, resizeToNice=False)
+    def __init__(self, idx=0, changWinPos=True) -> None:
+        # init(resizeToSmall=True)
+        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
         # 结束状态 下一步是root（除了finish标志）
         leafNode = []
 
@@ -25,7 +25,7 @@ class Bangpai:
         battle = PicNode(r'resources/origin/enter_battle.png', completeFunc=battleFunc)
         qiecuo = PicNode(r'resources/bangpai/qiecuo.png', completeFunc=clickFunc)
         fanwen = PicNode(r'resources/bangpai/fanwen.png')
-        qiecuo.setNext([qiecuo])
+        qiecuo.setNext([battle])
         fanwen.next = [battle]
         # 访问、已有二级药的任务结束
         leafNode.append(fanwen)

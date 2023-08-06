@@ -78,13 +78,13 @@ def do520():
 
     fuben.loginIn()
 
-    fuben.fuben()
+    fuben.do()
 
     ghost = Ghost(idx=0)
     ghost.maxRound = 5
     ghost.chasepos = 1
     ghost.go()
-    ghost.ghost()
+    ghost.do()
     _520Thread = None
 
 

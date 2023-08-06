@@ -90,11 +90,8 @@ class Bangpai:
                 return idx, locate, itemIdx
         return None, None, None
 
-    def _finish(self):
-        return pyautogui.locateCenterOnScreen(r'resources/bangpai/finish.png', confidence=0.9) is not None
-
     def do(self, chaseWin):
-        while not self._finish():
+        while True:
             pyautogui.leftClick(chaseWin[0], chaseWin[1])
             idx, locate, itemIdx = self._findPic()
             while locate is None:

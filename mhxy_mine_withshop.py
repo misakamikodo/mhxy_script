@@ -42,7 +42,7 @@ class MineWithShop(Mine):
         Util.leftClick(-2.5, 3.5)
         cooldown(1)
 
-    def mineMain(self):
+    def do(self):
         mapPos = 0
         standPoint = self._changeMapPos(mapPos)
         # 没有改变过位置
@@ -78,6 +78,6 @@ class MineWithShop(Mine):
 if __name__ == '__main__':
     time.sleep(2)
     print("start task....")
-    MineWithShop().mineMain()
+    MineWithShop().do()
     # 挖完矿关机
     print("结束挖矿")

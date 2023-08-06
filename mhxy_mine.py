@@ -83,7 +83,6 @@ class _FstStandPoint(_StandPoint):
         elif self.map == "changshou":
             posMap = (3.5, 11.2)
         Util.leftClick(posMap[0], posMap[1])
-        # self.newDayCloseDiag()
         # 打开小地图
         posSmallMap = (frame.left + relativeX2Act(3.5),
                        frame.top + relativeY2Act(2))
@@ -96,33 +95,6 @@ class _FstStandPoint(_StandPoint):
         MineUtil.closeSmallMap(self.map)
         closeMission()
         cooldown(self.cooldown)
-
-    def newDayCloseDiag(self):
-        def do(newDay):
-            if newDay is None:
-                return
-            pyautogui.leftClick(newDay.x, newDay.y)
-            cooldown(1)
-            Util.leftClick(-1, -3)
-
-            def scroll2Lingshifu(locate, idx):
-                pyautogui.moveTo(winRelativeX(-9), winRelativeY(-4.9))
-                pyautogui.dragTo(winRelativeX(-9), winRelativeY(6.7), duration=1)
-                cooldown(0.2)
-
-            locate, idx = doUtilFindPic(r'resources/mine/lingshifu.png', scroll2Lingshifu)
-            if locate is not None:
-                pyautogui.leftClick(locate.x, locate.y)
-                cooldown(0.2)
-                Util.leftClick(11, 13)
-                cooldown(0.7)
-                # pyautogui.leftClick(newDay.x, newDay.y)
-                Util.leftClick(-1.5, 4)
-                cooldown(0.2)
-                Util.leftClick(-2.5, 3.7)
-                cooldown(0.7)
-
-        newDayCloseCheck(do)
 
 
 class _NormStandPoint(_StandPoint):
@@ -201,6 +173,7 @@ class Mine:
     _smallMap = Frame(0, 0)
 
     def _initForMine(self):
+        global frame
         pyautogui.PAUSE = 0.3
         self._smallMap.left = frame.left + relativeX2Act(7.5)
         self._smallMap.top = frame.top + relativeY2Act(3.7)
@@ -212,9 +185,9 @@ class Mine:
         self._standPoints[mapPos % len(self._standPoints)].move2Point()
         return self._standPoints[mapPos % len(self._standPoints)]
 
-    def __init__(self, idx=0) -> None:
+    def __init__(self, idx=0, changWinPos=True) -> None:
         super().__init__()
-        init(resizeToNice=False, idx=idx)
+        init(resizeToSmall=False, idx=idx, changWinPos=changWinPos)
         self._initForMine()
         self._lastMineTime = datetime.datetime.now().timestamp()
 
@@ -280,7 +253,7 @@ class Mine:
                 else:
                     count += 1
 
-    def mineMain(self):
+    def do(self):
         mapPos = 0
         standPoint = self._changeMapPos(mapPos)
         # 没有改变过位置
@@ -310,7 +283,7 @@ class Mine:
 if __name__ == '__main__':
     time.sleep(2)
     print("start task....")
-    Mine().mineMain()
+    Mine().do()
     # 挖完矿关机
 
     print("结束挖矿")

@@ -30,7 +30,7 @@ if __name__ == '__main__':
         # 2
         print("挖矿")
         mine = Mine()
-        mine.mineMain()
+        mine.do()
 
         # print("捉鬼")
         # ghost = Ghost(idx = 0)
@@ -65,6 +65,6 @@ if __name__ == '__main__':
         # shopping.close()
         # if datetime.datetime.now().hour != 7:
         #     pl.playsound('resources/common/music.mp3')
-        os.system("shutdown -s")
+        # os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

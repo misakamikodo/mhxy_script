@@ -3,13 +3,8 @@ import json
 import time
 
 import pyautogui
-from pygetwindow import PyGetWindowException
-
-try:
-    import pytesseract
-except ImportError:
-    pass
 import pyperclip
+from pygetwindow import PyGetWindowException, BaseWindow
 
 
 class Frame:
@@ -26,21 +21,17 @@ class Frame:
         return "left:" + str(self.left) + " top:" + str(self.top) + " right:" + str(self.right) + " bottom:" + str(
             self.bottom)
 
-
-# 窗口左上侧位置
+# 窗口左上侧位置 init后修改
 frame = Frame(0, 0)
 
 # 窗口固定大小
 originSize = [1040, 807]
-niceSize = (907, 707)
+smallSize = (907, 707)
 # 鼠标到变化态需要向做微调距离
 resizeOffset = (10, 7)
 frameSize = [0, 0]
 
 frameSizeCm = [28.1, 21.8]
-
-# 是否发生跨天
-_newDayClick = False
 
 def relativeSize(x, y):
     return (frameSize[0] * x / frameSizeCm[0],
@@ -228,63 +219,40 @@ class Util:
         # print(pyperclip.paste())
         pyautogui.hotkey('Ctrl', 'v')
 
-    @staticmethod
-    def ocr(region, type=None):
-        # 识别汉字
-        img = pyautogui.screenshot(
-            region=(winRelativeX(region[0]), winRelativeY(region[1]), winRelativeX(region[2]), winRelativeY(region[3])))
-        # 只检测数字
-        config = None
-        # 中文
-        lang = 'chi_sim'
-        if type == 'number':
-            config = r'-c tessedit_char_whitelist=0123456789 --psm 6'
-        elif type == "eng":
-            lang = 'eng'
-        text = pytesseract.image_to_string(img, lang=lang, config=config)
-        return text
 
-
-def resize2Nice(windows):
+def resize2Small(windows):
     while not windows.isActive:
         cooldown(1)
     pyautogui.moveTo(windows.right - resizeOffset[0], windows.bottom - resizeOffset[1])
-    pyautogui.dragTo(windows.left + (niceSize[0] - resizeOffset[0]), windows.top + (niceSize[1] - resizeOffset[1]),
+    pyautogui.dragTo(windows.left + (smallSize[0] - resizeOffset[0]), windows.top + (smallSize[1] - resizeOffset[1]),
                      duration=1.3)
-
-def newDayCloseCheck(do):
-    global _newDayClick
-    if datetime.datetime.now().hour == 0 and (not _newDayClick):
-        _newDayClick = True
-        cooldown(8)
-        newDay = Util.locateCenterOnScreen(r'resources/origin/new_day.png')
-        do(newDay)
-        return True
-    return False
-
-def init(idx=0, resizeToNice=False):
+'''
+@:param resizeToSmall 是否修改窗口为小窗口
+@:param changWinPos 窗口位置是否发生移动
+'''
+def init(idx=0, resizeToSmall=False, changWinPos=True):
     global frameSizeCm
+    global frame
 
-    def getFrameSize(idx):
-        windows = None
-        while windows is None or windows.left < 0:
+    def getFrameSize(idx) -> BaseWindow:
+        window = None
+        while window is None or window.left < 0:
             windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
             windowsList = list(filter(lambda x: x.left > 0, windowsList))
             windowsList.sort(key=lambda x: x.left)
 
-            moniqiWin = pyautogui.getWindowsWithTitle("梦幻西游 - MuMu模拟器")
-            if moniqiWin is not None:
-                moniqiWin = list(filter(lambda x: x.left > 0, moniqiWin))
-                moniqiWin.sort(key=lambda x: x.left)
-                for each in moniqiWin:
-                    windowsList.append(each)
+            moniqiWin = list(filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")), pyautogui.getAllWindows()))
+            moniqiWin.sort(key=lambda x: x.left)
+            for each in moniqiWin:
+                windowsList.append(each)
 
             if len(windowsList) > 0:
-                windows = windowsList[idx]
+                window = windowsList[idx]
             cooldown(0.5)
-        frameSize[0] = windows.width
-        frameSize[1] = windows.height
-        return windows
+        if window is not None:
+            frameSize[0] = window.width
+            frameSize[1] = window.height
+        return window
 
     # 如果你是使用notepad++中添加命令运行则需要修改下工作目录，比如
     # os.chdir("D:\workspace\pyproject\mhxy_script")
@@ -295,22 +263,23 @@ def init(idx=0, resizeToNice=False):
     windows = getFrameSize(idx)
     print("窗口大小:", frameSize)
     print("窗口大小CM:", frameSizeCm)
-    if resizeToNice:
-        resize2Nice(windows)
+    if resizeToSmall:
+        resize2Small(windows)
         windows = getFrameSize(idx)
         print("调整后窗口大小:", frameSize)
-    if resizeToNice or frameSize[0] == niceSize[0]:
-        frameSizeCm = [frameSizeCm[0] * (niceSize[0] / originSize[0]), frameSizeCm[1] * (niceSize[1] / originSize[1])]
+    if resizeToSmall or frameSize[0] == smallSize[0]:
+        frameSizeCm = [frameSizeCm[0] * (smallSize[0] / originSize[0]), frameSizeCm[1] * (smallSize[1] / originSize[1])]
         print("调整后窗口大小CM:", frameSizeCm)
-    frame.left = windows.left
-    frame.top = windows.top
-    frame.right = frame.left + frameSize[0]
-    frame.bottom = frame.top + frameSize[1]
-    print("窗口四角位置:", frame)
     try:
         windows.activate()
     except PyGetWindowException:
         pass
+    if frame.left == 0 or changWinPos:
+        frame.left = windows.left
+        frame.top = windows.top
+        frame.right = frame.left + frameSize[0]
+        frame.bottom = frame.top + frameSize[1]
+        print("窗口四角位置:", frame)
 
 
 def parse_request(request):
@@ -330,13 +299,6 @@ class DateEncoder(json.JSONEncoder):
             return obj.strftime("%Y-%m-%d %H:%M:%S")
         else:
             return json.JSONEncoder.default(self, obj)
-
-def __avgShoujueNum(n=4):
-    last = 0
-    for i in range(n - 1, -1, -1):
-        last = n / (n - i) + last
-    return last
-
 
 
 class PicNode(object):
@@ -364,3 +326,15 @@ class PicNode(object):
     def __str__(self) -> str:
         return str(self.elem)
 
+class MhxyScriptInterrupt(Exception):
+    pass
+
+class MhxyScript:
+    def __init__(self, idx=0, changWinPos=True) -> None:
+        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
+
+    def interruptWork(self):
+        raise MhxyScriptInterrupt()
+
+    def do(self):
+        pass

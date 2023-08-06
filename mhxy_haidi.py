@@ -1,13 +1,13 @@
 from mhxy import *
 
-class Haidi:
+class Haidi(MhxyScript):
 
-    def haidi(self, chaseWin):
+    def do(self, chaseWin = (-3, 5.8 + 0)):
         # 流程任务 领取任务后起点
         def do():
             def reach():
-                return pyautogui.locateCenterOnScreen(r'resources/haidi/select.png')
-            pyautogui.doubleClick(chaseWin[0], chaseWin[1])
+                return Util.locateCenterOnScreen(r'resources/haidi/select.png')
+            Util.doubleClick(chaseWin[0], chaseWin[1])
             reachPos = reach()
             times = 0
             while reachPos is None:
@@ -18,15 +18,14 @@ class Haidi:
                 if times >= 6:
                     print("恢复流程")
                     # 10秒左右还没进入战斗 重新追踪
-                    pyautogui.leftClick(chaseWin[0], chaseWin[1])
+                    Util.leftClick(chaseWin[0], chaseWin[1])
                     times = 0
-            pyautogui.leftClick(reachPos.x, reachPos.y)
+            Util.leftClick(reachPos.x, reachPos.y)
         escapeBattleDo(do)
 
 # 副本 进入第一个副本为起点
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
-    init()
-    Haidi().haidi((winRelativeX(-3), winRelativeY(6)))
+    Haidi().do((-3, 6))
 

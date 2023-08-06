@@ -1,7 +1,7 @@
 from mhxy import *
 
 
-class Fuben:
+class Fuben(MhxyScript):
     xiashi_fix = 5.6 + 0
     _fubenIdx = 0
     fubenPos = [
@@ -16,9 +16,8 @@ class Fuben:
         'lastFuben': r'resources/small/fuben_flag.png'
     }
 
-    def __init__(self, idx=0) -> None:
-        # init(resizeToNice=True)
-        init(idx=idx, resizeToNice=False)
+    def __init__(self, idx=0, changWinPos=True) -> None:
+        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
 
     def _changan(self):
         return Util.locateCenterOnScreen(r'resources/fuben/activity.png')
@@ -100,7 +99,7 @@ class Fuben:
         cooldown(5)
         Util.leftClick(12, 13.5)
 
-    def fuben(self):
+    def do(self):
         while self._do():
             cooldown(2)
 
@@ -109,4 +108,4 @@ class Fuben:
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
     print("start task....")
-    Fuben().fuben()
+    Fuben().do()

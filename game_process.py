@@ -26,7 +26,7 @@ class GameProcess:
             print("处理后：", item)
 
     def moveZhuomianban(self):
-        self.__moveZhuomianbanFunc(niceSize)
+        self.__moveZhuomianbanFunc(smallSize)
 
     def moveZhuomianban2Origin(self):
         windows = pyautogui.getAllWindows()
@@ -40,7 +40,7 @@ class GameProcess:
         print("处理后：", item)
 
     def moveMoniqi(self):
-        self.__moveMoniqiFunc(niceSize)
+        self.__moveMoniqiFunc(smallSize)
 
     def __moveMoniqiFunc(self, size):
         windows = pyautogui.getAllWindows()

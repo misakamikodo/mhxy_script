@@ -10,15 +10,11 @@ from pyautogui import FailSafeException
 from mhxy import *
 
 
-class Ghost:
+class Ghost(MhxyScript):
     maxRound = 99
     # 程序运行标志
     _flag = True
-    # 是否发生跨天
-    _newDayClick = False
     _count = 0
-    # 捉鬼开始时间
-    _beginHour = 0
     _startTimestamp = None
     _chaseWin = None
     # 任务位置
@@ -26,13 +22,13 @@ class Ghost:
     # 自动领双数
     _doublePointNumPer100 = -1
 
-    def __init__(self, idx=0) -> None:
+    def __init__(self, idx=0, changWinPos=True) -> None:
         conn = ConfigParser()
         file_path = os.path.join(os.path.abspath('.'), 'resources/ghost/ghost.ini')
         if not os.path.exists(file_path):
             raise FileNotFoundError("文件不存在")
         conn.read(file_path)
-        chasepos = int(conn.get('main', 'chasepos'))
+        chasepos = float(conn.get('main', 'chasepos'))
         maxRound = int(conn.get('main', 'maxRound'))
         doublePointNumPer100 = int(conn.get('main', 'doublePointNumPer100'))
         resize = bool(int(conn.get('main', 'resize')))
@@ -47,15 +43,12 @@ class Ghost:
             self._doublePointNumPer100 = doublePointNumPer100
         print("读取配置：调整窗口大小：" + str(resize))
 
-        init(int(idx), resizeToNice=resize)  # True
-
+        init(int(idx), resizeToSmall=resize, changWinPos=changWinPos)  # True
         self._chaseWin = (-1, 3.5)
         super().__init__()
 
     def _chaseWinFix(self):
-        print("_newDayClick:", self._newDayClick)
-        print("_beginHour:", self._beginHour)
-        fix = 2 * (self.chasepos + (1 if self._newDayClick and self._beginHour != 0 else 0))
+        fix = 2 * self.chasepos
         print("chasepos:", fix / 2)
         return fix
 
@@ -137,7 +130,7 @@ class Ghost:
     def _startGhostDo(self):
         cooldown(5 * 60)
 
-    def ghost(self):
+    def do(self):
         # _thread.start_new_thread(resumeIfDisconnect, ("Thread-1", 2,))
         def initStartLocation():
             return Util.locateCenterOnScreen('resources/ghost/start_ghost0.png')
@@ -146,8 +139,6 @@ class Ghost:
             # 是否继续捉鬼弹窗 虽然使用确定即可，但是截图截得长了，所以locateOnScreen获取相对截图右下点的位置
             completeLocation = Util.locateOnScreen('resources/ghost/complete_ghost0.png')
             startLocation = None
-            if newDayCloseCheck(self._newDayCloseDiagDo):
-                self._newDayClick = True
 
             if completeLocation is None:
                 # 对话框：捉鬼任务选项。
@@ -188,6 +179,6 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
     try:
-        Ghost(idx=idx).ghost()
+        Ghost(idx=idx).do()
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

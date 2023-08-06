@@ -89,6 +89,6 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.3  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
     try:
-        GhostWithShop(idx=idx).ghost()
+        GhostWithShop(idx=idx).do()
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

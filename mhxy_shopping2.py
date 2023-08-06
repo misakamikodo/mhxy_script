@@ -4,7 +4,7 @@ import threading
 from mhxy import *
 
 
-# 关注购买 收纹饰 宝宝胚子
+# 收纹饰 宝宝胚子
 class Shopping2:
     # 购买总商品数
     _startTime = None
@@ -22,10 +22,10 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 14)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 38)
         # TODO
         self._timeList = [
-            (1, 17)
+            (3, 4)
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])

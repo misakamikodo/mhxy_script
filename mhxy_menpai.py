@@ -1,8 +1,8 @@
 from mhxy import *
 
 
-class Menpai:
-    def menpai(self, chaseWin):
+class Menpai(MhxyScript):
+    def do(self, chaseWin = (-3, 5.8 + 0)):
         def start():
             return pyautogui.locateCenterOnScreen(r'resources/menpai/start.png')
 
@@ -12,7 +12,7 @@ class Menpai:
                 return pyautogui.locateCenterOnScreen(r'resources/menpai/select.png')
 
             # 离开战斗后点击启动
-            pyautogui.doubleClick(chaseWin[0], chaseWin[1])
+            Util.doubleClick(chaseWin[0], chaseWin[1])
             startPos = start()
             reachPos = reach()
             times = 0
@@ -26,7 +26,7 @@ class Menpai:
                 if times >= 6:
                     print("恢复流程")
                     # 10秒左右还没进入战斗 重新追踪
-                    pyautogui.leftClick(chaseWin[0], chaseWin[1])
+                    Util.leftClick(chaseWin[0], chaseWin[1])
                     times = 0
 
             if reachPos is not None:
@@ -36,7 +36,7 @@ class Menpai:
                 cooldown(1)
                 Util.leftClick(-4, 12.5)
                 cooldown(0.2)
-                pyautogui.doubleClick(chaseWin[0], chaseWin[1])
+                Util.doubleClick(chaseWin[0], chaseWin[1])
                 while reachPos is None:
                     reachPos = reach()
                     cooldown(0.5)
@@ -45,7 +45,7 @@ class Menpai:
         startPos = start()
         if startPos is not None:
             pyautogui.leftClick(startPos.x, startPos.y)
-            pyautogui.leftClick(chaseWin[0], chaseWin[1])
+            Util.leftClick(chaseWin[0], chaseWin[1])
         escapeBattleDo(do)
 
 
@@ -53,5 +53,4 @@ class Menpai:
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
-    init()
-    Menpai().menpai((winRelativeX(-3), winRelativeY(5.8 + 0)))
+    Menpai().do((-3, 5.8 + 0))

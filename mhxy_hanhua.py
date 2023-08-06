@@ -27,5 +27,5 @@ class Hanhua:
 if __name__ == '__main__':
     Util.PAUSE = 0.2
     print("start task....")
-    init(resizeToNice=True)
+    init(resizeToSmall=True)
     Hanhua().hanhua()

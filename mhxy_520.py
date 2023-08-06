@@ -14,13 +14,13 @@ if __name__ == '__main__':
             ("norm", 13, 15),
             ("norm", 7, 15)
         ]
-        fuben.fuben()
+        fuben.do()
 
         ghost = Ghost(idx=0)
         ghost.maxRound = 2
         ghost.chasepos = 1
         ghost.go()
-        ghost.ghost()
+        ghost.do()
         # pl.playsound('resources/common/music.mp3')
         # os.system("shutdown -s")
     except (FailSafeException):
