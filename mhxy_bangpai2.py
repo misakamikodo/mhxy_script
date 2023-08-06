@@ -17,15 +17,15 @@ class Bangpai:
             cooldown(0.2)
 
         def battleFunc(locate, chaseWin):
-            while Util.locateCenterOnScreen(r'resources/origin/zhen_tian.png') is not None:
+            while Util.locateCenterOnScreen(r'resources/origin/enter_battle.png') is not None:
                 cooldown(1)
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.5)
         # 访问任务
-        battle = PicNode(r'resources/origin/zhen_tian.png', completeFunc=battleFunc)
+        battle = PicNode(r'resources/origin/enter_battle.png', completeFunc=battleFunc)
         qiecuo = PicNode(r'resources/bangpai/qiecuo.png', completeFunc=clickFunc)
         fanwen = PicNode(r'resources/bangpai/fanwen.png')
-        qiecuo.next = [battle]
+        qiecuo.setNext([qiecuo])
         fanwen.next = [battle]
         # 访问、已有二级药的任务结束
         leafNode.append(fanwen)
@@ -86,13 +86,13 @@ class Bangpai:
             idx, locate = self._findPic(nodePointer)
             time = 0
             while locate is None:
+                cooldown(0.2)
+                time += 1
+                cooldown(0.5)
                 idx, locate = self._findPic(nodePointer)
-                cooldown(0.3)
-                if time >= 5:
+                if time >= 5 and locate is None:
                     # 没法判断特征图片的任务都能通过不断点击追踪完成（因为挂机刷怪会停止没发判断，先这么搞）
                     Util.leftClick(chaseWin[0], chaseWin[1])
-                time += 1
-                cooldown(0.3)
             findPicNode = nodePointer[idx]
             print("选中：" + findPicNode.elem)
             findPicNode.completeFunc(locate, chaseWin)
@@ -125,4 +125,4 @@ if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
     init()
-    Bangpai().do((-0.5, 6 + 2))
+    Bangpai().do((-0.5, 6 + 0))

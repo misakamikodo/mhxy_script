@@ -42,11 +42,6 @@ frameSizeCm = [28.1, 21.8]
 # 是否发生跨天
 _newDayClick = False
 
-# relativeSize = lambda x, y: (frameSize[0] * x / frameSizeCm[0],
-#                              frameSize[1] * y / frameSizeCm[1])
-# relativeX2Act = lambda xcm: frameSize[0] * xcm / frameSizeCm[0]
-# relativeY2Act = lambda ycm: frameSize[1] * ycm / frameSizeCm[1]
-
 def relativeSize(x, y):
     return (frameSize[0] * x / frameSizeCm[0],
             frameSize[1] * y / frameSizeCm[1])
@@ -357,9 +352,14 @@ class PicNode(object):
 
     def complete(self, locate, chaseWin):
         pyautogui.leftClick(locate.x, locate.y)
-        cooldown(0.2)
+        cooldown(0.5)
         # 叶子节点需要关闭对话
         Util.leftClick(chaseWin[0], chaseWin[1])
+
+    def setNext(self, nxt):
+        self.next = nxt
+        # 防止卡了的情况，自己下一个包含自己
+        self.next.append(self)
 
     def __str__(self) -> str:
         return str(self.elem)

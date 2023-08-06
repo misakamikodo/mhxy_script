@@ -89,7 +89,7 @@ class Fuben:
                 # 下一个副本
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
                 self._fubenIdx += 1
-                print("下一个副本" + str(print("下一个副本" + str())))
+                print("下一个副本" + str(self._fubenIdx))
         return True
 
     def loginIn(self):
