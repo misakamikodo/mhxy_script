@@ -189,7 +189,7 @@ class Util:
 
     @staticmethod
     def __openCVEnable():
-        __openCVEnable = False
+        __openCVEnable = True
         try:
             import cv2
         except ImportError:

@@ -21,16 +21,16 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 1)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 57)
         # TODO
         self._timeList = [
-            (0, 51),
-            (0, 21),
-            (0, 42),
-            (2, 3),
-            (1, 54),
-            (0, 58),
-            (2, 12)
+            (1, 24),
+            (1, 32),
+            (2, 39),
+            (3, 12),
+            (1, 31),
+            (2, 18),
+            (2, 18)
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
