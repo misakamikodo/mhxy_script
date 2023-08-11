@@ -19,6 +19,7 @@ class MyThread(threading.Thread):
     def stop(self):
         self.stop_event.set()
 
+
 def myButton(root, text, width, command):
     return Button(root, text=text, width=width, bg='white', activebackground='grey', activeforeground='black',
                   font=('微软雅黑', 8),
@@ -28,7 +29,8 @@ def myButton(root, text, width, command):
 def changeThread(target):
     global _backgroundThread
     if _backgroundThread is not None:
-        # FIXME python只能通过标志符结束进程，部分程序没有设计结束标志。所以暂时放着不实现了。手动关闭窗口或者鼠标移动到边缘关闭吧
+        # python只能通过标志符结束进程，部分程序没有设计结束标志。所以暂时放着不实现了。手动关闭窗口或者鼠标移动到边缘关闭吧
+        target.stop()
         _backgroundThread.stop()
     _backgroundThread = MyThread(target=target.do, daemon=True)
     _backgroundThread.start()
@@ -139,10 +141,11 @@ if __name__ == '__main__':
 
     t = Text(root, width=32, height=10)
     t.insert(END, "说明\n"
-                  "1 因功能缺陷，后台运行的程序暂时无法单独关闭，请通过关闭本窗口程序关闭所有正在运行的脚本。\n"
+                  "1 如果出现后台运行的程序无法关闭情况，请通过关闭本窗口程序关闭正在运行的脚本。\n"
                   "2 程序不受控可以通过将鼠标快速移动到右上角强制终止。\n"
-                  "3 对于功能程序配置文件和说明会放在resources下相应文件夹内\n"
+                  "3 对应功能程序配置文件和说明放在resources下相应文件夹内\n"
              )
     t.place(x=10, y=270, anchor=NW)
-    # packStop()
+
+    packStop()
     root.mainloop()
