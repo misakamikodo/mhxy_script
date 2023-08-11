@@ -127,9 +127,8 @@ class _NormStandPoint(_StandPoint):
         cooldown(self.cooldown)
 
 
-class Mine:
+class Mine(MhxyScript):
     _lastMineTime = datetime.datetime.now().timestamp()
-    _flag = True
 
     # 所有定义站立点
     _standPoints = (
@@ -185,9 +184,8 @@ class Mine:
         self._standPoints[mapPos % len(self._standPoints)].move2Point()
         return self._standPoints[mapPos % len(self._standPoints)]
 
-    def __init__(self, idx=0, changWinPos=True) -> None:
-        super().__init__()
-        init(resizeToSmall=False, idx=idx, changWinPos=changWinPos)
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
+        super().__init__(idx, changWinPos, resizeToSmall)
         self._initForMine()
         self._lastMineTime = datetime.datetime.now().timestamp()
 
