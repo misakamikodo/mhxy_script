@@ -348,7 +348,7 @@ class MhxyScript:
         raise MhxyScriptInterrupt()
 
     def stop(self):
-        _flag = False
+        self._flag = False
 
     def do(self):
         pass

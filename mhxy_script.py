@@ -10,6 +10,7 @@ from mhxy_mihunta import *
 from mhxy_mine import *
 
 _backgroundThread = None
+_curScript = None
 
 class MyThread(threading.Thread):
     def __init__(self, target, daemon=True):
@@ -28,12 +29,15 @@ def myButton(root, text, width, command):
 
 def changeThread(target):
     global _backgroundThread
+    global _curScript
     if _backgroundThread is not None:
         # python只能通过标志符结束进程，部分程序没有设计结束标志。所以暂时放着不实现了。手动关闭窗口或者鼠标移动到边缘关闭吧
-        target.stop()
+        if _curScript is not None:
+            _curScript.stop()
         _backgroundThread.stop()
     _backgroundThread = MyThread(target=target.do, daemon=True)
     _backgroundThread.start()
+    _curScript = target
 
 
 def packStop():
@@ -41,7 +45,10 @@ def packStop():
 
     def change2None():
         global _backgroundThread
+        global _curScript
         if _backgroundThread is not None:
+            if _curScript is not None:
+                _curScript.stop()
             _backgroundThread.stop()
         _backgroundThread = None
 

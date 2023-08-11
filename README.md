@@ -14,7 +14,7 @@
 
 pyinstaller --onefile --noconsole mhxy_script.py
 
-不过打包生成的exe文件有270多MB（已使用upx压缩），这对于一个小脚本来说还是太奢侈了，所以只打包发布了一个版本。
+不过打包生成的exe文件有270多MB（已使用upx压缩），这对于一个小脚本来说还是太奢侈了，所以只打包发布了一个版本，不打算后续完善。
 
 下载地址：[mhxy_script.zip](https://pan.baidu.com/s/1NNzMf8sbQ8kxlqALPl5zSQ) 提取码：ppm7
 

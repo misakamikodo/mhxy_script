@@ -20,8 +20,8 @@ class Bangpai(MhxyScript):
             raise FileNotFoundError("文件不存在")
         conn = ConfigParser()
         conn.read(file_path)
-        chasepos = int(conn.get('main', 'chasepos'))
-        self.chaseWin[1] = 3.8 + chasepos
+        chasepos = float(conn.get('main', 'chasepos'))
+        self.chaseWin[1] = 3.8 + chasepos * 2
 
         # 结束状态 下一步是root（除了finish标志）
         leafNode = []
