@@ -1,7 +1,9 @@
 import datetime
 import json
+import threading
 import time
 
+import playsound as pl
 import pyautogui
 import pyperclip
 from pygetwindow import PyGetWindowException, BaseWindow
@@ -131,7 +133,7 @@ def escapeBattleDo(do,
 
 
 
-def doUtilFindPic(pic, do):
+def doUtilFindPic(pic, do, warnTimes=None):
     def find():
         if isinstance(pic, list):
             for idx, each in enumerate(pic):
@@ -144,10 +146,16 @@ def doUtilFindPic(pic, do):
 
     locate, idx = find()
     # 最少执行一次
+    times = 0
     while locate is None:
-        do(locate, idx=idx)
+        do(locate, idx=idx, times=times)
         locate, idx = find()
+        times+=1
         cooldown(1)
+        if warnTimes is not None and times>warnTimes:
+            naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
+            # 闹钟提醒
+            naozhong.start()
     return locate, idx
 
 
@@ -330,11 +338,17 @@ class MhxyScriptInterrupt(Exception):
     pass
 
 class MhxyScript:
-    def __init__(self, idx=0, changWinPos=True) -> None:
-        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
+    # 程序运行标志
+    _flag = True
+
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
+        init(idx=idx, resizeToSmall=resizeToSmall, changWinPos=changWinPos)
 
     def interruptWork(self):
         raise MhxyScriptInterrupt()
+
+    def stop(self):
+        _flag = False
 
     def do(self):
         pass

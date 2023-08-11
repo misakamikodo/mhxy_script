@@ -129,7 +129,7 @@ class _NormStandPoint(_StandPoint):
 
 class Mine:
     _lastMineTime = datetime.datetime.now().timestamp()
-    mark = True
+    _flag = True
 
     # 所有定义站立点
     _standPoints = (
@@ -237,7 +237,7 @@ class Mine:
                         yanzhen = Util.locateCenterOnScreen(r'resources/mine/yanzhen.png')
                         if yanzhen is not None:
                             # 挖到验证码停止，然后等10秒手动验证（大概两轮就出，所以没选择报警）
-                            self.mark = False
+                            self._flag = False
                             cooldown(10)
                             return
                             # 报警提示
@@ -258,7 +258,7 @@ class Mine:
         standPoint = self._changeMapPos(mapPos)
         # 没有改变过位置
         notChange = True
-        while self.mark:
+        while self._flag:
             self._mining(standPoint.mineList)
             now = datetime.datetime.now()
             minute = now.minute
@@ -276,7 +276,7 @@ class Mine:
             cooldown(2)
             # 30 分钟没挖到矿 跳出循环
             if datetime.datetime.now().timestamp() - self._lastMineTime > 60 * 11:
-                self.mark = False
+                self._flag = False
 
 
 # 大窗口

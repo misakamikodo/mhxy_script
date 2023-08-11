@@ -10,7 +10,16 @@
 
 有条件的可以搞个虚拟机运行，这样就不会占用电脑了
 
+打包方法
+
+pyinstaller --onefile --noconsole mhxy_script.py
+
+不过打包生成的exe文件有270多MB（已使用upx压缩），这对于一个小脚本来说还是太奢侈了，所以只打包发布了一个版本。
+
+下载地址：[mhxy_script.zip](http://www.baidu.com)
+
 ## 文件说明
+* mhxy_script 界面程序
 * mhxy_520 520/320/550 任务汇总
 * mhxy_even_guaji 常用挂机系列汇总 可用于晚间挂机
 * mhxy_bangpai 帮派任务

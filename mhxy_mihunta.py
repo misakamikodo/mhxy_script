@@ -13,6 +13,8 @@ class Mihunta(MhxyScript):
             reachPos = self._reach()
             times = 0
             while reachPos is None:
+                if not self._flag:
+                    exit(0)
                 reachPos = self._reach()
                 cooldown(2)
                 times += 1

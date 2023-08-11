@@ -1,6 +1,12 @@
+import os
+from configparser import ConfigParser
+
 from mhxy import *
 
+
+# 小窗口
 class Bangpai(MhxyScript):
+    chaseWin = [-3, 3.8 + 0]
     # 结束状态
     _rootList = []
 
@@ -8,7 +14,15 @@ class Bangpai(MhxyScript):
 
     def __init__(self, idx=0, changWinPos=True) -> None:
         # init(resizeToSmall=True)
-        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
+        super().__init__(idx=idx, changWinPos=changWinPos)
+        file_path = os.path.join(os.path.abspath('.'), 'resources/bangpai/small/bangpai.ini')
+        if not os.path.exists(file_path):
+            raise FileNotFoundError("文件不存在")
+        conn = ConfigParser()
+        conn.read(file_path)
+        chasepos = int(conn.get('main', 'chasepos'))
+        self.chaseWin[1] = 3.8 + chasepos
+
         # 结束状态 下一步是root（除了finish标志）
         leafNode = []
 
@@ -17,14 +31,14 @@ class Bangpai(MhxyScript):
             cooldown(0.2)
 
         def battleFunc(locate, chaseWin):
-            while Util.locateCenterOnScreen(r'resources/origin/enter_battle.png') is not None:
+            while Util.locateCenterOnScreen(r'resources/small/enter_battle_flag.png') is not None:
                 cooldown(1)
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.5)
         # 访问任务
-        battle = PicNode(r'resources/origin/enter_battle.png', completeFunc=battleFunc)
-        qiecuo = PicNode(r'resources/bangpai/qiecuo.png', completeFunc=clickFunc)
-        fanwen = PicNode(r'resources/bangpai/fanwen.png')
+        battle = PicNode(r'resources/small/enter_battle_flag.png', completeFunc=battleFunc)
+        qiecuo = PicNode(r'resources/bangpai/small/qiecuo.png', completeFunc=clickFunc)
+        fanwen = PicNode(r'resources/bangpai/small/fanwen.png')
         qiecuo.setNext([battle])
         fanwen.next = [battle]
         # 访问、已有二级药的任务结束
@@ -32,23 +46,14 @@ class Bangpai(MhxyScript):
         # 巡逻、挂机场景结束
         leafNode.append(battle)
 
-        # 商店、药店任务
-        def shangchenFunc(locate, chaseWin):
-            Util.leftClick(-7, 8)
-            pyautogui.leftClick(locate.x, locate.y)
-            cooldown(2)
-            Util.leftClick(-5, -5)
-
         # 三级药烹饪wupin任务 *购买->总管->上交 二级药wupin2任务 *购买->总管
-        shangjiao = PicNode(r'resources/bangpai/shangjiao.png')
+        shangjiao = PicNode(r'resources/bangpai/small/shangjiao.png')
         fanwen.next.append(shangjiao)
-        wupin = PicNode(r'resources/bangpai/wupin.png', completeFunc=clickFunc)
+        wupin = PicNode(r'resources/bangpai/small/wupin.png', completeFunc=clickFunc)
         # 可能购买失败，所以还是
-        wupin.next = [fanwen, wupin]
-        wupin2 = PicNode(r'resources/bangpai/wupin2.png', completeFunc=clickFunc)
+        wupin.setNext([fanwen])
+        wupin2 = PicNode(r'resources/bangpai/small/wupin2.png', completeFunc=clickFunc)
         wupin2.next = [fanwen]
-        shangchen = PicNode(r'resources/bangpai/shangchen.png', completeFunc=shangchenFunc)
-        shangchen.next = [fanwen]
         # 二级药结束点
         # leafNode.append(fanwen)
         # 烹饪药结束点
@@ -60,16 +65,16 @@ class Bangpai(MhxyScript):
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.3)
         # 喊话任务
-        hanhua = PicNode(r'resources/bangpai/hanhua.png', completeFunc=fanwenFunc)
+        hanhua = PicNode(r'resources/bangpai/small/hanhua.png', completeFunc=fanwenFunc)
         leafNode.append(hanhua)
 
         # 结束
         def finishFunc(locate, chaseWin):
             exit(0)
 
-        finish = PicNode(r'resources/bangpai/finish.png', completeFunc=finishFunc)
+        finish = PicNode(r'resources/bangpai/small/finish.png', completeFunc=finishFunc)
 
-        self._rootList = [qiecuo, fanwen, wupin, wupin2, hanhua, finish]
+        self._rootList = [qiecuo, fanwen, wupin, wupin2, hanhua] #  finish
         for item in leafNode:
             if item.next is not None:
                 for each in self._rootList:
@@ -77,25 +82,27 @@ class Bangpai(MhxyScript):
             else:
                 item.next = self._rootList
 
-    def do(self, chaseWin):
+    def do(self):
 
         nodePointer = self._rootList
         findPicNode = None
         while findPicNode is None or findPicNode.next is not None:
-            Util.leftClick(chaseWin[0], chaseWin[1])
+            Util.leftClick(self.chaseWin[0], self.chaseWin[1])
             idx, locate = self._findPic(nodePointer)
             time = 0
             while locate is None:
+                if not self._flag:
+                    exit(0)
                 cooldown(0.2)
                 time += 1
                 cooldown(0.5)
                 idx, locate = self._findPic(nodePointer)
                 if time >= 5 and locate is None:
                     # 没法判断特征图片的任务都能通过不断点击追踪完成（因为挂机刷怪会停止没发判断，先这么搞）
-                    Util.leftClick(chaseWin[0], chaseWin[1])
+                    Util.leftClick(self.chaseWin[0], self.chaseWin[1])
             findPicNode = nodePointer[idx]
             print("选中：" + findPicNode.elem)
-            findPicNode.completeFunc(locate, chaseWin)
+            findPicNode.completeFunc(locate, self.chaseWin)
             nodePointer = findPicNode.next
             print("后续可能出现：")
             for each in nodePointer:
@@ -124,5 +131,4 @@ class Bangpai(MhxyScript):
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
-    init()
-    Bangpai().do((-0.5, 6 + 0))
+    Bangpai(idx=0).do()

@@ -1,11 +1,15 @@
+import os
+from configparser import ConfigParser
+
 from mhxy import *
 
 
 class Fuben(MhxyScript):
+    # 暂时没用，请忽视
     xiashi_fix = 5.6 + 0
     _fubenIdx = 0
     fubenPos = [
-        # ("xiashi", 13, 15),
+        ("xiashi", 13, 15),
         ("xiashi", 7, 15),
 
         ("norm", 19, 15),
@@ -16,15 +20,31 @@ class Fuben(MhxyScript):
         'lastFuben': r'resources/small/fuben_flag.png'
     }
 
-    def __init__(self, idx=0, changWinPos=True) -> None:
-        init(idx=idx, resizeToSmall=False, changWinPos=changWinPos)
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
+        super().__init__(idx, changWinPos, resizeToSmall)
+        file_path = os.path.join(os.path.abspath('.'), 'resources/fuben/fuben.ini')
+        if not os.path.exists(file_path):
+            raise FileNotFoundError("文件不存在")
+        conn = ConfigParser()
+        conn.read(file_path)
+        type = int(conn.get('main', 'type'))
+        if type >= 4:
+            self.fubenPos = [self.fubenPos[1], self.fubenPos[2], self.fubenPos[3], self.fubenPos[4]]
+        elif type == 3:
+            self.fubenPos = [self.fubenPos[2], self.fubenPos[3], self.fubenPos[4]]
+        elif type == 2:
+            self.fubenPos = [self.fubenPos[3], self.fubenPos[4]]
 
+
+        type = float(conn.get('main', 'type'))
     def _changan(self):
         return Util.locateCenterOnScreen(r'resources/fuben/activity.png')
 
     # 流程任务
     def _do(self):
-        def clickSkip(locate, idx):
+        def clickSkip(locate, idx, times):
+            if not self._flag:
+                exit(0)
             reachPos = Util.locateCenterOnScreen(r'resources/fuben/select.png')
             if reachPos is not None:
                 # 对话
@@ -45,12 +65,13 @@ class Fuben(MhxyScript):
             changanPos = self._changan()
             while changanPos is None:
                 # 找不到头像则正在对话点击头像位置跳过 直到找到头像位置
-                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip)
+                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip, warnTimes=10)
                 changanPos = self._changan()
                 cooldown(2)
 
         #  进入第一个副本为起点
         doUntil2Changan()
+
         if self._fubenIdx >= len(self.fubenPos):
             return False
         # elif self.fubenPos[self._fubenIdx][0] == "xiashi":
@@ -100,7 +121,7 @@ class Fuben(MhxyScript):
         Util.leftClick(12, 13.5)
 
     def do(self):
-        while self._do():
+        while self._do() and self._flag:
             cooldown(2)
 
 

@@ -5,7 +5,7 @@ from mhxy_ghost_withshop import *
 if __name__ == '__main__':
     try:
         print("start task....")
-        fuben = Fuben(idx=0)
+        fuben = Fuben(idx=1)
         fuben.fubenPos = [
             # ("xiashi", 13, 15),
             ("xiashi", 7, 15),
@@ -16,8 +16,8 @@ if __name__ == '__main__':
         ]
         fuben.do()
 
-        ghost = Ghost(idx=0)
-        ghost.maxRound = 2
+        ghost = Ghost(idx=1)
+        ghost.maxRound = 55
         ghost.chasepos = 1
         ghost.go()
         ghost.do()

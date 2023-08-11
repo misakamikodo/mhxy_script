@@ -1,10 +1,8 @@
 import datetime as dt
 import os
 import sys
-import threading
 from configparser import ConfigParser
 
-import playsound as pl
 from pyautogui import FailSafeException
 
 from mhxy import *
@@ -12,8 +10,6 @@ from mhxy import *
 
 class Ghost(MhxyScript):
     maxRound = 99
-    # 程序运行标志
-    _flag = True
     _count = 0
     _startTimestamp = None
     _chaseWin = None
@@ -21,6 +17,7 @@ class Ghost(MhxyScript):
     chasepos = 1
     # 自动领双数
     _doublePointNumPer100 = -1
+    warnMinute = 25
 
     def __init__(self, idx=0, changWinPos=True) -> None:
         conn = ConfigParser()
@@ -32,20 +29,23 @@ class Ghost(MhxyScript):
         maxRound = int(conn.get('main', 'maxRound'))
         doublePointNumPer100 = int(conn.get('main', 'doublePointNumPer100'))
         resize = bool(int(conn.get('main', 'resize')))
+        warnMinute = int(conn.get('main', 'warnMinute'))
         if chasepos is not None:
             print("读取配置：任务位置为：" + str(chasepos))
             self.chasepos = chasepos
         if maxRound is not None:
             print("读取配置：捉鬼轮数为：" + str(maxRound))
             self.maxRound = maxRound
+        if warnMinute is not None:
+            print("读取配置：报警时间为：" + str(warnMinute))
+            self.warnMinute = warnMinute
         if doublePointNumPer100 is not None:
             print("读取配置：领双数为：" + str(doublePointNumPer100))
             self._doublePointNumPer100 = doublePointNumPer100
         print("读取配置：调整窗口大小：" + str(resize))
 
-        init(int(idx), resizeToSmall=resize, changWinPos=changWinPos)  # True
         self._chaseWin = (-1, 3.5)
-        super().__init__()
+        super().__init__(idx=int(idx), resizeToSmall=resize, changWinPos=changWinPos)
 
     def _chaseWinFix(self):
         fix = 2 * self.chasepos
@@ -165,7 +165,7 @@ class Ghost(MhxyScript):
                     print("完成一千双")
                     # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
-            if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > 25 * 60:
+            if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
                 naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
                 # 闹钟提醒

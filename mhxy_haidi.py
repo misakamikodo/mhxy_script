@@ -11,6 +11,8 @@ class Haidi(MhxyScript):
             reachPos = reach()
             times = 0
             while reachPos is None:
+                if not self._flag:
+                    exit(0)
                 reachPos = reach()
                 cooldown(1)
                 times += 1
@@ -20,7 +22,7 @@ class Haidi(MhxyScript):
                     # 10秒左右还没进入战斗 重新追踪
                     Util.leftClick(chaseWin[0], chaseWin[1])
                     times = 0
-            Util.leftClick(reachPos.x, reachPos.y)
+            pyautogui.leftClick(reachPos.x, reachPos.y)
         escapeBattleDo(do)
 
 # 副本 进入第一个副本为起点

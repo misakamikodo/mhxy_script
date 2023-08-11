@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter.ttk import Separator
 
 from game_process import *
 from mhxy_bangpai2 import *
@@ -53,7 +52,7 @@ def packGhost():
         changeThread(Ghost(changWinPos=False))
 
     ghostBtn = myButton(root, text='捉鬼', width=8, command=change2Ghost)
-    ghostBtn.pack(side=TOP, expand=NO)
+    ghostBtn.place(x=40, y=60, anchor=NW)
 
 
 def packFuben():
@@ -61,36 +60,28 @@ def packFuben():
         changeThread(Fuben(changWinPos=False))
 
     fubenBtn = myButton(root, text='副本', width=8, command=change2Fuben)
-    fubenBtn.pack(side=TOP, expand=NO)
+    fubenBtn.place(x=130, y=60, anchor=NW)
 
 def packMenpai():
     def changMission():
         changeThread(Menpai(changWinPos=False))
 
     fubenBtn = myButton(root, text='门派', width=8, command=changMission)
-    fubenBtn.pack(side=TOP, expand=NO)
+    fubenBtn.place(x=40, y=100, anchor=NW)
 
 def packHaidi():
     def changMission():
         changeThread(Haidi(changWinPos=False))
 
     fubenBtn = myButton(root, text='海底', width=8, command=changMission)
-    fubenBtn.pack(side=TOP, expand=NO)
+    fubenBtn.place(x=130, y=100, anchor=NW)
 
 def packMihunta():
     def changMission():
         changeThread(Mihunta(changWinPos=False))
 
     fubenBtn = myButton(root, text='迷魂塔', width=8, command=changMission)
-    fubenBtn.pack(side=TOP, expand=NO)
-
-
-def packMine():
-    def change2Mine():
-        changeThread(Mine(changWinPos=False))
-
-    mineBtn = myButton(root, text='挖矿', width=8, command=change2Mine)
-    mineBtn.pack(side=TOP, expand=NO)
+    fubenBtn.place(x=40, y=140, anchor=NW)
 
 
 def packBangpai():
@@ -100,22 +91,34 @@ def packBangpai():
         changeThread(Bangpai(changWinPos=False))
 
     bangpaiBtn = myButton(root, text='帮派任务', width=8, command=change2bangpai)
-    bangpaiBtn.pack(side=TOP, expand=NO)
+    bangpaiBtn.place(x=130, y=140, anchor=NW)
 
 
+def packMine():
+    def change2Mine():
+        changeThread(Mine(changWinPos=False))
+
+    mineBtn = myButton(root, text='挖矿', width=8, command=change2Mine)
+    mineBtn.place(x=90, y=230, anchor=NW)
+
+# 界面程序 此部分封装了参数没有大量写死的程序
+# pyinstaller --onefile --noconsole mhxy_script.py
 if __name__ == '__main__':
     root = Tk()
     root.title("mhxy_script")
-    root.geometry('300x500')
+    root.geometry('260x430')
+    x = int((root.winfo_screenwidth() - root.winfo_reqwidth()) / 2)
+    y = int((root.winfo_screenheight() - root.winfo_reqheight()) / 2)
+    # 将窗口居中显示
+    root.geometry("+{}+{}".format(x, y))
     # root.iconbitmap('mhxy.ico')
     gameProcess = GameProcess()
 
     smallWinBtn = myButton(root, text='初始化为小窗口', width=12, command=gameProcess.moveZhuomianban)
-    smallWinBtn.pack(side=TOP, expand=NO)
+    smallWinBtn.place(x=80, y=10, anchor=NW)
 
     # 抓鬼
     packGhost()
-
     # 副本
     packFuben()
     # 门派
@@ -124,18 +127,22 @@ if __name__ == '__main__':
     packHaidi()
     # 迷魂塔
     packMihunta()
+    # 帮派任务
+    packBangpai()
     # ================原始大小窗口
-    sep = Separator(root, orient=HORIZONTAL)
-    sep.pack(padx=10, fill=X)
 
     originWinBtn = myButton(root, text='初始化为原始窗口', width=12, command=gameProcess.moveZhuomianban2Origin)
-    originWinBtn.pack(side=TOP, expand=NO)
+    originWinBtn.place(x=80, y=180, anchor=NW)
 
     # 挖矿
     packMine()
 
-    # 帮派任务
-    packBangpai()
-
-    packStop()
+    t = Text(root, width=32, height=10)
+    t.insert(END, "说明\n"
+                  "1 因功能缺陷，后台运行的程序暂时无法单独关闭，请通过关闭本窗口程序关闭所有正在运行的脚本。\n"
+                  "2 程序不受控可以通过将鼠标快速移动到右上角强制终止。\n"
+                  "3 对于功能程序配置文件和说明会放在resources下相应文件夹内\n"
+             )
+    t.place(x=10, y=270, anchor=NW)
+    # packStop()
     root.mainloop()

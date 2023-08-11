@@ -3,7 +3,7 @@ from mhxy_mine import *
 
 class MineWithShop(Mine):
     _lastMineTime = datetime.datetime.now().timestamp()
-    mark = True
+    _flag = True
 
     def shop(self):
         cooldown(1)
@@ -48,7 +48,7 @@ class MineWithShop(Mine):
         # 没有改变过位置
         notChange = True
         shop = False
-        while self.mark:
+        while self._flag:
             self._mining(standPoint.mineList)
             # mine = mining()
             now = datetime.datetime.now()
@@ -71,7 +71,7 @@ class MineWithShop(Mine):
             cooldown(2)
             # 30 分钟没挖到矿 跳出循环
             if datetime.datetime.now().timestamp() - self._lastMineTime > 60 * 11:
-                self.mark = False
+                self._flag = False
 
 
 # 大窗口
