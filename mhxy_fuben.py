@@ -1,4 +1,5 @@
 import os
+import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -44,7 +45,7 @@ class Fuben(MhxyScript):
     def _do(self):
         def clickSkip(locate, idx, times):
             if not self._flag:
-                exit(0)
+                sys.exit(0)
             reachPos = Util.locateCenterOnScreen(r'resources/fuben/select.png')
             if reachPos is not None:
                 # 对话

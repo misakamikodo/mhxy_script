@@ -143,9 +143,7 @@ class Shopping2:
                 itemPic = [r'resources/shop/item_2.png']
                 point = None
                 for each in itemPic:
-                    point = pyautogui.locateCenterOnScreen(each,
-                                                           region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                           confidence=0.99)
+                    point = Util.locateCenterOnScreen(each, confidence=0.99)
                     if point is not None:
                         break
                 # 两次都没有刷新列表

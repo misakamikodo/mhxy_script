@@ -1,4 +1,7 @@
+import sys
+
 from mhxy import *
+
 
 class Haidi(MhxyScript):
 
@@ -12,7 +15,7 @@ class Haidi(MhxyScript):
             times = 0
             while reachPos is None:
                 if not self._flag:
-                    exit(0)
+                    sys.exit(0)
                 reachPos = reach()
                 cooldown(1)
                 times += 1

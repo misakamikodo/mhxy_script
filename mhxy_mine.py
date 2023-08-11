@@ -191,9 +191,7 @@ class Mine(MhxyScript):
 
     def _mining(self, mineList=None):
         def waitMoveOk():
-            mineSelect = pyautogui.locateCenterOnScreen(r'resources/mine/mine_select.png',
-                                                        region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                        confidence=0.96)
+            mineSelect = Util.locateCenterOnScreen(r'resources/mine/mine_select.png')
             if mineSelect is not None:
                 pyautogui.leftClick(mineSelect.x, mineSelect.y)
             collect = None
@@ -202,9 +200,7 @@ class Mine(MhxyScript):
                 if count > 10:
                     return False
                 cooldown(1)
-                collect = pyautogui.locateCenterOnScreen(r'resources/mine/collect.png',  # collect_caiji
-                                                         region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                         confidence=0.8)
+                collect = Util.locateCenterOnScreen(r'resources/mine/collect.png')
                 count += 1
             return True
 
@@ -214,9 +210,8 @@ class Mine(MhxyScript):
         count = 0
         while count < len(mineList):
             for mine in mineList:
-                point = pyautogui.locateCenterOnScreen(mine.pic,
-                                                       region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                       confidence=0.96)
+                point = Util.locateCenterOnScreen(mine.pic,
+                                                  confidence=0.96)
                 if point is not None:
                     print("发现矿：", mine.pic)
                     p = (mine.wait, point.x, point.y)

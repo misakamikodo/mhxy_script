@@ -1,4 +1,5 @@
 import os
+import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -33,7 +34,7 @@ class Menpai(MhxyScript):
             times = 0
             while reachPos is None and startPos is None and times < 10:
                 if not self._flag:
-                    exit(0)
+                    sys.exit(0)
                 reachPos = reach()
                 if reachPos is None:
                     startPos = start()

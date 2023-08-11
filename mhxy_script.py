@@ -11,6 +11,7 @@ from mhxy_mine import *
 
 _backgroundThread = None
 _curScript = None
+_changWinPos = True
 
 class MyThread(threading.Thread):
     def __init__(self, target, daemon=True):
@@ -58,7 +59,7 @@ def packStop():
 
 def packGhost():
     def change2Ghost():
-        changeThread(Ghost(changWinPos=False))
+        changeThread(Ghost(changWinPos=_changWinPos))
 
     ghostBtn = myButton(root, text='捉鬼', width=8, command=change2Ghost)
     ghostBtn.place(x=40, y=60, anchor=NW)
@@ -66,28 +67,28 @@ def packGhost():
 
 def packFuben():
     def change2Fuben():
-        changeThread(Fuben(changWinPos=False))
+        changeThread(Fuben(changWinPos=_changWinPos))
 
     fubenBtn = myButton(root, text='副本', width=8, command=change2Fuben)
     fubenBtn.place(x=130, y=60, anchor=NW)
 
 def packMenpai():
     def changMission():
-        changeThread(Menpai(changWinPos=False))
+        changeThread(Menpai(changWinPos=_changWinPos))
 
     fubenBtn = myButton(root, text='门派', width=8, command=changMission)
     fubenBtn.place(x=40, y=100, anchor=NW)
 
 def packHaidi():
     def changMission():
-        changeThread(Haidi(changWinPos=False))
+        changeThread(Haidi(changWinPos=_changWinPos))
 
     fubenBtn = myButton(root, text='海底', width=8, command=changMission)
     fubenBtn.place(x=130, y=100, anchor=NW)
 
 def packMihunta():
     def changMission():
-        changeThread(Mihunta(changWinPos=False))
+        changeThread(Mihunta(changWinPos=_changWinPos))
 
     fubenBtn = myButton(root, text='迷魂塔', width=8, command=changMission)
     fubenBtn.place(x=40, y=140, anchor=NW)
@@ -97,7 +98,7 @@ def packBangpai():
     global bangpaiBtn
 
     def change2bangpai():
-        changeThread(Bangpai(changWinPos=False))
+        changeThread(Bangpai(changWinPos=_changWinPos))
 
     bangpaiBtn = myButton(root, text='帮派任务', width=8, command=change2bangpai)
     bangpaiBtn.place(x=130, y=140, anchor=NW)
@@ -105,13 +106,14 @@ def packBangpai():
 
 def packMine():
     def change2Mine():
-        changeThread(Mine(changWinPos=False))
+        changeThread(Mine(changWinPos=_changWinPos))
 
     mineBtn = myButton(root, text='挖矿', width=8, command=change2Mine)
     mineBtn.place(x=90, y=230, anchor=NW)
 
-# 界面程序 此部分封装了参数没有大量写死的程序
-# pyinstaller --onefile --noconsole mhxy_script.py
+# 界面程序 此部分封装了参数没有大量写死的程序 opencv 死活打包不进去
+# pyinstaller --hidden-import cv2 --hidden-import numpy --onefile --noconsole mhxy_script.py
+# pyinstaller --hidden-import cv2 --hidden-import numpy --onefile mhxy_script.py
 if __name__ == '__main__':
     root = Tk()
     root.title("mhxy_script")
@@ -146,6 +148,7 @@ if __name__ == '__main__':
     # 挖矿
     packMine()
 
+    #  Label
     t = Text(root, width=32, height=10)
     t.insert(END, "说明\n"
                   "1 如果出现后台运行的程序无法关闭情况，请通过关闭本窗口程序关闭正在运行的脚本。\n"

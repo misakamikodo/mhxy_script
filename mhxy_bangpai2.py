@@ -1,4 +1,5 @@
 import os
+import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -70,7 +71,7 @@ class Bangpai(MhxyScript):
 
         # 结束
         def finishFunc(locate, chaseWin):
-            exit(0)
+            sys.exit(0)
 
         finish = PicNode(r'resources/bangpai/small/finish.png', completeFunc=finishFunc)
 
@@ -92,7 +93,7 @@ class Bangpai(MhxyScript):
             time = 0
             while locate is None:
                 if not self._flag:
-                    exit(0)
+                    sys.exit(0)
                 cooldown(0.2)
                 time += 1
                 cooldown(0.5)
@@ -117,11 +118,11 @@ class Bangpai(MhxyScript):
             locate = None
             if isinstance(each.elem, list):
                 for iid, item in enumerate(each.elem):
-                    locate = pyautogui.locateCenterOnScreen(item, confidence=0.9)
+                    locate = Util.locateCenterOnScreen(item)
                     if locate is not None:
                         break
             else:
-                locate = pyautogui.locateCenterOnScreen(each.elem, confidence=0.9)
+                locate = Util.locateCenterOnScreen(each.elem)
             if locate is not None:
                 return idx, locate
         return None, None

@@ -33,6 +33,7 @@ smallSize = (907, 707)
 resizeOffset = (10, 7)
 frameSize = [0, 0]
 
+frameOriginSizeCm = [28.1, 21.8]
 frameSizeCm = [28.1, 21.8]
 
 def relativeSize(x, y):
@@ -185,27 +186,45 @@ def cooldown(second):
 
 
 class Util:
+
     @staticmethod
-    def locateCenterOnScreen(pic):
+    def __openCVEnable():
+        __openCVEnable = False
+        try:
+            import cv2
+        except ImportError:
+            __openCVEnable = False
+        return __openCVEnable
+
+    @staticmethod
+    def locateCenterOnScreen(pic, confidence=0.9):
+        cfd = confidence if Util.__openCVEnable() else None
         if isinstance(pic, list):
             res = None
             for i in pic:
-                res = pyautogui.locateCenterOnScreen(i,
-                                                     region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                     confidence=0.9)
+                if cfd is not None:
+                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frame.right, frame.bottom),
+                                                         confidence=cfd)
+                else:
+                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frame.right, frame.bottom))
                 if res is not None:
                     return res
             return res
         else:
-            # pyautogui.locateOnWindow 只能有一个标题所以不可取
-            return pyautogui.locateCenterOnScreen(pic,
-                                                  region=(frame.left, frame.top, frame.right, frame.bottom),
-                                                  confidence=0.9)
+            if cfd is not None:
+                return pyautogui.locateCenterOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom),
+                                                      confidence=cfd)
+            else:
+                return pyautogui.locateCenterOnScreen(pic,
+                                                      region=(frame.left, frame.top, frame.right, frame.bottom))
 
     @staticmethod
-    def locateOnScreen(pic):
-        # return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom))
-        return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom), confidence=0.9)
+    def locateOnScreen(pic, confidence=0.9):
+        cfd = confidence if Util.__openCVEnable() else None
+        if cfd is not None:
+            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom), confidence=cfd)
+        else:
+            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom))
 
     @staticmethod
     def leftClick(x, y):
@@ -276,8 +295,10 @@ def init(idx=0, resizeToSmall=False, changWinPos=True):
         windows = getFrameSize(idx)
         print("调整后窗口大小:", frameSize)
     if resizeToSmall or frameSize[0] == smallSize[0]:
-        frameSizeCm = [frameSizeCm[0] * (smallSize[0] / originSize[0]), frameSizeCm[1] * (smallSize[1] / originSize[1])]
+        frameSizeCm = [frameOriginSizeCm[0] * (smallSize[0] / originSize[0]), frameOriginSizeCm[1] * (smallSize[1] / originSize[1])]
         print("调整后窗口大小CM:", frameSizeCm)
+    else:
+        frameSizeCm = frameOriginSizeCm
     try:
         windows.activate()
     except PyGetWindowException:
