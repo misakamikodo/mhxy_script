@@ -112,8 +112,8 @@ def packMine():
     mineBtn.place(x=90, y=230, anchor=NW)
 
 # 界面程序 此部分封装了参数没有大量写死的程序 opencv 死活打包不进去
-# pyinstaller --hidden-import cv2 --hidden-import numpy --onefile --noconsole mhxy_script.py
-# pyinstaller --hidden-import cv2 --hidden-import numpy --onefile mhxy_script.py
+# pyinstaller --onefile --noconsole mhxy_script.py
+# pyinstaller --onefile mhxy_script.py
 if __name__ == '__main__':
     root = Tk()
     root.title("mhxy_script")

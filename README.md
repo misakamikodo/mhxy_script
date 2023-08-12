@@ -8,17 +8,17 @@
 
 ### 关于二次开发：
 
-首先在mhxy->__init__.py中修改以下变量
+首先在mhxy->__init__.py中修改以下变量：
 
-originSize（打开桌面版后桌面版的像素大小，=frameSize实际值），
+* originSize（打开桌面版后桌面版的像素大小，=frameSize实际值），
 
-smallSize（使用game_process调整的小窗口像素大小，部分脚本使用小窗口）（以上两个通过game_process的控制台输出可以看到），
+* smallSize（使用 game_process.py 调整的小窗口像素大小，部分脚本使用小窗口）（以上两个通过game_process的控制台输出可以看到），
 
-resizeOffset（调整窗口大小时对右下角操作使用的偏移量，取能使用的值即可，应该不用改），
+* resizeOffset（调整窗口大小时对右下角操作使用的偏移量，取能使用的值即可，应该不用改），
 
-frameOriginSizeCm（为了方便编写，初始窗口像素大小换算的厘米值，这样可以在屏幕上通过尺子测距来调整坐标），
+* frameOriginSizeCm（为了方便编写，初始窗口像素大小换算的厘米值，这样可以在屏幕上通过尺子测距来调整坐标），
 
-pyautogui.moveTo和pyautogui.dragTo 中参数调整到适合自己的位置即可
+game_process.py 中执行情况调整到适合自己的位置即可
 
 其次可能需要修改替换资源目录中脚本的截图，最后改部分脚本中写死的厘米坐标。
 
@@ -40,8 +40,9 @@ pyinstaller --onefile --noconsole mhxy_script.py
 打包完后exe目录需要放置资源文件，并且exe也需要管理员权限。虽然打包能用，但是opencv无法支持，尝试使用了以下命令
 ```shell
 pyinstaller --hidden-import cv2 --hidden-import numpy --onefile --noconsole mhxy_script.py
+pyinstaller --paths="E:\Program Files\anaconda3\lib\site-packages\cv2" --onefile --noconsole mhxy_script.py
 ```
-依然不行，因此需要重新替换下截图
+依然不行，因此需要重新替换下截图。解决这个问题后再分享一个打包好的程序
 
 而且打包生成的exe文件有270多MB（已使用upx压缩），这对于一个小脚本来说还是太大了，不打算继续更新界面程序。
 

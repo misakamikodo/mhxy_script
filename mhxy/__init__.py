@@ -1,5 +1,6 @@
 import datetime
 import json
+import logging
 import threading
 import time
 
@@ -7,6 +8,14 @@ import playsound as pl
 import pyautogui
 import pyperclip
 from pygetwindow import PyGetWindowException, BaseWindow
+
+logger = logging.getLogger('mylogger')
+logger.setLevel(logging.DEBUG)
+# 创建一个处理器，用于写入日志文件
+fh = logging.FileHandler('mhxy_script.log')
+fh.setLevel(logging.DEBUG)
+# 添加到 logger 中
+logger.addHandler(fh)
 
 
 class Frame:
@@ -194,6 +203,7 @@ class Util:
             import cv2
         except ImportError:
             __openCVEnable = False
+        print("__openCVEnable:" + str(__openCVEnable))
         return __openCVEnable
 
     @staticmethod
