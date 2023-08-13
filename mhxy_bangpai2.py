@@ -7,7 +7,7 @@ from mhxy import *
 
 # 小窗口
 class Bangpai(MhxyScript):
-    chaseWin = [-3, 3.8 + 0]
+    chaseWin = [-1.5, 3.8 + 0]
     # 结束状态
     _rootList = []
 
