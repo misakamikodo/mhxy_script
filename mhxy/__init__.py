@@ -203,7 +203,6 @@ class Util:
             import cv2
         except ImportError:
             __openCVEnable = False
-        print("__openCVEnable:" + str(__openCVEnable))
         return __openCVEnable
 
     @staticmethod
