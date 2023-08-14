@@ -209,6 +209,10 @@ class Mine(MhxyScript):
         # 等待时间 点位信息
         count = 0
         while count < len(mineList):
+            nav_arrow = Util.locateCenterOnScreen(r'resources/mine/nav_arrow.png')
+            if nav_arrow is not None:
+                pyautogui.leftClick(nav_arrow.x, nav_arrow.y)
+                cooldown(0.5)
             for mine in mineList:
                 point = Util.locateCenterOnScreen(mine.pic,
                                                   confidence=0.96)
