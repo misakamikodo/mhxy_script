@@ -7,7 +7,7 @@ from mhxy import *
 
 # 小窗口
 class Bangpai(MhxyScript):
-    chaseWin = [-1.5, 3.8 + 0]
+    chaseWin = [-0.5, 3.8 + 0]
     # 结束状态
     _rootList = []
 
@@ -130,6 +130,7 @@ class Bangpai(MhxyScript):
 
 # 大窗口
 if __name__ == '__main__':
+    idx = 0 if len(sys.argv) <= 1 else int(sys.argv[1])
     pyautogui.PAUSE = 0.5
     print("start task....")
-    Bangpai(idx=0).do()
+    Bangpai(idx=idx).do()

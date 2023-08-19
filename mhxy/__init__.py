@@ -168,6 +168,10 @@ def doUtilFindPic(pic, do, warnTimes=None):
             naozhong.start()
     return locate, idx
 
+def waitUtilFindPic(pic):
+    def do():
+        cooldown(1)
+    doUtilFindPic(pic, do)
 
 # 副本式任务
 def doNormFubenMission():
