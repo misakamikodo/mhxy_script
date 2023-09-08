@@ -171,7 +171,7 @@ def doUtilFindPic(pic, do, warnTimes=None):
 def waitUtilFindPic(pic):
     def do():
         cooldown(1)
-    doUtilFindPic(pic, do)
+    return doUtilFindPic(pic, do)
 
 # 副本式任务
 def doNormFubenMission():
@@ -250,6 +250,11 @@ class Util:
     @staticmethod
     def click(x, y, clicks, buttons):
         pyautogui.click(winRelativeX(x), winRelativeY(y), clicks=clicks, button=buttons)
+
+    @staticmethod
+    def clickPic(pic):
+        locate, idx = waitUtilFindPic(pic)
+        pyautogui.leftClick(locate.x, locate.y)
 
     @staticmethod
     def write(text):

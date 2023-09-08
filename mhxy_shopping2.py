@@ -21,16 +21,10 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 57)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 25)
         # TODO
         self._timeList = [
-            (1, 24),
-            (1, 32),
-            (2, 39),
-            (3, 12),
-            (1, 31),
-            (2, 18),
-            (2, 18)
+            (3, 38),
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
@@ -67,7 +61,7 @@ class Shopping2:
         for time in self._datetimeList:
             # 三分钟开始刷新页面
             sj1 = now - datetime.timedelta(minutes=2)
-            sj2 = now + datetime.timedelta(minutes=1)
+            sj2 = now + datetime.timedelta(minutes=2)
             # 三分钟内
             if sj1 < time and sj2 > time:
                 return time

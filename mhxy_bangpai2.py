@@ -31,6 +31,18 @@ class Bangpai(MhxyScript):
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.2)
 
+        def shangchen(locate, chaseWin):
+            shangchen = Util.locateCenterOnScreen(r'resources/bangpai/small/shangchen.png') is not None
+            # 选择第二个商品（防止商品被买）
+            # 顺势上交
+            if shangchen:
+                Util.leftClick(-7, 8)
+                pyautogui.leftClick(locate.x, locate.y)
+                cooldown(2)
+                Util.leftClick(-5, -5)
+            else:
+                clickFunc(locate, chaseWin)
+
         def battleFunc(locate, chaseWin):
             while Util.locateCenterOnScreen(r'resources/small/enter_battle_flag.png') is not None:
                 cooldown(1)
@@ -50,7 +62,7 @@ class Bangpai(MhxyScript):
         # 三级药烹饪wupin任务 *购买->总管->上交 二级药wupin2任务 *购买->总管
         shangjiao = PicNode(r'resources/bangpai/small/shangjiao.png')
         fanwen.next.append(shangjiao)
-        wupin = PicNode(r'resources/bangpai/small/wupin.png', completeFunc=clickFunc)
+        wupin = PicNode(r'resources/bangpai/small/wupin.png', completeFunc=shangchen)
         # 可能购买失败，所以还是
         wupin.setNext([fanwen])
         wupin2 = PicNode(r'resources/bangpai/small/wupin2.png', completeFunc=clickFunc)
@@ -98,7 +110,7 @@ class Bangpai(MhxyScript):
                 time += 1
                 cooldown(0.5)
                 idx, locate = self._findPic(nodePointer)
-                if time >= 5 and locate is None:
+                if time >= 5 and locate is None and time % 4 == 0:
                     # 没法判断特征图片的任务都能通过不断点击追踪完成（因为挂机刷怪会停止没发判断，先这么搞）
                     Util.leftClick(self.chaseWin[0], self.chaseWin[1])
             findPicNode = nodePointer[idx]

@@ -35,6 +35,8 @@ class Fuben(MhxyScript):
             self.fubenPos = [self.fubenPos[2], self.fubenPos[3], self.fubenPos[4]]
         elif type == 2:
             self.fubenPos = [self.fubenPos[3], self.fubenPos[4]]
+        elif type == 1:
+            self.fubenPos = [self.fubenPos[1], self.fubenPos[3], self.fubenPos[4]]
 
 
         type = float(conn.get('main', 'type'))
