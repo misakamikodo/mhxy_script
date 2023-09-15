@@ -54,14 +54,12 @@ pyinstaller --paths="E:\Program Files\anaconda3\lib\site-packages\cv2" --onefile
 * mhxy_bangpai2 帮派任务(小窗口)
 * mhxy_fuben 日常副本任务
 * mhxy_ghost 抓鬼
-* mhxy_ghost_withshop 抓鬼+收碎片(可改收其他非珍品)
 * mhxy_menpai 周一门派
 * mhxy_haidi 周三海底
 * mhxy_mihunta 周五迷魂塔
 * mhxy_auto_battle 自动战斗工具 可用于混“28怒”、玲珑石等任务挂机
 * mhxy_hanhua 喊话工具
 * mhxy_mine 挖矿
-* mhxy_mine_withshop 挖矿+收碎片(可改收其他非珍品)
 * mhxy_remote_control 远程控制模块 例如接收指令执行520(可改其他程序)
 * mhxy_remote_client 用于对接 mhxy_shoopping2 和 mhxy_remote_control 的工具
 * mhxy_shopping 蹲非珍品
