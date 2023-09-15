@@ -18,6 +18,7 @@ class Ghost(MhxyScript):
     # 自动领双数
     _doublePointNumPer100 = -1
     warnMinute = 25
+    _battleTimeTick = datetime.datetime.now()
 
     def __init__(self, idx=0, changWinPos=True) -> None:
         conn = ConfigParser()
@@ -49,7 +50,6 @@ class Ghost(MhxyScript):
 
     def _chaseWinFix(self):
         fix = 2 * self.chasepos
-        print("chasepos:", fix / 2)
         return fix
 
     def getDialog(self):
@@ -136,6 +136,16 @@ class Ghost(MhxyScript):
             return Util.locateCenterOnScreen('resources/ghost/start_ghost0.png')
 
         while self._flag:
+            # 战斗标识
+            battleLoc = Util.locateOnScreen('resources/small/enter_battle_flag.png')
+            if battleLoc is not None:
+                self._battleTimeTick = datetime.datetime.now()
+
+            # 上次战斗结束时间相差2分钟
+            if (datetime.datetime.now() - self._battleTimeTick).seconds > 60 * 2:
+                Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+                cooldown(10)
+
             # 是否继续捉鬼弹窗 虽然使用确定即可，但是截图截得长了，所以locateOnScreen获取相对截图右下点的位置
             completeLocation = Util.locateOnScreen('resources/ghost/complete_ghost0.png')
             startLocation = None
@@ -163,7 +173,7 @@ class Ghost(MhxyScript):
                     self._startGhostDo()
                 if self._count % 25 == 0:
                     print("完成一千双")
-                    # pl.playsound('resources/common/music.mp3')
+                    pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
