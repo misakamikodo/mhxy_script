@@ -3,7 +3,7 @@ import socket
 from mhxy import *
 
 
-# 收纹饰 宝宝胚子
+# 收宝宝胚子
 class Shopping2:
     # 购买总商品数
     _startTime = None
