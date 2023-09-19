@@ -1,11 +1,11 @@
 from mhxy_fuben import *
-from mhxy_ghost_withshop import *
+from mhxy_ghost import *
 
 # 晚上挂机
 if __name__ == '__main__':
     try:
         print("start task....")
-        fuben = Fuben(idx=0)
+        fuben = Fuben(idx=1)
         fuben.fubenPos = [
             # ("xiashi", 13, 15),
             ("xiashi", 7, 15),
@@ -16,9 +16,9 @@ if __name__ == '__main__':
         ]
         fuben.do()
 
-        ghost = Ghost(idx=0)
-        ghost.maxRound = 55
-        ghost.chasepos = 1
+        ghost = Ghost(idx=1)
+        ghost.maxRound = 5
+        ghost.chasepos = 1.85
         ghost.go()
         ghost.do()
         # pl.playsound('resources/common/music.mp3')

@@ -117,15 +117,17 @@ class Ghost(MhxyScript):
         cooldown(1)
         tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
         i = 0
-        while tag is None and i in range(0, 2):
+        while tag is None and i in range(0, 1):
             pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
             pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-            cooldown(1.5)
+            cooldown(2)
             tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
             i += 1
         if tag is not None:
             cooldown(1)
             pyautogui.leftClick(tag.x + relativeX2Act(3.5), tag.y + relativeY2Act(0.2))
+        else:
+            pl.playsound('resources/common/music.mp3')
 
     def _startGhostDo(self):
         cooldown(5 * 60)
@@ -173,7 +175,7 @@ class Ghost(MhxyScript):
                     self._startGhostDo()
                 if self._count % 25 == 0:
                     print("完成一千双")
-                    pl.playsound('resources/common/music.mp3')
+                    # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())

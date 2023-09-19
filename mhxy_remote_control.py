@@ -1,7 +1,7 @@
 import socket
 
 from mhxy_fuben import *
-from mhxy_ghost_withshop import *
+from mhxy_ghost import *
 
 _520Thread = None
 
