@@ -95,7 +95,7 @@ class Fuben(MhxyScript):
             while lastFuben is None and i in range(0, 2):
                 pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
                 pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-                cooldown(1.5)
+                cooldown(2)
                 lastFuben = Util.locateCenterOnScreen(self.config['lastFuben'])
                 i += 1
             if lastFuben is not None:
@@ -113,6 +113,8 @@ class Fuben(MhxyScript):
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
                 self._fubenIdx += 1
                 print("下一个副本" + str(self._fubenIdx))
+            else:
+                pl.playsound('resources/common/music.mp3')
         return True
 
     def loginIn(self):
