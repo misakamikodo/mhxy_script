@@ -163,6 +163,7 @@ class Ghost(MhxyScript):
                 startLocation = initStartLocation()
                 print("结束抓鬼 ", completeLocation)
             if startLocation is not None:
+                cooldown(0.5)
                 self._count += 1
                 print("已完成抓鬼" + str(self._count) + "轮数")
                 if self._count > self.maxRound:
