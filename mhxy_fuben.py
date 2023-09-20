@@ -37,9 +37,6 @@ class Fuben(MhxyScript):
             self.fubenPos = [self.fubenPos[3], self.fubenPos[4]]
         elif type == 1:
             self.fubenPos = [self.fubenPos[1], self.fubenPos[3], self.fubenPos[4]]
-
-
-        type = float(conn.get('main', 'type'))
     def _changan(self):
         return Util.locateCenterOnScreen(r'resources/fuben/activity.png')
 
@@ -101,8 +98,8 @@ class Fuben(MhxyScript):
             if lastFuben is not None:
                 cooldown(1)
                 pyautogui.leftClick(lastFuben.x + relativeX2Act(3), lastFuben.y + relativeY2Act(0.2))
-                cooldown(5)
-                se = Util.locateCenterOnScreen(r'resources/fuben/selectfuben.png')
+                se, idx = waitUtilFindPic(r'resources/fuben/selectfuben.png')
+                cooldown(0.3)
                 #  11
                 pyautogui.leftClick(se.x, se.y)
                 cooldown(2)

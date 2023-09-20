@@ -162,14 +162,14 @@ def doUtilFindPic(pic, do, warnTimes=None):
         locate, idx = find()
         times+=1
         cooldown(1)
-        if warnTimes is not None and times>warnTimes:
+        if warnTimes is not None and times > warnTimes:
             naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
             # 闹钟提醒
             naozhong.start()
     return locate, idx
 
 def waitUtilFindPic(pic):
-    def do():
+    def do(locate, idx, times):
         cooldown(1)
     return doUtilFindPic(pic, do)
 
