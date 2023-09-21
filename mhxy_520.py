@@ -5,19 +5,19 @@ from mhxy_ghost import *
 if __name__ == '__main__':
     try:
         print("start task....")
-        fuben = Fuben(idx=1)
+        fuben = Fuben(idx=0)
         fuben.fubenPos = [
             # ("xiashi", 13, 15),
-            ("xiashi", 7, 15),
+            # ("xiashi", 7, 15),
 
-            ("norm", 19, 15),
-            ("norm", 13, 15),
-            ("norm", 7, 15)
+            # ("norm", 19, 15),
+            # ("norm", 13, 15),
+            # ("norm", 7, 15)
         ]
         fuben.do()
 
-        ghost = Ghost(idx=1)
-        ghost.maxRound = 5
+        ghost = Ghost(idx=0)
+        ghost.maxRound = 25
         ghost.chasepos = 1.85
         ghost.go()
         ghost.do()

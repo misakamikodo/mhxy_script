@@ -92,6 +92,7 @@ class Ghost(MhxyScript):
         if five is not None:
             # 按取消
             pyautogui.leftClick(five.left + five.width - 120, five.top + five.height - 20)
+            cooldown(1)
         # 校验双倍 self.__count % 25 == 0
         if self._count % 25 == 0 and self._doublePointNumPer100 != -1:
             Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
@@ -126,6 +127,7 @@ class Ghost(MhxyScript):
         if tag is not None:
             cooldown(1)
             pyautogui.leftClick(tag.x + relativeX2Act(3.5), tag.y + relativeY2Act(0.2))
+            waitUtilFindPic('resources/ghost/start_ghost0.png')
         else:
             pl.playsound('resources/common/music.mp3')
 
