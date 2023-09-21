@@ -18,7 +18,7 @@ class Ghost(MhxyScript):
     # 自动领双数
     _doublePointNumPer100 = -1
     warnMinute = 25
-    _battleTimeTick = datetime.datetime.now()
+    _battleTimeTick = None
 
     def __init__(self, idx=0, changWinPos=True) -> None:
         conn = ConfigParser()
@@ -146,7 +146,7 @@ class Ghost(MhxyScript):
                 self._battleTimeTick = datetime.datetime.now()
 
             # 上次战斗结束时间相差2分钟
-            if (datetime.datetime.now() - self._battleTimeTick).seconds > 60 * 2:
+            if self._battleTimeTick is not None and (datetime.datetime.now() - self._battleTimeTick).seconds > 60 * 2:
                 Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
                 cooldown(10)
 
