@@ -35,12 +35,10 @@ class Bangpai(MhxyScript):
             cooldown(1)
             shangchen = Util.locateCenterOnScreen(r'resources/bangpai/small/shangchen.png') is not None
             # 选择第二个商品（防止商品被买）
-            # 顺势上交
             if shangchen:
                 Util.leftClick(17, 7)
+                cooldown(0.3)
                 pyautogui.leftClick(locate.x, locate.y)
-                cooldown(2)
-                Util.leftClick(-5, -5)
             else:
                 clickFunc(locate, chaseWin)
 
