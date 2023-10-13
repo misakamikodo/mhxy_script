@@ -21,10 +21,17 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 25)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 8, 28)
         # TODO
         self._timeList = [
-            (3, 38),
+            (0, 58),
+            (0, 51),
+            (3, 21),
+            (0, 11),
+            (1, 10),
+            (0, 40),
+            (1, 31),
+            (3, 47),
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
@@ -49,7 +56,7 @@ class Shopping2:
         pyautogui.leftClick(leftTab[0], leftTab[1])
 
     def _buy(self):
-        buyTab = (frame.right - relativeX2Act(5), frame.bottom - relativeY2Act(3))
+        buyTab = (frame.right - relativeX2Act(7.2), frame.bottom - relativeY2Act(3.5))
         pyautogui.leftClick(buyTab[0], buyTab[1])
         # confirmTab = (frame.left + relativeX2Act(13.5), frame.top + relativeY2Act(8.5))
         confirmTab = (frame.left + relativeX2Act(8), frame.top + relativeY2Act(14))
@@ -73,7 +80,7 @@ class Shopping2:
         with socket.socket(socket.AF_INET,
                            socket.SOCK_STREAM) as s:  # AF_INET表示socket网络层使用IP协议，SOCK_STREAM表示socket传输层使用tcp协议
             # 绑定服务器地址和端口
-            s.bind(("0.0.0.0", 7368))
+            s.bind(("0.0.0.0", 7365))
             # 启动服务监听
             s.listen(10)
             print('等待用户接入……')
@@ -126,8 +133,6 @@ class Shopping2:
                 print(self.__mostOldTime)
                 self._flag = False
                 break
-                # cooldown(30)
-                # continue
             # 被挤掉线
             # if Util.locateCenterOnScreen(r'resources/origin/offline.png') is not None:
             #     break
@@ -159,13 +164,13 @@ class Shopping2:
                         # 会只删除第一个出现的
                         self._datetimeList.remove(time)
                     self._count += 1
-                cooldown(2)
+                cooldown(1.3)
                 time = self._timeApproach()
             cooldown(30)
 
 
 if __name__ == '__main__':
-    pyautogui.PAUSE = 0.2
+    pyautogui.PAUSE = 0.1
     print("start task....")
     init()
     Shopping2().shopping2()
