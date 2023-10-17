@@ -80,7 +80,7 @@ class Shopping2:
         with socket.socket(socket.AF_INET,
                            socket.SOCK_STREAM) as s:  # AF_INET表示socket网络层使用IP协议，SOCK_STREAM表示socket传输层使用tcp协议
             # 绑定服务器地址和端口
-            s.bind(("0.0.0.0", 7365))
+            s.bind(("0.0.0.0", 7367))
             # 启动服务监听
             s.listen(10)
             print('等待用户接入……')
@@ -128,7 +128,7 @@ class Shopping2:
         threading.Thread(target=self.__tcpServer, daemon=True).start()
 
         while self._flag:
-            if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime:
+            if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime + datetime.timedelta(minutes=2):
                 print("全部过期")
                 print(self.__mostOldTime)
                 self._flag = False

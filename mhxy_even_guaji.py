@@ -17,7 +17,6 @@ if __name__ == '__main__':
         # 2
         print("抢公示")
         shopping = Shopping2()
-        shopping.openSop()
         shopping.shopping2()
         shopping.close()
 

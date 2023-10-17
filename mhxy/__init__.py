@@ -104,6 +104,10 @@ def closeMission():
     # print("关闭任务侧边栏")
     # pyautogui.hotkey('alt', 'p')
 
+# 开启战斗后进行操作
+def enterBattleDo(do, notBattlingPic=r'resources/origin/activity.png'):
+    escapeBattleDo(None, notBattlingPic = notBattlingPic, battleingPic=None, battleDoFunc=do)
+
 # 结束战斗后进行操作
 def escapeBattleDo(do,
                    notBattlingPic=None,
@@ -172,6 +176,10 @@ def waitUtilFindPic(pic):
     def do(locate, idx, times):
         cooldown(1)
     return doUtilFindPic(pic, do)
+
+def waitThenClickUtilFindPic(pic):
+    locate, idx = waitUtilFindPic(pic)
+    pyautogui.leftClick(locate.x, locate.y)
 
 # 副本式任务
 def doNormFubenMission():
