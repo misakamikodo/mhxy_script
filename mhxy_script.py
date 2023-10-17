@@ -8,6 +8,7 @@ from mhxy_haidi import *
 from mhxy_menpai import *
 from mhxy_mihunta import *
 from mhxy_mine import *
+from mhxy_baotu import *
 
 _backgroundThread = None
 _curScript = None
@@ -103,13 +104,19 @@ def packBangpai():
     bangpaiBtn = myButton(root, text='帮派任务', width=8, command=change2bangpai)
     bangpaiBtn.place(x=130, y=140, anchor=NW)
 
+def packBaotu():
+    def change2Baotu():
+        changeThread(Baotu(changWinPos=_changWinPos))
+
+    mineBtn = myButton(root, text='一键挖宝图', width=8, command=change2Baotu)
+    mineBtn.place(x=40, y=230, anchor=NW)
 
 def packMine():
     def change2Mine():
         changeThread(Mine(changWinPos=_changWinPos))
 
     mineBtn = myButton(root, text='挖矿', width=8, command=change2Mine)
-    mineBtn.place(x=90, y=230, anchor=NW)
+    mineBtn.place(x=130, y=230, anchor=NW)
 
 # 界面程序 此部分封装了参数没有大量写死的程序 opencv 死活打包不进去
 # pyinstaller --onefile --noconsole mhxy_script.py
@@ -144,6 +151,9 @@ if __name__ == '__main__':
 
     originWinBtn = myButton(root, text='初始化为原始窗口', width=12, command=gameProcess.moveZhuomianban2Origin)
     originWinBtn.place(x=80, y=180, anchor=NW)
+
+    # 一键挖宝图
+    packBaotu()
 
     # 挖矿
     packMine()
