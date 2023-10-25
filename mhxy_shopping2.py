@@ -21,17 +21,16 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 8, 28)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 47)
         # TODO
         self._timeList = [
-            (0, 58),
-            (0, 51),
-            (3, 21),
-            (0, 11),
-            (1, 10),
             (0, 40),
-            (1, 31),
-            (3, 47),
+            (1, 30),
+            (0, 28),
+            (0, 34),
+            (1, 1),
+            (3, 34),
+            (3, 34),
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
@@ -128,7 +127,7 @@ class Shopping2:
         threading.Thread(target=self.__tcpServer, daemon=True).start()
 
         while self._flag:
-            if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime + datetime.timedelta(minutes=2):
+            if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime + datetime.timedelta(minutes=3):
                 print("全部过期")
                 print(self.__mostOldTime)
                 self._flag = False
@@ -161,6 +160,8 @@ class Shopping2:
                     else:
                         cooldown(5)
                         self._refresh()
+                        if Util.locateCenterOnScreen(r'resources/shop/empty_follow.png') is None:
+                            pl.playsound('resources/common/music.mp3')
                         # 会只删除第一个出现的
                         self._datetimeList.remove(time)
                     self._count += 1

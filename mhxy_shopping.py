@@ -8,7 +8,7 @@ class Shopping:
     _cooldown = 10
     categoryPos = winRelativeXY(5, 8.5)
     # meigui suipian jifenquan
-    __mode = 'suipian'
+    __mode = 'baoshichui'
 
     def __init__(self) -> None:
         init()
@@ -17,6 +17,10 @@ class Shopping:
 
     def _refresh(self):
         pyautogui.leftClick(self.categoryPos[0], self.categoryPos[1])
+        itemTab = self.getItemPos()
+        pyautogui.leftClick(itemTab[0], itemTab[1])
+
+    def getItemPos(self):
         itemTab = ()
         if self.__mode == "suipian":
             itemTab = winRelativeXY(11, 9)
@@ -24,7 +28,9 @@ class Shopping:
             itemTab = winRelativeXY(11, 9 + 2.4)
         elif self.__mode == "jifenquan":
             itemTab = winRelativeXY(11, 13)
-        pyautogui.leftClick(itemTab[0], itemTab[1])
+        elif self.__mode == "baoshichui":
+            itemTab = winRelativeXY(20, 12)
+        return itemTab
 
     def _multiSelect(self):
         inputTab = winRelativeXY(15, 13.5)
@@ -36,7 +42,7 @@ class Shopping:
         buyTab = winRelativeXY(24, 18.5)
         pyautogui.leftClick(buyTab[0], buyTab[1])
         # 如果是多数量的尝试选择最大数量,否则注释
-        if self.__mode in ["suipian", "jifenquan"]:
+        if self.__mode in ["suipian", "jifenquan", "baoshichui"]:
             self._multiSelect()
 
         # buy2Tab = winRelativeXY(18.5, 5)
@@ -88,15 +94,18 @@ class Shopping:
         cooldown(3)
         Util.leftClick(1, 6)
         cooldown(0.3)
-        for i in range(0, 3):
+        for i in range(0, 2):
             pyautogui.moveTo(winRelativeX(5), winRelativeY(17))
-            pyautogui.dragTo(winRelativeX(5), winRelativeY(9), duration=1)
+            pyautogui.dragTo(winRelativeX(5), winRelativeY(7), duration=1)
             cooldown(0.3)
         fabao = Util.locateCenterOnScreen("resources/shop/category.png")
         if fabao is not None:
             pyautogui.leftClick(fabao.x, fabao.y)
             cooldown(0.1)
-            Util.leftClick(11, 9)
+
+            itemTab = self.getItemPos()
+            pyautogui.leftClick(itemTab[0], itemTab[1])
+
             cooldown(0.2)
             self.categoryPos = (fabao.x, fabao.y)
         cooldown(3)

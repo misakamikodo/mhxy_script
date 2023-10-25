@@ -65,7 +65,7 @@ class Fuben(MhxyScript):
             changanPos = self._changan()
             while changanPos is None:
                 # 找不到头像则正在对话点击头像位置跳过 直到找到头像位置
-                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip, warnTimes=10)
+                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip, warnTimes=30)
                 changanPos = self._changan()
                 cooldown(2)
 
@@ -111,6 +111,7 @@ class Fuben(MhxyScript):
                 self._fubenIdx += 1
                 print("下一个副本" + str(self._fubenIdx))
             else:
+                pass
                 pl.playsound('resources/common/music.mp3')
         return True
 

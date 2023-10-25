@@ -2,13 +2,13 @@ from tkinter import *
 
 from game_process import *
 from mhxy_bangpai2 import *
+from mhxy_baotu import *
 from mhxy_fuben import *
 from mhxy_ghost import *
 from mhxy_haidi import *
 from mhxy_menpai import *
 from mhxy_mihunta import *
 from mhxy_mine import *
-from mhxy_baotu import *
 
 _backgroundThread = None
 _curScript = None
