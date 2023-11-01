@@ -6,13 +6,14 @@ class Shopping:
     hour = 99
     _lastBuyTime = None
     _cooldown = 10
-    categoryPos = winRelativeXY(5, 8.5)
+    categoryPos = None
     # meigui suipian jifenquan
     __mode = 'baoshichui'
 
     def __init__(self) -> None:
         init()
         self._lastBuyTime = datetime.datetime.now().timestamp()
+        self.categoryPos = winRelativeXY(5, 8.5)
         super().__init__()
 
     def _refresh(self):
@@ -52,7 +53,7 @@ class Shopping:
     def do(self):
         # 一次刷新购买的次数
         buyCount = 0
-        while self.mark and Util.locateCenterOnScreen(r'resources/shop/shop_item.png') is not None:
+        while self.mark or  Util.locateCenterOnScreen(r'resources/shop/shop_item.png') is not None:
             # 找三次是否有有廉价商品 r'resources/shop/item600.png',r'resources/shop/suipian.png',r'resources/shop/meigui.png',
             itemPic = [r'resources/shop/' + self.__mode + '.png']
             # itemPic = [r'resources/shop/suipian.png']
@@ -72,7 +73,7 @@ class Shopping:
             else:
                 # 如果有则购买
                 pyautogui.leftClick(point.x, point.y)
-                self._cooldown = 10
+                self._cooldown = 8
                 self._buy()
                 buyCount += 1
                 if buyCount >= 50:
