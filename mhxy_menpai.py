@@ -57,6 +57,7 @@ class Menpai(MhxyScript):
                     Util.leftClick(self.chaseWin[0], self.chaseWin[1])
                     times = 0
 
+            cooldown(0.5)
             if reachPos is not None:
                 pyautogui.leftClick(reachPos.x, reachPos.y)
             elif startPos is not None:
@@ -69,7 +70,7 @@ class Menpai(MhxyScript):
                     cooldown(0.5)
                 pyautogui.leftClick(reachPos.x, reachPos.y)
 
-        cooldown(2)
+        cooldown(1)
         startPos = start_pos()
         if startPos is not None:
             self.take_mission(startPos)
