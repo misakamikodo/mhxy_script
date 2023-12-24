@@ -7,7 +7,7 @@ from mhxy import *
 
 class Fuben(MhxyScript):
     # 暂时没用，请忽视
-    xiashi_fix = 5.6 + 0
+    xiashi_fix = 5.6 + 2
     _fubenIdx = 0
     fubenPos = [
         ("xiashi", 13, 15),
@@ -52,6 +52,9 @@ class Fuben(MhxyScript):
             elif Util.locateCenterOnScreen(r'resources/fuben/skipJuqing.png') is not None:
                 # 跳过剧情动画
                 Util.leftClick(-3, 7)
+            elif Util.locateCenterOnScreen(r'resources/fuben/juqingskip_new.png') is not None:
+                # 新版本阅读剧情
+               Util.leftClick(-1.5, 7)
             elif Util.locateCenterOnScreen(r'resources/small/blood.png') is None:
                 # 阅读剧情
                 Util.leftClick(-3, 1.8)
@@ -74,13 +77,13 @@ class Fuben(MhxyScript):
 
         if self._fubenIdx >= len(self.fubenPos):
             return False
-        # elif self.fubenPos[self._fubenIdx][0] == "xiashi":
-        #     # 已领取的侠士任务所在坐标
-        #     Util.leftClick(-3, self.xiashi_fix)
-        #     cooldown(2.0)
-        #     Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
-        #     self._fubenIdx += 1
-        #     print("下一个副本" + str(print("下一个副本" + str())))
+        #elif self.fubenPos[self._fubenIdx][0] == "xiashi":
+        #    # 已领取的侠士任务所在坐标
+        #    Util.leftClick(-3, self.xiashi_fix)
+        #    cooldown(2.0)
+        #    Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
+        #    self._fubenIdx += 1
+        #    print("下一个副本" + str(print("下一个副本" + str())))
         else:
             cooldown(1)
             Util.leftClick(7.5, 1.5)
