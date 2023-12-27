@@ -54,7 +54,7 @@ class Fuben(MhxyScript):
                 Util.leftClick(-3, 7)
             elif Util.locateCenterOnScreen(r'resources/fuben/juqingskip_new.png') is not None:
                 # 新版本阅读剧情
-               Util.leftClick(-1.5, 7)
+               Util.leftClick(-1.5, 1.8)
             elif Util.locateCenterOnScreen(r'resources/small/blood.png') is None:
                 # 阅读剧情
                 Util.leftClick(-3, 1.8)
