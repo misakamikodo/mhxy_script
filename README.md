@@ -27,7 +27,7 @@ game_process.py 中执行情况调整到适合自己的位置即可
 使用时如捉鬼、副本等大部分脚本需要先使用game_process.py调整为小窗口或者resizeToSmall设置为True再运行，其他如挖矿、收商品则使用的原始窗口。
 具体的请到resources目录下对应脚本资源文件下有使用说明。
 
-运行的时候需要给.py文件或者ide赋予管理员权限，要不然程序窗口失去焦点后就无法操作控制鼠标。
+运行的时候需要给.py文件或者ide赋予管理员权限，要不然程序窗口（编辑器）失去焦点后就无法操作控制鼠标。
 
 PS:电脑配置可以的推荐搞个虚拟机运行，这样不仅可以自定义分辨率（调到和我一样就不用二次开发了）而且虚拟机后台运行不会占用电脑。
 
@@ -61,7 +61,7 @@ pyinstaller --paths="E:\Program Files\anaconda3\lib\site-packages\cv2" --onefile
 * mhxy_hanhua 喊话工具
 * mhxy_mine 挖矿
 * mhxy_remote_control 远程控制模块 例如接收指令执行520(可改其他程序)
-* mhxy_remote_client 用于对接 mhxy_shoopping2 和 mhxy_remote_control 的工具
+* mhxy_remote_client 用于对接 mhxy_shopping2 和 mhxy_remote_control 的工具
 * mhxy_shopping 蹲非珍品
 * mhxy_shopping2 蹲珍品
 * mhxy_shopping3 截胡珍品
