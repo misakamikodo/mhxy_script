@@ -213,6 +213,10 @@ class Mine(MhxyScript):
             if nav_arrow is not None:
                 pyautogui.leftClick(nav_arrow.x, nav_arrow.y)
                 cooldown(0.5)
+            shop = Util.locateCenterOnScreen(r'resources/mine/shop.png', confidence=0.95)
+            if shop is None:
+                pl.playsound('resources/common/music.mp3')
+                return
             for mine in mineList:
                 point = Util.locateCenterOnScreen(mine.pic,
                                                   confidence=0.96)
