@@ -136,10 +136,16 @@ class Mine(MhxyScript):
             -9, 10.5, map="huaguo", cooldown=4
         ),
         _NormStandPoint(
-            12.5, 9, cooldown=5
+            14, 7, cooldown=5
         ),
         _NormStandPoint(
-            18.5, -5.5, cooldown=9
+            11.5, 6.5, cooldown=4
+        ),
+        _NormStandPoint(
+            12.5, 11, cooldown=5
+        ),
+        _NormStandPoint(
+            18.5, -5.5, cooldown=7
         ),
         _NormStandPoint(
             10, -5, cooldown=7
@@ -209,10 +215,12 @@ class Mine(MhxyScript):
         # 等待时间 点位信息
         count = 0
         while count < len(mineList):
+            # 误点到聊天框
             nav_arrow = Util.locateCenterOnScreen(r'resources/mine/nav_arrow.png')
             if nav_arrow is not None:
                 pyautogui.leftClick(nav_arrow.x, nav_arrow.y)
                 cooldown(0.5)
+            # 判断是否出现遮挡物
             shop = Util.locateCenterOnScreen(r'resources/mine/shop.png', confidence=0.95)
             if shop is None:
                 pl.playsound('resources/common/music.mp3')
@@ -223,10 +231,18 @@ class Mine(MhxyScript):
                 if point is not None:
                     print("发现矿：", mine.pic)
                     p = (mine.wait, point.x, point.y)
+                    # 侧边和顶部的忽略防止触误
+                    px = point.x - frame.left
+                    py = point.y - frame.top
+                    if py <= relativeY2Act(3.5) or \
+                            (px < relativeX2Act(4.4) and py < relativeY2Act(7)) or \
+                            (px < relativeX2Act(2) and py > relativeY2Act(15)) or \
+                            (px < relativeX2Act(12) and py > relativeY2Act(19)) or \
+                            (px > relativeX2Act(26.3) and py > relativeY2Act(18)):
+                        print("忽略", px, py)
+                        continue
                     # 点击矿
                     pyautogui.leftClick(point.x, point.y - mine.offsetY)  # -20 采集
-                    if point.y <= frame.top + relativeY2Act(3.5):
-                        continue
                     res = waitMoveOk()
                     # 出现采矿按钮并且点位不会碰到地图
                     if res:
