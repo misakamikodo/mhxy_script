@@ -67,6 +67,7 @@ class _FstStandPoint(_StandPoint):
 
     def move2Point(self):
         # self.newDayCloseDiag()
+        shuangzhineihua()
         # 打开大地图
         posBigMap = (frame.left + relativeX2Act(1),
                      frame.top + relativeY2Act(2))
@@ -93,9 +94,23 @@ class _FstStandPoint(_StandPoint):
         pyautogui.leftClick(posMove[0],
                             posMove[1])
         MineUtil.closeSmallMap(self.map)
-        closeMission()
+        # closeMission()
+        shuangzhiwaihua()
         cooldown(self.cooldown)
 
+# 双指外划
+def shuangzhiwaihua():
+    while Util.locateCenterOnScreen(r'resources/mine/shop.png') is None:
+        # print("shuangzhiwaihua")
+        pyautogui.hotkey('alt', 'p')
+        cooldown(1)
+
+# 双指内划
+def shuangzhineihua():
+    while Util.locateCenterOnScreen(r'resources/mine/shop.png') is not None:
+        # print("shuangzhineihua")
+        pyautogui.hotkey('alt', 'p')
+        cooldown(1)
 
 class _NormStandPoint(_StandPoint):
     # 相对小地图的位置
@@ -114,6 +129,7 @@ class _NormStandPoint(_StandPoint):
             self.mineList = mineList
 
     def move2Point(self):
+        shuangzhineihua()
         # 打开小地图
         posSmallMap = (frame.left + relativeX2Act(3.5),
                        frame.top + relativeY2Act(2))
@@ -124,6 +140,7 @@ class _NormStandPoint(_StandPoint):
         pyautogui.leftClick(posMove[0],
                             posMove[1])
         MineUtil.closeSmallMap(self.map)
+        shuangzhiwaihua()
         cooldown(self.cooldown)
 
 
@@ -232,15 +249,15 @@ class Mine(MhxyScript):
                     print("发现矿：", mine.pic)
                     p = (mine.wait, point.x, point.y)
                     # 侧边和顶部的忽略防止触误
-                    px = point.x - frame.left
-                    py = point.y - frame.top
-                    if py <= relativeY2Act(3.5) or \
-                            (px < relativeX2Act(4.4) and py < relativeY2Act(7)) or \
-                            (px < relativeX2Act(2) and py > relativeY2Act(15)) or \
-                            (px < relativeX2Act(12) and py > relativeY2Act(19)) or \
-                            (px > relativeX2Act(26.3) and py > relativeY2Act(18)):
-                        print("忽略", px, py)
-                        continue
+                    # px = point.x - frame.left
+                    # py = point.y - frame.top
+                    # if py <= relativeY2Act(3.5) or \
+                    #         (px < relativeX2Act(4.4) and py < relativeY2Act(7)) or \
+                    #         (px < relativeX2Act(2) and py > relativeY2Act(15)) or \
+                    #         (px < relativeX2Act(12) and py > relativeY2Act(19)) or \
+                    #         (px > relativeX2Act(26.3) and py > relativeY2Act(18)):
+                    #     print("忽略", px, py)
+                    #     continue
                     # 点击矿
                     pyautogui.leftClick(point.x, point.y - mine.offsetY)  # -20 采集
                     res = waitMoveOk()
@@ -254,6 +271,7 @@ class Mine(MhxyScript):
                         yanzhen = Util.locateCenterOnScreen(r'resources/mine/yanzhen.png')
                         if yanzhen is not None:
                             # 挖到验证码停止，然后等10秒手动验证（大概两轮就出，所以没选择报警）
+                            print("出现验证码", datetime.datetime.now())
                             self._flag = False
                             cooldown(10)
                             return
