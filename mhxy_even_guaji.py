@@ -1,10 +1,13 @@
 from mhxy_ghost import *
 from mhxy_mine import *
+from mhxy_shopping import *
 from mhxy_shopping2 import *
 
-# 晚上挂机
+# 挖矿、抢公示
 if __name__ == '__main__':
+    # os.chdir(r"/")
     try:
+        pyautogui.PAUSE = 0.2
         print("start task....")
         # cf = CheckFuben()
 
@@ -13,16 +16,26 @@ if __name__ == '__main__':
         # cf.main()
         # while datetime.datetime.now().hour <= 2:
         #     cooldown(60)
-
         # 2
-        print("抢公示")
-        shopping = Shopping2()
-        shopping.shopping2()
-        shopping.close()
+        # print("抢公示")
+        # shopping = Shopping2()
+        # shopping.openSop()
+        # shopping.shopping2()
+        # shopping.close()
+
+        print("挖矿")
+        mine = Mine(idx=0)
+        mine.do()
+
+        # 1
+        print("收非珍品")
+        shopping = Shopping()
+        shopping.hour = 7
+        shopping.openShop()
+        shopping.do()
 
         # 3
-        print("挖矿")
-        mine = Mine()
+        mine = Mine(idx=1)
         mine.do()
 
         # 2
@@ -49,21 +62,10 @@ if __name__ == '__main__':
         # mine = MineWithShop()
         # mine.mineMain()
 
-        # 1
-        # print("收非珍品")
-        # shopping = Shopping()
-        # shopping.hour = 7
-        # shopping.openShop()
-        # shopping.do()
-
-        # print("挖矿2")
-        # mine = Mine(idx=1)
-        # mine.mineMain()
-
         print("关机")
         # shopping.close()
         # if datetime.datetime.now().hour != 7:
-        # pl.playsound('resources/common/music.mp3')
+        #     pl.playsound('resources/common/music.mp3')
         # os.system("shutdown -s")
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

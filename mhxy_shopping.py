@@ -79,8 +79,7 @@ class Shopping:
                 if buyCount >= 50:
                     self.mark = False
                     break
-                noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
-                                                   region=(frame.left, frame.top, frame.right, frame.bottom))
+                noMoney = Util.locateOnScreen(r'resources/shop/no_money.png')
                 if noMoney is not None:
                     break
                 self._lastBuyTime = datetime.datetime.now().timestamp()

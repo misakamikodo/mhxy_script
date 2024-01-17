@@ -8,6 +8,8 @@ class Haidi(MhxyScript):
     def do(self, chaseWin = (-3, 5.8 + 0)):
         # 流程任务 领取任务后起点
         def do():
+            if datetime.datetime.now().minute >= 41:
+                self._flag=False
             def reach():
                 return Util.locateCenterOnScreen(r'resources/haidi/select.png')
             Util.doubleClick(chaseWin[0], chaseWin[1])
@@ -33,5 +35,7 @@ class Haidi(MhxyScript):
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
+    while datetime.datetime.now().hour != 21:
+        cooldown(2)
     Haidi().do((-3, 6))
 

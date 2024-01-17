@@ -95,7 +95,7 @@ class Bangpai:
             pyautogui.leftClick(chaseWin[0], chaseWin[1])
             idx, locate, itemIdx = self._findPic()
             while locate is None:
-                if battling():
+                if battling(battleingPic=r'resources/origin/zhen_tian.png'):
                     cooldown(4)
                 idx, locate, itemIdx = self._findPic()
                 cooldown(1)

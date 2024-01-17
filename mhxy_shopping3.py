@@ -8,8 +8,8 @@ class Shopping3:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 40)
-        self._time = self._startTime + datetime.timedelta(hours=1, minutes=2)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 11, 50)
+        self._time = self._startTime + datetime.timedelta(hours=2, minutes=45)
         super().__init__()
 
     def _refresh(self):
@@ -25,7 +25,7 @@ class Shopping3:
         pyautogui.leftClick(buyTab[0], buyTab[1])
         cooldown(0.1)
         # confirmTab = (frame.left + relativeX2Act(13.5), frame.top + relativeY2Act(8.5))
-        confirmTab = (frame.left + relativeX2Act(8), frame.top + relativeY2Act(14))
+        confirmTab = (frame.left + relativeX2Act(8), frame.top + relativeY2Act(14.3))
         pyautogui.leftClick(confirmTab[0], confirmTab[1])
 
     def _timeApproach(self):

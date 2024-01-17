@@ -311,6 +311,7 @@ class Mine(MhxyScript):
             cooldown(2)
             # 30 分钟没挖到矿 跳出循环
             if datetime.datetime.now().timestamp() - self._lastMineTime > 60 * 11:
+                shuangzhineihua()
                 self._flag = False
 
 

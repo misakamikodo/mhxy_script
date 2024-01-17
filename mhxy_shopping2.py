@@ -21,16 +21,11 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 47)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 15)
         # TODO
         self._timeList = [
-            (0, 40),
-            (1, 30),
-            (0, 28),
-            (0, 34),
-            (1, 1),
-            (3, 34),
-            (3, 34),
+            (2, 48),
+            (3, 50),
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
@@ -48,6 +43,9 @@ class Shopping2:
     def close(self):
         cooldown(2)
         Util.leftClick(-2.5, 3.5)
+        # 如果顺便挂了20关秘境则需要关对话框
+        # cooldown(0.5)
+        # Util.leftClick(-2.5, 3.5)
         cooldown(2)
 
     def _refresh(self):
@@ -152,8 +150,7 @@ class Shopping2:
                     # 如果有则购买
                     pyautogui.leftClick(point.x, point.y)
                     self._buy()
-                    noMoney = pyautogui.locateOnScreen(r'resources/shop/no_money.png',
-                                                       region=(frame.left, frame.top, frame.right, frame.bottom))
+                    noMoney = Util.locateOnScreen(r'resources/shop/no_money.png', confidence=0.95)
                     if noMoney is not None:
                         print("没钱了")
                         self._flag = False

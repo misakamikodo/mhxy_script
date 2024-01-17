@@ -34,6 +34,8 @@ class Menpai(MhxyScript):
 
         # 流程任务 领取任务开始
         def do_out_of_battle():
+            if datetime.datetime.now().minute >= 41:
+                self._flag=False
             # 离开战斗后点击启动
             Util.leftClick(18, 16)
             cooldown(0.2)
@@ -81,4 +83,6 @@ class Menpai(MhxyScript):
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
     print("start task....")
+    while datetime.datetime.now().hour != 21:
+        cooldown(2)
     Menpai(idx=0).do()

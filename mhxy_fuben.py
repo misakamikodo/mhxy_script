@@ -38,7 +38,7 @@ class Fuben(MhxyScript):
         elif type == 1:
             self.fubenPos = [self.fubenPos[1], self.fubenPos[3], self.fubenPos[4]]
     def _changan(self):
-        return Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+        return Util.locateCenterOnScreen(r'resources/fuben/activity.png', confidence=0.95)
 
     # 流程任务
     def _do(self):
@@ -68,7 +68,8 @@ class Fuben(MhxyScript):
             changanPos = self._changan()
             while changanPos is None:
                 # 找不到头像则正在对话点击头像位置跳过 直到找到头像位置
-                doUtilFindPic([r'resources/small/enter_battle_flag.png', r'resources/fuben/activity.png'], clickSkip, warnTimes=30)
+                doUtilFindPic([r'resources/small/enter_battle_flag.png',
+                               r'resources/fuben/activity.png'], clickSkip, warnTimes=30)
                 changanPos = self._changan()
                 cooldown(2)
 

@@ -119,11 +119,11 @@ def packMine():
     mineBtn.place(x=130, y=230, anchor=NW)
 
 # 界面程序 此部分封装了参数没有大量写死的程序 opencv 死活打包不进去
-# pyinstaller --onefile --noconsole mhxy_script.py
-# pyinstaller --onefile mhxy_script.py
+# pyinstaller --onefile --noconsole mhxy_tkinter.py
+# pyinstaller --onefile mhxy_tkinter.py
 if __name__ == '__main__':
     root = Tk()
-    root.title("mhxy_script")
+    root.title("mhxy_tkinter")
     root.geometry('260x430')
     x = int((root.winfo_screenwidth() - root.winfo_reqwidth()) / 2)
     y = int((root.winfo_screenheight() - root.winfo_reqheight()) / 2)

@@ -9,7 +9,7 @@ class Hanhua:
             # 第二个 14 第一个 x 9
             Util.leftClick(9, 12)
             Util.leftClick(11, 2)
-            cooldown(4)
+            cooldown(60*2)
 
     def hanhuaWithText(self):
         cooldown(3)

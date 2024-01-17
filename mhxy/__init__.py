@@ -32,6 +32,7 @@ class Frame:
         return "left:" + str(self.left) + " top:" + str(self.top) + " right:" + str(self.right) + " bottom:" + str(
             self.bottom)
 
+
 # 窗口左上侧位置 init后修改
 frame = Frame(0, 0)
 
@@ -44,6 +45,7 @@ frameSize = [0, 0]
 
 frameOriginSizeCm = [28.1, 21.8]
 frameSizeCm = [28.1, 21.8]
+
 
 def relativeSize(x, y):
     return (frameSize[0] * x / frameSizeCm[0],
@@ -91,8 +93,9 @@ def winPercentXY(x, y):
     return (winPercentX(x), winPercentY(y))
 
 
-def battling(battleingPic=r'resources/origin/zhen_tian.png'):
+def battling(battleingPic=r'resources/small/enter_battle_flag.png'):
     return Util.locateOnScreen(battleingPic) is not None
+
 
 def notBattling(notBattlingPic):
     return Util.locateOnScreen(notBattlingPic) is not None
@@ -104,9 +107,11 @@ def closeMission():
     # print("关闭任务侧边栏")
     # pyautogui.hotkey('alt', 'p')
 
+
 # 开启战斗后进行操作
 def enterBattleDo(do, notBattlingPic=r'resources/origin/activity.png'):
-    escapeBattleDo(None, notBattlingPic = notBattlingPic, battleingPic=None, battleDoFunc=do)
+    escapeBattleDo(None, notBattlingPic=notBattlingPic, battleingPic=None, battleDoFunc=do)
+
 
 # 结束战斗后进行操作
 def escapeBattleDo(do,
@@ -146,7 +151,6 @@ def escapeBattleDo(do,
                 cooldown(2)
 
 
-
 def doUtilFindPic(pic, do, warnTimes=None):
     def find():
         if isinstance(pic, list):
@@ -164,7 +168,7 @@ def doUtilFindPic(pic, do, warnTimes=None):
     while locate is None:
         do(locate, idx=idx, times=times)
         locate, idx = find()
-        times+=1
+        times += 1
         cooldown(1)
         if warnTimes is not None and times > warnTimes:
             naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
@@ -172,14 +176,18 @@ def doUtilFindPic(pic, do, warnTimes=None):
             naozhong.start()
     return locate, idx
 
+
 def waitUtilFindPic(pic):
     def do(locate, idx, times):
         cooldown(1)
+
     return doUtilFindPic(pic, do)
+
 
 def waitThenClickUtilFindPic(pic):
     locate, idx = waitUtilFindPic(pic)
     pyautogui.leftClick(locate.x, locate.y)
+
 
 # 副本式任务
 def doNormFubenMission():
@@ -200,6 +208,55 @@ def doNormFubenMission():
         pyautogui.leftClick(reachPos.x, reachPos.y)
 
     escapeBattleDo(do)
+
+# 日常活动
+def gotoActivity(pic):
+    def findPic(pic):
+        reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
+               int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
+        return pyautogui.locateCenterOnScreen(pic,
+                                              region=reg,
+                                              confidence=0.9)
+
+    cooldown(0.5)
+    pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+    while pos is None:
+        print("请关闭弹窗等遮挡物")
+        cooldown(10)
+        pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+    pyautogui.leftClick(pos.x, pos.y)
+    cooldown(0.5)
+    # 在地煞等时间点会切到挑战活动去
+    Util.leftClick(3, 4.5)
+    cooldown(0.5)
+    pyautogui.moveTo(winRelativeX(10), winRelativeY(4.6))
+    pyautogui.dragTo(winRelativeX(10), winRelativeY(15), duration=0.15)
+    cooldown(2)
+    actPos = findPic(pic)
+    i = 0
+    while actPos is None and i in range(0, 3):
+        pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
+        pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
+        cooldown(2)
+        actPos = findPic(pic)
+        i += 1
+    if actPos is None:
+        print("找不到活动", pic)
+        Util.leftClick(-1.5, 3.5)
+        return False
+    join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
+                                                   region=(
+                                                   int(actPos.x + relativeX2Act(4)), int(actPos.y - relativeY2Act(1)),
+                                                   int(relativeX2Act(4)), int(relativeY2Act(2.3))),
+                                                   confidence=0.9)
+    if join_activity is not None:
+        pyautogui.leftClick(actPos.x + 250, actPos.y)
+    else:
+        print("任务已完成", pic)
+        Util.leftClick(-1.5, 3.5)
+        return False
+    cooldown(3)
+    return True
 
 
 def cooldown(second):
@@ -224,28 +281,29 @@ class Util:
             res = None
             for i in pic:
                 if cfd is not None:
-                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frame.right, frame.bottom),
+                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
                                                          confidence=cfd)
                 else:
-                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frame.right, frame.bottom))
+                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frameSize[0], frameSize[1]))
                 if res is not None:
                     return res
             return res
         else:
             if cfd is not None:
-                return pyautogui.locateCenterOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom),
+                return pyautogui.locateCenterOnScreen(pic, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
                                                       confidence=cfd)
             else:
                 return pyautogui.locateCenterOnScreen(pic,
-                                                      region=(frame.left, frame.top, frame.right, frame.bottom))
+                                                      region=(frame.left, frame.top, frameSize[0], frameSize[1]))
 
     @staticmethod
     def locateOnScreen(pic, confidence=0.9):
         cfd = confidence if Util.__openCVEnable() else None
         if cfd is not None:
-            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom), confidence=cfd)
+            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
+                                            confidence=cfd)
         else:
-            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frame.right, frame.bottom))
+            return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frameSize[0], frameSize[1]))
 
     @staticmethod
     def leftClick(x, y):
@@ -279,13 +337,24 @@ def resize2Small(windows):
     pyautogui.moveTo(windows.right - resizeOffset[0], windows.bottom - resizeOffset[1])
     pyautogui.dragTo(windows.left + (smallSize[0] - resizeOffset[0]), windows.top + (smallSize[1] - resizeOffset[1]),
                      duration=1.3)
+
+
 '''
 @:param resizeToSmall 是否修改窗口为小窗口
 @:param changWinPos 窗口位置是否发生移动
 '''
-def init(idx=0, resizeToSmall=False, changWinPos=True):
+
+
+def init(idx=0, resizeToSmall=False, changWinPos=True, config=None):
     global frameSizeCm
+    global frameSize
     global frame
+
+    if config is not None:
+        frameSize = config['frameSize']
+        frameSizeCm = config['frameSizeCm']
+        frame = config['frame']
+        return config
 
     def getFrameSize(idx) -> BaseWindow:
         window = None
@@ -294,7 +363,9 @@ def init(idx=0, resizeToSmall=False, changWinPos=True):
             windowsList = list(filter(lambda x: x.left > 0, windowsList))
             windowsList.sort(key=lambda x: x.left)
 
-            moniqiWin = list(filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")), pyautogui.getAllWindows()))
+            moniqiWin = list(
+                filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
+                       pyautogui.getAllWindows()))
             moniqiWin.sort(key=lambda x: x.left)
             for each in moniqiWin:
                 windowsList.append(each)
@@ -321,7 +392,8 @@ def init(idx=0, resizeToSmall=False, changWinPos=True):
         windows = getFrameSize(idx)
         print("调整后窗口大小:", frameSize)
     if resizeToSmall or frameSize[0] == smallSize[0]:
-        frameSizeCm = [frameOriginSizeCm[0] * (smallSize[0] / originSize[0]), frameOriginSizeCm[1] * (smallSize[1] / originSize[1])]
+        frameSizeCm = [frameOriginSizeCm[0] * (smallSize[0] / originSize[0]),
+                       frameOriginSizeCm[1] * (smallSize[1] / originSize[1])]
         print("调整后窗口大小CM:", frameSizeCm)
     else:
         frameSizeCm = frameOriginSizeCm
@@ -336,6 +408,12 @@ def init(idx=0, resizeToSmall=False, changWinPos=True):
         frame.bottom = frame.top + frameSize[1]
         print("窗口四角位置:", frame)
 
+    return {
+        "frameSize": frameSize,
+        "frameSizeCm": frameSizeCm,
+        "frame": frame,
+    }
+
 
 def parse_request(request):
     raw_list = request.split("\r\n")
@@ -347,6 +425,7 @@ def parse_request(request):
         if len(item) == 2:
             request.update({item[0].lstrip(' '): item[1].lstrip(' ')})
     return request
+
 
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -381,15 +460,17 @@ class PicNode(object):
     def __str__(self) -> str:
         return str(self.elem)
 
+
 class MhxyScriptInterrupt(Exception):
     pass
+
 
 class MhxyScript:
     # 程序运行标志
     _flag = True
 
-    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
-        init(idx=idx, resizeToSmall=resizeToSmall, changWinPos=changWinPos)
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False, config=None) -> None:
+        init(idx=idx, resizeToSmall=resizeToSmall, changWinPos=changWinPos, config=config)
 
     def interruptWork(self):
         raise MhxyScriptInterrupt()

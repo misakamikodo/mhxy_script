@@ -1,7 +1,6 @@
-import socket
-
 from mhxy_fuben import *
 from mhxy_ghost import *
+from mhxy_shopping2 import *
 
 _520Thread = None
 
@@ -56,9 +55,13 @@ def tcpServer():
                 if action.startswith('do520') and _520Thread is None:
                     _520Thread = threading.Thread(target=do520, daemon=True)
                     _520Thread.start()
+                if action.startswith('relogin'):
+                    Shopping2().relogin()
                 # 发送请求数据
                 conn.send(f'{info}'.encode())
                 print('发送返回完毕！！！')
+            except UnicodeEncodeError:
+                pass
             finally:
                 conn.close()
         s.close()
@@ -69,7 +72,7 @@ def do520():
     fuben = Fuben(idx=0)
     fuben.fubenPos = [
         # ("xiashi", 13, 15),
-         ("xiashi", 7, 15),
+        ("xiashi", 7, 15),
 
         ("norm", 19, 15),
         ("norm", 13, 15),
