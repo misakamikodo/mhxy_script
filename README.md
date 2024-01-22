@@ -35,7 +35,7 @@ PS:电脑配置可以的推荐搞个虚拟机运行，这样不仅可以自定�
 
 ## 文件说明
 * mhxy_script 界面程序
-* mhxy_520 520/320/550 任务汇总
+* mhxy_520 副本捉鬼
 * mhxy_even_guaji 常用挂机系列汇总 (可用于晚间挂机)
 * mhxy_richang 宝图 秘境 答题 押镖
 * mhxy_bangpai2 帮派任务(小窗口)
