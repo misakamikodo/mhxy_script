@@ -69,30 +69,25 @@ class _FstStandPoint(_StandPoint):
         # self.newDayCloseDiag()
         shuangzhineihua()
         # 打开大地图
-        posBigMap = (frame.left + relativeX2Act(1),
-                     frame.top + relativeY2Act(2))
-        print("click bigMap", posBigMap)
-        pyautogui.leftClick(posBigMap[0],
-                            posBigMap[1])
+        posBigMap = (winRelativeX(1), winRelativeY(2))
+        log("click bigMap", posBigMap)
+        pyautogui.leftClick(posBigMap[0], posBigMap[1])
         # 选择花果山
         posMap = None
         if self.map == "huaguo":
             posMap = (-4.5, 8.3)
-            print("click 花果山", posMap)
+            log("click 花果山", posMap)
         elif self.map == "daxue":
             posMap = (11, 6.3)
         elif self.map == "changshou":
             posMap = (3.5, 11.2)
         Util.leftClick(posMap[0], posMap[1])
         # 打开小地图
-        posSmallMap = (frame.left + relativeX2Act(3.5),
-                       frame.top + relativeY2Act(2))
-        pyautogui.leftClick(posSmallMap[0],
-                            posSmallMap[1])
+        posSmallMap = (winRelativeX(3.5), winRelativeY(2))
+        pyautogui.leftClick(posSmallMap[0], posSmallMap[1])
         # 选择右上部分的点
         posMove = winRelativeXY(self.relativeX, self.relativeY)
-        pyautogui.leftClick(posMove[0],
-                            posMove[1])
+        pyautogui.leftClick(posMove[0], posMove[1])
         MineUtil.closeSmallMap(self.map)
         # closeMission()
         shuangzhiwaihua()
@@ -101,14 +96,14 @@ class _FstStandPoint(_StandPoint):
 # 双指外划
 def shuangzhiwaihua():
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is None:
-        # print("shuangzhiwaihua")
+        log("shuangzhiwaihua")
         pyautogui.hotkey('alt', 'p')
         cooldown(1)
 
 # 双指内划
 def shuangzhineihua():
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is not None:
-        # print("shuangzhineihua")
+        log("shuangzhineihua")
         pyautogui.hotkey('alt', 'p')
         cooldown(1)
 
@@ -201,7 +196,7 @@ class Mine(MhxyScript):
         self._smallMap.top = frame.top + relativeY2Act(3.7)
         self._smallMap.right = frame.right - relativeX2Act(7.5)
         self._smallMap.bottom = frame.bottom - relativeY2Act(2.8)
-        print("init smallMap:", self._smallMap)
+        log("init smallMap:", self._smallMap)
 
     def _changeMapPos(self, mapPos):
         self._standPoints[mapPos % len(self._standPoints)].move2Point()
@@ -246,7 +241,7 @@ class Mine(MhxyScript):
                 point = Util.locateCenterOnScreen(mine.pic,
                                                   confidence=0.96)
                 if point is not None:
-                    print("发现矿：", mine.pic)
+                    log("发现矿：", mine.pic)
                     p = (mine.wait, point.x, point.y)
                     # 侧边和顶部的忽略防止触误
                     # px = point.x - frame.left
@@ -256,7 +251,7 @@ class Mine(MhxyScript):
                     #         (px < relativeX2Act(2) and py > relativeY2Act(15)) or \
                     #         (px < relativeX2Act(12) and py > relativeY2Act(19)) or \
                     #         (px > relativeX2Act(26.3) and py > relativeY2Act(18)):
-                    #     print("忽略", px, py)
+                    #     log("忽略", px, py)
                     #     continue
                     # 点击矿
                     pyautogui.leftClick(point.x, point.y - mine.offsetY)  # -20 采集
@@ -271,7 +266,7 @@ class Mine(MhxyScript):
                         yanzhen = Util.locateCenterOnScreen(r'resources/mine/yanzhen.png')
                         if yanzhen is not None:
                             # 挖到验证码停止，然后等10秒手动验证（大概两轮就出，所以没选择报警）
-                            print("出现验证码", datetime.datetime.now())
+                            log("出现验证码", datetime.datetime.now())
                             self._flag = False
                             cooldown(10)
                             return
@@ -318,8 +313,8 @@ class Mine(MhxyScript):
 # 大窗口
 if __name__ == '__main__':
     time.sleep(2)
-    print("start task....")
+    log("start task....")
     Mine().do()
     # 挖完矿关机
 
-    print("结束挖矿")
+    log("结束挖矿")

@@ -18,15 +18,15 @@ def tcpClient(inData):
         s.connect(("127.0.0.1", 7367))
         # s.connect(("192.168.222.132", 7368))
         # s.connect(("rdp.bonelf.com", 35671))
-        print('连接服务成功！！')
+        log('连接服务成功！！')
         # 通信循环
         # 发送数据到服务器
         s.send(inData.encode())
-        print('发送成功！')
+        log('发送成功！')
 
         # 接收返回数据
         outData = s.recv(1024)
-        print(f'返回数据信息：{outData}')
+        log(f'返回数据信息：{outData}')
         s.close()
 
 # 向虚拟机追加商品购买
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         datetimeList.append(_startTime + timedelta(hours=each[0], minutes=each[1]))
     data = json.dumps({"datetimeList": datetimeList}, cls=DateEncoder)
     for each in json.loads(data)["datetimeList"]:
-        print(datetime.strptime(each, "%Y-%m-%d %H:%M:%S"))
+        log(datetime.strptime(each, "%Y-%m-%d %H:%M:%S"))
     tcpClient(data)
 
     # tcpClient(json.dumps({"action": "relogin"}))

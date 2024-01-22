@@ -9,6 +9,8 @@ import pyautogui
 import pyperclip
 from pygetwindow import PyGetWindowException, BaseWindow
 
+LOGGER_ENABLE = False
+
 logger = logging.getLogger('mylogger')
 logger.setLevel(logging.DEBUG)
 # 创建一个处理器，用于写入日志文件
@@ -17,6 +19,11 @@ fh.setLevel(logging.DEBUG)
 # 添加到 logger 中
 logger.addHandler(fh)
 
+def log(*content):
+    if LOGGER_ENABLE:
+        for each in content:
+            logger.log(logging.INFO, each)
+    print(*content)
 
 class Frame:
     left = 0
@@ -104,7 +111,7 @@ def notBattling(notBattlingPic):
 # 关闭任务侧边栏
 def closeMission():
     Util.leftClick(-7, 4.3)
-    # print("关闭任务侧边栏")
+    # log("关闭任务侧边栏")
     # pyautogui.hotkey('alt', 'p')
 
 
@@ -126,7 +133,7 @@ def escapeBattleDo(do,
             battleDo = False
             if not alreadyDo:
                 # 脱离战斗
-                print("escape battle")
+                log("escape battle")
                 cooldown(1.5)
                 alreadyDo = True
                 do()
@@ -139,7 +146,7 @@ def escapeBattleDo(do,
             alreadyDo = False
             if not battleDo:
                 # 进入战斗
-                print("enter battle")
+                log("enter battle")
                 cooldown(3)
                 battleDo = True
                 # 进入战斗后做一次
@@ -221,7 +228,7 @@ def gotoActivity(pic):
     cooldown(0.5)
     pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
     while pos is None:
-        print("请关闭弹窗等遮挡物")
+        log("请关闭弹窗等遮挡物")
         cooldown(10)
         pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
     pyautogui.leftClick(pos.x, pos.y)
@@ -241,7 +248,7 @@ def gotoActivity(pic):
         actPos = findPic(pic)
         i += 1
     if actPos is None:
-        print("找不到活动", pic)
+        log("找不到活动", pic)
         Util.leftClick(-1.5, 3.5)
         return False
     join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
@@ -252,7 +259,7 @@ def gotoActivity(pic):
     if join_activity is not None:
         pyautogui.leftClick(actPos.x + 250, actPos.y)
     else:
-        print("任务已完成", pic)
+        log("任务已完成", pic)
         Util.leftClick(-1.5, 3.5)
         return False
     cooldown(3)
@@ -327,7 +334,7 @@ class Util:
         # 不支持中文
         # pyautogui.typewrite(text)
         pyperclip.copy(text)
-        # print(pyperclip.paste())
+        # log(pyperclip.paste())
         pyautogui.hotkey('Ctrl', 'v')
 
 
@@ -361,12 +368,12 @@ def init(idx=0, resizeToSmall=False, changWinPos=True, config=None):
         while window is None or window.left < 0:
             windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
             windowsList = list(filter(lambda x: x.left > 0, windowsList))
-            windowsList.sort(key=lambda x: x.left)
+            windowsList.sort(key=lambda x: (x.left / 4, x.top))
 
             moniqiWin = list(
                 filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
                        pyautogui.getAllWindows()))
-            moniqiWin.sort(key=lambda x: x.left)
+            moniqiWin.sort(key=lambda x: (x.left / 4, x.top))
             for each in moniqiWin:
                 windowsList.append(each)
 
@@ -385,16 +392,16 @@ def init(idx=0, resizeToSmall=False, changWinPos=True, config=None):
 
     # location1 = Util.locateOnScreen(r'resources/mine_head.png')
     windows = getFrameSize(idx)
-    print("窗口大小:", frameSize)
-    print("窗口大小CM:", frameSizeCm)
+    log("窗口大小:", frameSize)
+    log("窗口大小CM:", frameSizeCm)
     if resizeToSmall:
         resize2Small(windows)
         windows = getFrameSize(idx)
-        print("调整后窗口大小:", frameSize)
+        log("调整后窗口大小:", frameSize)
     if resizeToSmall or frameSize[0] == smallSize[0]:
         frameSizeCm = [frameOriginSizeCm[0] * (smallSize[0] / originSize[0]),
                        frameOriginSizeCm[1] * (smallSize[1] / originSize[1])]
-        print("调整后窗口大小CM:", frameSizeCm)
+        log("调整后窗口大小CM:", frameSizeCm)
     else:
         frameSizeCm = frameOriginSizeCm
     try:
@@ -406,7 +413,7 @@ def init(idx=0, resizeToSmall=False, changWinPos=True, config=None):
         frame.top = windows.top
         frame.right = frame.left + frameSize[0]
         frame.bottom = frame.top + frameSize[1]
-        print("窗口四角位置:", frame)
+        log("窗口四角位置:", frame)
 
     return {
         "frameSize": frameSize,

@@ -1,68 +1,65 @@
+from game_process import *
+from mhxy_baotu import Baotu
 from mhxy_ghost import *
+from mhxy_mijing import MiJing
 from mhxy_mine import *
-from mhxy_shopping import *
 from mhxy_shopping2 import *
 
 # 挖矿、抢公示
 if __name__ == '__main__':
     # os.chdir(r"/")
     try:
-        pyautogui.PAUSE = 0.2
-        print("start task....")
-        # cf = CheckFuben()
+        # pyautogui.PAUSE = 0.2
+        # log("start task....")
 
-        # print("跟队520")
-        # cf = CheckFuben()
-        # cf.main()
-        # while datetime.datetime.now().hour <= 2:
-        #     cooldown(60)
         # 2
-        # print("抢公示")
-        # shopping = Shopping2()
+        log("抢公示")
+        shopping = Shopping2()
         # shopping.openSop()
-        # shopping.shopping2()
-        # shopping.close()
-
-        print("挖矿")
-        mine = Mine(idx=0)
-        mine.do()
+        shopping.shopping2()
+        shopping.close()
 
         # 1
-        print("收非珍品")
-        shopping = Shopping()
-        shopping.hour = 7
-        shopping.openShop()
-        shopping.do()
+        # log("收非珍品")
+        # shopping = Shopping()
+        # shopping.hour = 7
+        # # shopping.openShop()
+        # shopping.do()
+
+        log("挖矿")
+        mine = Mine(idx=0)
+        mine.do()
 
         # 3
         mine = Mine(idx=1)
         mine.do()
 
-        # 2
-        # print("抢公示2")
-        # shopping = Shopping3()
-        # shopping.shopping3()
-        # shopping.close()
-
-        # print("捉鬼")
+        # log("捉鬼")
         # ghost = Ghost(idx = 0)
         # ghost.maxRound = 10
         # ghost.getDialog()
         # ghost.ghost()
 
-        # 1
-        # print("收非珍品")
-        # shopping = Shopping()
-        # shopping.hour = 5
-        # shopping.do()
-        # shopping.closeShop()
+        # 清一波日常
+        g = GameProcess()
+        g.moveZhuomianbanVertical()
 
-        # 2
-        # print("挖矿WithShop")
-        # mine = MineWithShop()
-        # mine.mineMain()
+        config = init(idx=0)
+        baotu = Baotu(config=config)
+        if gotoActivity(r'resources/richang/baotu.png'):
+           baotu.mission()
+        baotu.do()
+        if gotoActivity(r'resources/richang/mijing.png'):
+            MiJing(config=config).do()
+        config = init(idx=1)
+        baotu = Baotu(config=config)
+        if gotoActivity(r'resources/richang/baotu.png'):
+           baotu.mission()
+        baotu.do()
+        if gotoActivity(r'resources/richang/mijing.png'):
+            MiJing(config=config).do()
 
-        print("关机")
+        log("关机")
         # shopping.close()
         # if datetime.datetime.now().hour != 7:
         #     pl.playsound('resources/common/music.mp3')

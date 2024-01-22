@@ -119,5 +119,5 @@ class Shopping:
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
     time.sleep(2)
-    print("start task....")
+    log("start task....")
     Shopping().do()

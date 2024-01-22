@@ -19,7 +19,7 @@ class Shopping3:
         Util.leftClick(23, 18.5)
 
     def _buy(self):
-        print("购买商品")
+        log("购买商品")
         cooldown(0.1)
         buyTab = (frame.right - relativeX2Act(5), frame.bottom - relativeY2Act(3))
         pyautogui.leftClick(buyTab[0], buyTab[1])
@@ -70,5 +70,5 @@ class Shopping3:
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
     # pyautogui.PAUSE = 2
-    print("start task....")
+    log("start task....")
     Shopping3().shopping3()

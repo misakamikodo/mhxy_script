@@ -23,7 +23,7 @@ class Haidi(MhxyScript):
                 times += 1
                 # 新的一个战斗或完成一轮
                 if times >= 6:
-                    print("恢复流程")
+                    log("恢复流程")
                     # 10秒左右还没进入战斗 重新追踪
                     Util.leftClick(chaseWin[0], chaseWin[1])
                     times = 0
@@ -34,7 +34,7 @@ class Haidi(MhxyScript):
 # 副本 进入第一个副本为起点
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
-    print("start task....")
+    log("start task....")
     while datetime.datetime.now().hour != 21:
         cooldown(2)
     Haidi().do((-3, 6))

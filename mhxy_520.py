@@ -4,7 +4,7 @@ from mhxy_ghost import *
 # 520
 if __name__ == '__main__':
     try:
-        print("start task....")
+        log("start task....")
         fuben = Fuben(idx=0)
         fuben.fubenPos = [
             #("xiashi", 13, 15),

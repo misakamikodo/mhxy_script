@@ -20,7 +20,7 @@ class AutoBattle:
 
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
-    print("start task....")
+    log("start task....")
     init(idx=0)
     AutoBattle().do()
 

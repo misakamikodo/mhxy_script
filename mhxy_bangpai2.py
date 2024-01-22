@@ -113,12 +113,12 @@ class Bangpai(MhxyScript):
                     # 没法判断特征图片的任务都能通过不断点击追踪完成（因为挂机刷怪会停止没发判断，先这么搞）
                     Util.leftClick(self.chaseWin[0], self.chaseWin[1])
             findPicNode = nodePointer[idx]
-            print("选中：" + findPicNode.elem)
+            log("选中：" + findPicNode.elem)
             findPicNode.completeFunc(locate, self.chaseWin)
             nodePointer = findPicNode.next
-            print("后续可能出现：")
+            log("后续可能出现：")
             for each in nodePointer:
-                print(each.elem)
+                log(each.elem)
             cooldown(0.3)
 
     # 有特征图片的任务
@@ -143,5 +143,5 @@ class Bangpai(MhxyScript):
 if __name__ == '__main__':
     idx = 0 if len(sys.argv) <= 1 else int(sys.argv[1])
     pyautogui.PAUSE = 0.5
-    print("start task....")
+    log("start task....")
     Bangpai(idx=idx).do()

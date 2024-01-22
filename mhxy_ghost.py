@@ -1,6 +1,6 @@
+import argparse
 import datetime as dt
 import os
-import sys
 from configparser import ConfigParser
 
 from pyautogui import FailSafeException
@@ -30,23 +30,23 @@ class Ghost(MhxyScript):
         maxRound = int(conn.get('main', 'maxRound'))
         doublePointNumPer100 = int(conn.get('main', 'doublePointNumPer100'))
         resize = bool(int(conn.get('main', 'resize')))
+        super().__init__(idx=int(idx), resizeToSmall=resize, changWinPos=changWinPos)
         warnMinute = int(conn.get('main', 'warnMinute'))
         if chasepos is not None:
-            print("读取配置：任务位置为：" + str(chasepos))
+            log("读取配置：任务位置为：" + str(chasepos))
             self.chasepos = chasepos
         if maxRound is not None:
-            print("读取配置：捉鬼轮数为：" + str(maxRound))
+            log("读取配置：捉鬼轮数为：" + str(maxRound))
             self.maxRound = maxRound
         if warnMinute is not None:
-            print("读取配置：报警时间为：" + str(warnMinute))
+            log("读取配置：报警时间为：" + str(warnMinute))
             self.warnMinute = warnMinute
         if doublePointNumPer100 is not None:
-            print("读取配置：领双数为：" + str(doublePointNumPer100))
+            log("读取配置：领双数为：" + str(doublePointNumPer100))
             self._doublePointNumPer100 = doublePointNumPer100
-        print("读取配置：调整窗口大小：" + str(resize))
+        log("读取配置：调整窗口大小：" + str(resize))
 
         self._chaseWin = (-1, 3.5)
-        super().__init__(idx=int(idx), resizeToSmall=resize, changWinPos=changWinPos)
 
     def _chaseWinFix(self):
         fix = 2 * self.chasepos
@@ -86,7 +86,7 @@ class Ghost(MhxyScript):
         # 领任务
         pyautogui.leftClick(location.x, location.y)
         # +3 整点第二个任务
-        print("关闭对话框 ", self._chaseWin)
+        log("关闭对话框 ", self._chaseWin)
         cooldown(1)
         five = Util.locateOnScreen(r'resources/ghost/team_not_full.png')
         if five is not None:
@@ -163,21 +163,21 @@ class Ghost(MhxyScript):
                 pyautogui.leftClick(completeLocation.left + completeLocation.width - 50,
                                     completeLocation.top + completeLocation.height - 20)
                 startLocation = initStartLocation()
-                print("结束抓鬼 ", completeLocation)
+                log("结束抓鬼 ", completeLocation)
             if startLocation is not None:
                 cooldown(0.5)
                 self._count += 1
-                print("已完成抓鬼" + str(self._count) + "轮数")
+                log("已完成抓鬼" + str(self._count) + "轮数")
                 if self._count > self.maxRound:
                     self._flag = False
                     # pl.playsound('resources/common/music.mp3')
                 else:
                     self._startMission(startLocation)
                     self._startTimestamp = dt.datetime.now()
-                    print("开始抓鬼 ", startLocation)
+                    log("开始抓鬼 ", startLocation)
                     self._startGhostDo()
                 if self._count % 25 == 0:
-                    print("完成一千双")
+                    log("完成一千双")
                     # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
@@ -190,10 +190,12 @@ class Ghost(MhxyScript):
 
 # 小窗口 pyinstaller -F mhxy_ghost.py
 if __name__ == '__main__':
-    idx = 0 if len(sys.argv) <= 1 else sys.argv[1]
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=str)
+    args = parser.parse_args()
     pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
     try:
-        Ghost(idx=idx).do()
+        Ghost(idx=args.idx).do()
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

@@ -21,16 +21,22 @@ class Shopping2:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 15)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 0, 6)
         # TODO
         self._timeList = [
-            (2, 48),
-            (3, 50),
+            (0, 39),
+            (2, 42),
+            (1, 39),
+            (1, 45),
+            (2, 21),
+            (1, 39),
+            (1, 51),
+            (0, 58)
         ]
         for each in self._timeList:
             dt = self._startTime + datetime.timedelta(hours=each[0], minutes=each[1])
             self._datetimeList.append(dt)
-            print(format(dt))
+            log(format(dt))
         if len(self._datetimeList) > 0:
             self.__mostOldTime = max(self._datetimeList)
         super().__init__()
@@ -80,19 +86,19 @@ class Shopping2:
             s.bind(("0.0.0.0", 7367))
             # 启动服务监听
             s.listen(10)
-            print('等待用户接入……')
+            log('等待用户接入……')
             while True:
                 # 等待客户端连接请求,获取connSock
                 conn, addr = s.accept()
-                print('远端客户:{} 接入系统！！！'.format(addr))
+                log('远端客户:{} 接入系统！！！'.format(addr))
                 conn.send(json.dumps({"startTime": self._startTime}, cls=DateEncoder).encode())
                 # with conn:
-                print('接收请求信息……')
+                log('接收请求信息……')
                 # 接收请求信息
                 data = conn.recv(1024)
                 try:
                     if not data:
-                        print('err not data (花生壳在ping)')
+                        log('err not data (花生壳在ping)')
                         continue
                     info = data.decode()
                     jsonData = json.loads(info)
@@ -105,7 +111,7 @@ class Shopping2:
                         self.relogin()
                     # 发送请求数据
                     conn.send(f'{info}'.encode())
-                    print('发送返回完毕！！！')
+                    log('发送返回完毕！！！')
                 finally:
                     conn.close()
             s.close()
@@ -126,8 +132,8 @@ class Shopping2:
 
         while self._flag:
             if self.__mostOldTime is not None and datetime.datetime.now() >= self.__mostOldTime + datetime.timedelta(minutes=3):
-                print("全部过期")
-                print(self.__mostOldTime)
+                log("全部过期")
+                log(self.__mostOldTime)
                 self._flag = False
                 break
             # 被挤掉线
@@ -146,13 +152,13 @@ class Shopping2:
                 if point is None:
                     self._refresh()
                 else:
-                    print("购买商品", datetime.datetime.now())
+                    log("购买商品", datetime.datetime.now())
                     # 如果有则购买
                     pyautogui.leftClick(point.x, point.y)
                     self._buy()
                     noMoney = Util.locateOnScreen(r'resources/shop/no_money.png', confidence=0.95)
                     if noMoney is not None:
-                        print("没钱了")
+                        log("没钱了")
                         self._flag = False
                     else:
                         cooldown(5)
@@ -169,7 +175,7 @@ class Shopping2:
 
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.1
-    print("start task....")
+    log("start task....")
     init()
     Shopping2().shopping2()
-    print("end")
+    log("end")

@@ -15,7 +15,7 @@ def httpServer():
     while True:
         conn, addr = listen_sock.accept()
         req = conn.recv(1024).decode('utf-8')
-        print('received ', str(req), 'from', conn.getpeername())
+        log('received ', str(req), 'from', conn.getpeername())
         if req == '':
             request = None
         else:
@@ -37,18 +37,18 @@ def tcpServer():
         s.bind(("0.0.0.0", 7368))
         # 启动服务监听
         s.listen(10)
-        print('等待用户接入……')
+        log('等待用户接入……')
         while True:
             # 等待客户端连接请求,获取connSock
             conn, addr = s.accept()
-            print('远端客户:{} 接入系统！！！'.format(addr))
+            log('远端客户:{} 接入系统！！！'.format(addr))
             # with conn:
-            print('接收请求信息……')
+            log('接收请求信息……')
             # 接收请求信息
             data = conn.recv(1024)
             try:
                 if not data:
-                    print('frp 服务 ping')
+                    log('frp 服务 ping')
                     continue
                 info = data.decode()
                 action = json.loads(info)["action"]
@@ -59,7 +59,7 @@ def tcpServer():
                     Shopping2().relogin()
                 # 发送请求数据
                 conn.send(f'{info}'.encode())
-                print('发送返回完毕！！！')
+                log('发送返回完毕！！！')
             except UnicodeEncodeError:
                 pass
             finally:
@@ -68,7 +68,7 @@ def tcpServer():
 
 def do520():
     global _520Thread
-    print("start 520....")
+    log("start 520....")
     fuben = Fuben(idx=0)
     fuben.fubenPos = [
         # ("xiashi", 13, 15),

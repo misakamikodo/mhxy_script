@@ -3,12 +3,13 @@ from mhxy import *
 if __name__ == '__main__':
     cooldown(3)
     init()
-    pyautogui.moveTo(winRelativeX(10), winRelativeY(4.6))
-    pyautogui.dragTo(winRelativeX(10), winRelativeY(15), duration=0.15)
+    log("hello")
+
+
     # init(idx=0)
     # cooldown(2)
     # res = pyautogui.locateAllOnScreen('#BEBD27')
-    # print(res)
+    # log(res)
     # while True:
     #     t = Util.locateCenterOnScreen(r'resources/small/kuang.png')
     #     if t is not None:

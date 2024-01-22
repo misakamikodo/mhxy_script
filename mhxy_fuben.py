@@ -84,7 +84,7 @@ class Fuben(MhxyScript):
         #    cooldown(2.0)
         #    Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
         #    self._fubenIdx += 1
-        #    print("下一个副本" + str(print("下一个副本" + str())))
+        #    log("下一个副本" + str(log("下一个副本" + str())))
         else:
             cooldown(1)
             Util.leftClick(7.5, 1.5)
@@ -113,7 +113,7 @@ class Fuben(MhxyScript):
                 # 下一个副本
                 Util.leftClick(self.fubenPos[self._fubenIdx][1], self.fubenPos[self._fubenIdx][2])
                 self._fubenIdx += 1
-                print("下一个副本" + str(self._fubenIdx))
+                log("下一个副本" + str(self._fubenIdx))
             else:
                 pass
                 pl.playsound('resources/common/music.mp3')
@@ -135,5 +135,5 @@ class Fuben(MhxyScript):
 # 副本 进入第一个副本为起点 小窗口
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.2
-    print("start task....")
+    log("start task....")
     Fuben().do()

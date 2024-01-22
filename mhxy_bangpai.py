@@ -111,6 +111,6 @@ class Bangpai:
 # 大窗口
 if __name__ == '__main__':
     pyautogui.PAUSE = 0.5
-    print("start task....")
+    log("start task....")
     init()
     Bangpai().do((winRelativeX(-0.5), winRelativeY(6 + 0)))

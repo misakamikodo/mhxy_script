@@ -26,6 +26,6 @@ class Hanhua:
 # 喊话
 if __name__ == '__main__':
     Util.PAUSE = 0.2
-    print("start task....")
+    log("start task....")
     init(resizeToSmall=True)
     Hanhua().hanhua()

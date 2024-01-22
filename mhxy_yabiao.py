@@ -14,6 +14,10 @@ class YaBiao(MhxyScript):
                 cooldown(1)
                 Util.leftClick(14, 11)
                 finishTimes += 1
+                cooldown(0.5)
+                if Util.locateCenterOnScreen(r'resources/richang/yabiao_nopower.png') is not None:
+                    log("活力不够50")
+                    break
                 if finishTimes >= 3:
                     while Util.locateCenterOnScreen(r'resources/fuben/activity.png') is None:
                         cooldown(30)

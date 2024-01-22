@@ -46,7 +46,7 @@ class Baotu(MhxyScript):
         waitUtilFindPic(r'resources/fuben/select.png')
         Util.leftClick(-3, 13.5)
         cooldown(0.5)
-        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png')
+        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
         if ms is not None:
             pyautogui.doubleClick(ms.x, ms.y)
         else:
@@ -54,11 +54,12 @@ class Baotu(MhxyScript):
         # 等待任务完成
         timep = datetime.datetime.now()
         btl = battling()
-        while btl or datetime.datetime.now() - timep < datetime.timedelta(minutes=1):
+        while btl or datetime.datetime.now() - timep < datetime.timedelta(minutes=1, seconds=30):
             if btl:
                 timep = datetime.datetime.now()
             cooldown(10)
             btl = battling()
+        log("end")
 
 
     def do(self):
@@ -71,7 +72,7 @@ class Baotu(MhxyScript):
                 cooldown(0.5)
                 pyautogui.leftClick(useBaotuLocation.left + useBaotuLocation.width - 50,
                                     useBaotuLocation.top + useBaotuLocation.height - 20)
-                # print("挖宝图中 ", useBaotuLocation)
+                # log("挖宝图中 ", useBaotuLocation)
                 i = 0
             cooldown(2)
             i += 1
