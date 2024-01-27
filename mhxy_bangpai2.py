@@ -4,6 +4,16 @@ from configparser import ConfigParser
 
 from mhxy import *
 
+nxtNode = PicNode(r'resources/bangpai/small/next.png')
+
+class BangpaiPicNode(PicNode):
+
+    def setNext(self, nxt):
+        super().setNext(nxt)
+        # 防止卡了的情况，自己下一个包含自己
+        self.next.append(self)
+        self.next.append(nxtNode)
+
 
 # 小窗口
 class Bangpai(MhxyScript):
@@ -47,25 +57,26 @@ class Bangpai(MhxyScript):
                 cooldown(1)
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.5)
+
         # 访问任务
-        battle = PicNode(r'resources/small/enter_battle_flag.png', completeFunc=battleFunc)
-        qiecuo = PicNode(r'resources/bangpai/small/qiecuo.png', completeFunc=clickFunc)
-        fanwen = PicNode(r'resources/bangpai/small/fanwen.png')
+        battle = BangpaiPicNode(r'resources/small/enter_battle_flag.png', completeFunc=battleFunc)
+        qiecuo = BangpaiPicNode(r'resources/bangpai/small/qiecuo.png', completeFunc=clickFunc)
+        fanwen = BangpaiPicNode(r'resources/bangpai/small/fanwen.png')
         qiecuo.setNext([battle])
-        fanwen.next = [battle]
+        fanwen.next = [battle, nxtNode]
         # 访问、已有二级药的任务结束
         leafNode.append(fanwen)
         # 巡逻、挂机场景结束
         leafNode.append(battle)
 
         # 三级药烹饪wupin任务 *购买->总管->上交 二级药wupin2任务 *购买->总管
-        shangjiao = PicNode(r'resources/bangpai/small/shangjiao.png')
+        shangjiao = BangpaiPicNode(r'resources/bangpai/small/shangjiao.png')
         fanwen.next.append(shangjiao)
-        wupin = PicNode(r'resources/bangpai/small/wupin.png', completeFunc=shangchen)
+        wupin = BangpaiPicNode(r'resources/bangpai/small/wupin.png', completeFunc=shangchen)
         # 可能购买失败，所以还是
         wupin.setNext([fanwen])
-        wupin2 = PicNode(r'resources/bangpai/small/wupin2.png', completeFunc=clickFunc)
-        wupin2.next = [fanwen]
+        wupin2 = BangpaiPicNode(r'resources/bangpai/small/wupin2.png', completeFunc=clickFunc)
+        wupin2.next = [fanwen, nxtNode]
         # 二级药结束点
         # leafNode.append(fanwen)
         # 烹饪药结束点
@@ -77,22 +88,25 @@ class Bangpai(MhxyScript):
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.3)
         # 喊话任务
-        hanhua = PicNode(r'resources/bangpai/small/hanhua.png', completeFunc=fanwenFunc)
+        hanhua = BangpaiPicNode(r'resources/bangpai/small/hanhua.png', completeFunc=fanwenFunc)
         leafNode.append(hanhua)
 
         # 结束
         def finishFunc(locate, chaseWin):
             sys.exit(0)
 
-        finish = PicNode(r'resources/bangpai/small/finish.png', completeFunc=finishFunc)
+        finish = BangpaiPicNode(r'resources/bangpai/small/finish.png', completeFunc=finishFunc)
 
         self._rootList = [qiecuo, fanwen, wupin, wupin2, hanhua] #  finish
+
         for item in leafNode:
             if item.next is not None:
                 for each in self._rootList:
                     item.next.append(each)
             else:
                 item.next = self._rootList
+                item.next.append(nxtNode)
+        nxtNode.next = self._rootList
 
     def do(self):
 

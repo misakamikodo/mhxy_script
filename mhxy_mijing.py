@@ -25,7 +25,7 @@ class MiJing(MhxyScript):
             Util.leftClick(14, 11.5)  # 确定
             cooldown(0.8)
         btl = Util.locateCenterOnScreen(r'resources/richang/mijing_btl.png')
-        while btl is None:
+        if btl is None:
             cooldown(0.5)
             Util.leftClick(-2.5, 12.3)
 

@@ -19,9 +19,11 @@ class Baotu(MhxyScript):
         self._chasepos = chasepos
 
     def _find_baotu(self):
-        baotuLocation = Util.locateOnScreen('resources/baotu/baotu_item.png')
+        baotuLocation = Util.locateOnScreen('resources/baotu/baotu_item.png', confidence=0.85)
         if baotuLocation is not None:
             return baotuLocation
+        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
+        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(13), duration=0.3)
         for _ in range(0, 2):
             pyautogui.moveTo(winRelativeX(17.3), winRelativeY(13))
             pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)

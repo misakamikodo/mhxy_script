@@ -97,14 +97,14 @@ class _FstStandPoint(_StandPoint):
 def shuangzhiwaihua():
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is None:
         log("shuangzhiwaihua")
-        pyautogui.hotkey('alt', 'p')
+        pyautogui.hotkey('alt', 'win', 'p')
         cooldown(1)
 
 # 双指内划
 def shuangzhineihua():
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is not None:
         log("shuangzhineihua")
-        pyautogui.hotkey('alt', 'p')
+        pyautogui.hotkey('alt', 'win', 'p')
         cooldown(1)
 
 class _NormStandPoint(_StandPoint):
