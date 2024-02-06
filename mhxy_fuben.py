@@ -43,7 +43,7 @@ class Fuben(MhxyScript):
     # 流程任务
     def _do(self):
         def clickSkip(locate, idx, times):
-            if not self._flag:
+            if not self._stopCheck():
                 sys.exit(0)
             reachPos = Util.locateCenterOnScreen(r'resources/fuben/select.png')
             if reachPos is not None:
@@ -128,7 +128,7 @@ class Fuben(MhxyScript):
         Util.leftClick(12, 13.5)
 
     def do(self):
-        while self._do() and self._flag:
+        while self._do() and self._stopCheck():
             cooldown(2)
 
 

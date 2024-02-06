@@ -21,6 +21,7 @@ NORM_MINE_LIST = [
     _MinePoint(5, r'resources/mine/norm_blue_shade_mine.png'),
 
     _MinePoint(7, r'resources/mine/norm_green_mine.png'),
+
     # MinePoint(7, r'resources/mine/norm_green_shade_mine.png'),
 
     # MinePoint(10, r'resources/mine/norm_grey_mine.png'),
@@ -95,16 +96,24 @@ class _FstStandPoint(_StandPoint):
 
 # 双指外划
 def shuangzhiwaihua():
+    time=0
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is None:
         log("shuangzhiwaihua")
         pyautogui.hotkey('alt', 'win', 'p')
+        time+=1
+        if time >= 15:
+            pl.playsound('resources/common/music.mp3')
         cooldown(1)
 
 # 双指内划
 def shuangzhineihua():
+    time=0
     while Util.locateCenterOnScreen(r'resources/mine/shop.png') is not None:
         log("shuangzhineihua")
         pyautogui.hotkey('alt', 'win', 'p')
+        time+=1
+        if time >= 15:
+            pl.playsound('resources/common/music.mp3')
         cooldown(1)
 
 class _NormStandPoint(_StandPoint):
@@ -224,8 +233,9 @@ class Mine(MhxyScript):
 
         if mineList is None:
             mineList = NORM_MINE_LIST
-        # 等待时间 点位信息
+        # 没找到的矿数量
         count = 0
+        # 有找到就继续找一次
         while count < len(mineList):
             # 误点到聊天框
             nav_arrow = Util.locateCenterOnScreen(r'resources/mine/nav_arrow.png')
@@ -272,7 +282,6 @@ class Mine(MhxyScript):
                             return
                             # 报警提示
                             # pl.playsound('resources/common/music.mp3')
-                        count += 1
                         # 根据颜色等待 3-5-7-10 秒
                         if p[0] == -1:
                             # 五级采矿点 -1 表示连续中间十次完成采矿

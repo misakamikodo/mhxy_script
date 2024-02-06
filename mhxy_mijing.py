@@ -31,19 +31,19 @@ class MiJing(MhxyScript):
 
         pyautogui.leftClick(btl.x, btl.y)  # 继续战斗
         cooldown(2.5)
-        mis = Util.locateCenterOnScreen(r'resources/richang/mijing_mission.png', confidence=0.8)
-
-        if mis is not None:
-            pyautogui.leftClick(mis.x, mis.y)  # 日月之井
-        else:
-            Util.leftClick(-3, 8)  # 普通秘境
+        self.chase()
         cooldown(2 * 60)
         resumeTimes = 0
+        lastBattleTime = datetime.datetime.now()
         while True:
             resume = Util.locateCenterOnScreen(r'resources/richang/mijing_resume.png')
+            if battling():
+                lastBattleTime = datetime.datetime.now()
+            elif datetime.datetime.now()-lastBattleTime>datetime.timedelta(seconds=50):
+                self.chase()
             if resume is not None:
                 resumeTimes += 1
-                if resumeTimes <= 1: # 设置为 2 的话可能死
+                if resumeTimes <= 2: # 设置为 2 的话可能死
                     pyautogui.leftClick(resume.x, resume.y)
                 else:
                     escape()
@@ -52,6 +52,14 @@ class MiJing(MhxyScript):
                 escape()
                 break
             cooldown(10)
+
+    def chase(self):
+        mis = Util.locateCenterOnScreen(r'resources/richang/mijing_mission.png', confidence=0.8)
+
+        if mis is not None:
+            pyautogui.leftClick(mis.x, mis.y)  # 日月之井
+        else:
+            Util.leftClick(-3, 8)  # 普通秘境
 
 
 if __name__ == '__main__':

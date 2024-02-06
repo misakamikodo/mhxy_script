@@ -8,8 +8,8 @@ class Shopping3:
     def __init__(self) -> None:
         init()
         now = datetime.datetime.now()
-        self._startTime = datetime.datetime(now.year, now.month, now.day, 11, 50)
-        self._time = self._startTime + datetime.timedelta(hours=2, minutes=45)
+        self._startTime = datetime.datetime(now.year, now.month, now.day, 12, 8)
+        self._time = self._startTime + datetime.timedelta(hours=2, minutes=11)
         super().__init__()
 
     def _refresh(self):

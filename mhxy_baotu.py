@@ -8,8 +8,8 @@ class Baotu(MhxyScript):
     _chasepos = 2
 
 
-    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False, config=None) -> None:
-        super().__init__(idx, changWinPos, resizeToSmall, config)
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False, config=None, stopCheck=None) -> None:
+        super().__init__(idx, changWinPos, resizeToSmall, config, stopCheck=stopCheck)
         file_path = os.path.join(os.path.abspath('.'), 'resources/richang/richang.ini')
         if not os.path.exists(file_path):
             raise FileNotFoundError("文件不存在")
@@ -37,6 +37,7 @@ class Baotu(MhxyScript):
         cooldown(0.5)
         baotuLocation = self._find_baotu()
         if baotuLocation is None:
+            Util.leftClick(-2.5, 3)
             return False
         pyautogui.doubleClick(baotuLocation.left + baotuLocation.width - 50,
                             baotuLocation.top + baotuLocation.height - 20)
@@ -68,12 +69,12 @@ class Baotu(MhxyScript):
         if self._run_baotu() is False:
             return
         i = 0
-        while self._flag:
-            useBaotuLocation = Util.locateOnScreen('resources/baotu/use_baotu.png')
+        while self._stopCheck():
+            useBaotuLocation = Util.locateCenterOnScreen('resources/baotu/use_baotu.png')
             if useBaotuLocation is not None:
                 cooldown(0.5)
-                pyautogui.leftClick(useBaotuLocation.left + useBaotuLocation.width - 50,
-                                    useBaotuLocation.top + useBaotuLocation.height - 20)
+                pyautogui.leftClick(useBaotuLocation.x,
+                                    useBaotuLocation.y + 50)
                 # log("挖宝图中 ", useBaotuLocation)
                 i = 0
             cooldown(2)

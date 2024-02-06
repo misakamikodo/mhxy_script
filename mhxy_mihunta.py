@@ -29,7 +29,7 @@ class Mihunta(MhxyScript):
             reachPos = self._reach()
             times = 0
             while reachPos is None:
-                if not self._flag:
+                if not self._stopCheck():
                     sys.exit(0)
                 reachPos = self._reach()
                 cooldown(2)

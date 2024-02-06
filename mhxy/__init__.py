@@ -461,8 +461,6 @@ class PicNode(object):
 
     def setNext(self, nxt):
         self.next = nxt
-        # 防止卡了的情况，自己下一个包含自己
-        self.next.append(self)
 
     def __str__(self) -> str:
         return str(self.elem)
@@ -476,11 +474,15 @@ class MhxyScript:
     # 程序运行标志
     _flag = True
 
-    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False, config=None) -> None:
+    # stopCheck 终止检查
+    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False, config=None, stopCheck=None) -> None:
         init(idx=idx, resizeToSmall=resizeToSmall, changWinPos=changWinPos, config=config)
-
-    def interruptWork(self):
-        raise MhxyScriptInterrupt()
+        if stopCheck:
+            self._stopCheck = stopCheck
+        else:
+            def stopCheck():
+                return self._flag
+            self._stopCheck=stopCheck
 
     def stop(self):
         self._flag = False

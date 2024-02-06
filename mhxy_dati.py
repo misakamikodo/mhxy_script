@@ -28,7 +28,7 @@ class DaTi(MhxyScript):
         hour = now.hour
         if hour >= 11:
             self.sanJieQiYuan()
-        if hour >= 18 and week < 5:
+        if hour >= 17 and week < 5:
             self.keJu()
 
 

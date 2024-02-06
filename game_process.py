@@ -7,11 +7,15 @@ from mhxy import *
 class GameProcess:
     _moveOffset = (60, 20)
 
-    def __moveZhuomianbanFunc(self, size):
+    def __moveZhuomianbanFunc(self, size, target=None):
         windows = pyautogui.getAllWindows()
         zhuomianban = (71, 964)
         i = 0
-        for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
+        winList = list(filter(lambda x: x.title.startswith("梦幻西游："), windows))
+        if target is not None:
+            winList.sort(key=lambda x: (x.left / 4, x.top))
+            winList = [winList[min(target, len(winList)-1)]]
+        for item in winList:
             item.activate()
             log(item)
             if item.left < 0:
@@ -43,8 +47,8 @@ class GameProcess:
             i += 1
             log("处理后：", item)
 
-    def moveZhuomianban(self):
-        self.__moveZhuomianbanFunc(smallSize)
+    def moveZhuomianban(self, target=None):
+        self.__moveZhuomianbanFunc(smallSize, target=target)
 
     def moveZhuomianban2Origin(self):
         windows = pyautogui.getAllWindows()
@@ -84,17 +88,21 @@ class GameProcess:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-s', '--size', default='small', type=str)
     parser.add_argument('-d', '--direct', default='horizontal', type=str)
     parser.add_argument('--type', default='zhuomian', type=str)
     args = parser.parse_args()
 
     resize = GameProcess()
-    if args.type == 'zhuomian':
-        if args.direct == 'horizontal':
-            resize.moveZhuomianban()
+    if args.type == "zhuomian":
+        if args.size == 'small':
+            if args.direct == 'horizontal':
+                resize.moveZhuomianban()
+            else:
+                resize.moveZhuomianbanVertical()
         else:
-            resize.moveZhuomianbanVertical()
+            resize.moveZhuomianban2Origin()
     else:
-        resize.moveZhuomianban2Origin()
+        resize.moveMoniqi()
     # 模拟器分辨率设置为：1600*1095 再调整窗口大小可使用脚本
     # resize.moveMoniqi()

@@ -45,7 +45,7 @@ class Menpai(MhxyScript):
             reachPos = reach_pos()
             times = 0
             while reachPos is None and startPos is None and times < 10:
-                if not self._flag:
+                if not self._stopCheck():
                     sys.exit(0)
                 reachPos = reach_pos()
                 if reachPos is None:

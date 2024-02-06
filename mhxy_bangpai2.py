@@ -117,7 +117,7 @@ class Bangpai(MhxyScript):
             idx, locate = self._findPic(nodePointer)
             time = 0
             while locate is None:
-                if not self._flag:
+                if not self._stopCheck():
                     sys.exit(0)
                 cooldown(0.2)
                 time += 1
