@@ -97,7 +97,7 @@ class _FstStandPoint(_StandPoint):
 # 双指外划
 def shuangzhiwaihua():
     time=0
-    while Util.locateCenterOnScreen(r'resources/fuben/activity.png') is None:
+    while Util.locateCenterOnScreen(r'resources/origin/activity.png') is None:
         log("shuangzhiwaihua")
         pyautogui.hotkey('alt', 'win', 'p')
         time+=1
@@ -108,7 +108,7 @@ def shuangzhiwaihua():
 # 双指内划
 def shuangzhineihua():
     time=0
-    while Util.locateCenterOnScreen(r'resources/fuben/activity.png') is not None:
+    while Util.locateCenterOnScreen(r'resources/origin/activity.png') is not None:
         log("shuangzhineihua")
         pyautogui.hotkey('alt', 'win', 'p')
         time+=1
