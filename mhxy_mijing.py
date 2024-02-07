@@ -25,9 +25,11 @@ class MiJing(MhxyScript):
             Util.leftClick(14, 11.5)  # 确定
             cooldown(0.8)
         btl = Util.locateCenterOnScreen(r'resources/richang/mijing_btl.png')
-        if btl is None:
+        while btl is None:
             cooldown(0.5)
             Util.leftClick(-2.5, 12.3)
+            btl = Util.locateCenterOnScreen(r'resources/richang/mijing_btl.png')
+            log("close shadow")
 
         pyautogui.leftClick(btl.x, btl.y)  # 继续战斗
         cooldown(2.5)
