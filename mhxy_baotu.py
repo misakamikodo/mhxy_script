@@ -62,6 +62,9 @@ class Baotu(MhxyScript):
                 timep = datetime.datetime.now()
             cooldown(10)
             btl = battling()
+        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
+        if ms is not None:
+            self.mission()
         log("end")
 
 
