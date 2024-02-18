@@ -9,7 +9,7 @@ class GameProcess:
 
     def __moveZhuomianbanFunc(self, size, target=None):
         windows = pyautogui.getAllWindows()
-        zhuomianban = (71, 964)
+        zhuomianban = (71, 964, 71)
         i = 0
         winList = list(filter(lambda x: x.title.startswith("梦幻西游："), windows))
         if target is not None:
@@ -25,7 +25,10 @@ class GameProcess:
                              duration=1)
             pyautogui.moveTo(item.left + self._moveOffset[0], item.top + self._moveOffset[1])
             cooldown(1)
-            pyautogui.dragTo(zhuomianban[i] + self._moveOffset[0], 0 + self._moveOffset[1], duration=1)
+            sz = pyautogui.size()
+            # 这里任务栏写死36
+            no2LineTop = (sz.height-item.height-36 if sz.height-item.height*2<0 else item.height)*int(i/2)
+            pyautogui.dragTo(zhuomianban[i] + self._moveOffset[0], no2LineTop + self._moveOffset[1], duration=1)
             i += 1
             log("处理后：", item)
 
