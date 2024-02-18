@@ -20,11 +20,12 @@ fh.setLevel(logging.DEBUG)
 # 添加到 logger 中
 logger.addHandler(fh)
 
-def log(*content):
+def log(*content, **kwargs):
+    level = int(kwargs.get('level', logging.INFO))
     now = datetime.datetime.now()
     if LOGGER_ENABLE:
         for each in content:
-            logger.log(logging.INFO, f'[{now}] {each}')
+            logger.log(level, f'[{now}] {each}')
     print(*content)
 
 class Frame:

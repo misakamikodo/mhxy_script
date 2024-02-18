@@ -97,7 +97,6 @@ class _FstStandPoint(_StandPoint):
 # 双指外划
 def shuangzhiwaihua():
     time=0
-    pyautogui.PAUSE=0
     while Util.locateCenterOnScreen(r'resources/origin/activity.png') is not None:
         log("shuangzhiwaihua")
         Util.hotKey('alt', 'p', internal=0.25)
