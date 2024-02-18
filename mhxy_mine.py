@@ -97,9 +97,11 @@ class _FstStandPoint(_StandPoint):
 # 双指外划
 def shuangzhiwaihua():
     time=0
+    pyautogui.PAUSE=0
     while Util.locateCenterOnScreen(r'resources/origin/activity.png') is not None:
         log("shuangzhiwaihua")
-        pyautogui.hotkey('alt', 'win', 'p')
+        Util.hotKey('alt', 'p', internal=0.25)
+        # pyautogui.hotkey('alt', 'w', interval=0.25)
         time+=1
         if time >= 15:
             pl.playsound('resources/common/music.mp3')
@@ -110,7 +112,8 @@ def shuangzhineihua():
     time=0
     while Util.locateCenterOnScreen(r'resources/origin/activity.png') is None:
         log("shuangzhineihua")
-        pyautogui.hotkey('alt', 'win', 'p')
+        Util.hotKey('alt', 'p', internal=0.25)
+        # pyautogui.hotkey('alt', 'w', interval=0.25)
         time+=1
         if time >= 15:
             pl.playsound('resources/common/music.mp3')

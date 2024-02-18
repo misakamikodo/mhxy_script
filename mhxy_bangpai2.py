@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from configparser import ConfigParser
@@ -155,7 +156,9 @@ class Bangpai(MhxyScript):
 
 # 大窗口
 if __name__ == '__main__':
-    idx = 0 if len(sys.argv) <= 1 else int(sys.argv[1])
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")
-    Bangpai(idx=idx).do()
+    Bangpai(idx=args.idx).do()

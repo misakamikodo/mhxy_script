@@ -6,6 +6,7 @@ import time
 
 import playsound as pl
 import pyautogui
+import pydirectinput
 import pyperclip
 from pygetwindow import PyGetWindowException, BaseWindow
 
@@ -20,9 +21,10 @@ fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
 def log(*content):
+    now = datetime.datetime.now()
     if LOGGER_ENABLE:
         for each in content:
-            logger.log(logging.INFO, each)
+            logger.log(logging.INFO, f'[{now}] {each}')
     print(*content)
 
 class Frame:
@@ -336,6 +338,20 @@ class Util:
         pyperclip.copy(text)
         # log(pyperclip.paste())
         pyautogui.hotkey('Ctrl', 'v')
+
+    @staticmethod
+    def hotKey(*args, **kwargs):
+        interval = float(kwargs.get("interval", 0.0))
+        for c in args:
+            if len(c) > 1:
+                c = c.lower()
+            pydirectinput.keyDown(c)
+            time.sleep(interval)
+        for c in reversed(args):
+            if len(c) > 1:
+                c = c.lower()
+            pydirectinput.keyUp(c)
+            time.sleep(interval)
 
 
 def resize2Small(windows):
