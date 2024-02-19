@@ -28,10 +28,10 @@ class Menpai(MhxyScript):
     def do(self):
 
         def start_pos():
-            return pyautogui.locateCenterOnScreen(r'resources/menpai/start.png')
+            return Util.locateCenterOnScreen(r'resources/menpai/start.png')
 
         def reach_pos():
-            return pyautogui.locateCenterOnScreen(r'resources/menpai/select.png')
+            return Util.locateCenterOnScreen(r'resources/menpai/select.png')
 
         # 流程任务 领取任务开始
         def do_out_of_battle():
