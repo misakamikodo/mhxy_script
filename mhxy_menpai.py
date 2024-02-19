@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from configparser import ConfigParser
@@ -81,8 +82,11 @@ class Menpai(MhxyScript):
 
 # 副本 进入第一个副本为起点
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=str)
+    args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")
     while datetime.datetime.now().hour != 21:
         cooldown(2)
-    Menpai(idx=0).do()
+    Menpai(idx=int(args.idx)).do()
