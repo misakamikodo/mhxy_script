@@ -19,7 +19,7 @@ class Mihunta(MhxyScript):
         self.chaseWin[1] = 3.8 + chasepos * 2
 
     def _reach(self):
-        r = pyautogui.locateCenterOnScreen(r'resources/mihunta/chuansong.png')
+        r = Util.locateCenterOnScreen(r'resources/mihunta/chuansong.png')
         return r
 
     def do(self):
