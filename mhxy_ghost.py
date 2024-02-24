@@ -20,14 +20,14 @@ class Ghost(MhxyScript):
     warnMinute = 25
     _battleTimeTick = None
 
-    def __init__(self, idx=0, changWinPos=True) -> None:
+    def __init__(self, idx=0, pos=None, round=None, changWinPos=True) -> None:
         conn = ConfigParser()
         file_path = os.path.join(os.path.abspath('.'), 'resources/ghost/ghost.ini')
         if not os.path.exists(file_path):
             raise FileNotFoundError("文件不存在")
         conn.read(file_path)
-        chasepos = float(conn.get('main', 'chasepos'))
-        maxRound = int(conn.get('main', 'maxRound'))
+        chasepos = float(conn.get('main', 'chasepos')) if pos is None else pos
+        maxRound = int(conn.get('main', 'maxRound')) if round is None else round
         doublePointNumPer100 = int(conn.get('main', 'doublePointNumPer100'))
         resize = bool(int(conn.get('main', 'resize')))
         super().__init__(idx=int(idx), resizeToSmall=resize, changWinPos=changWinPos)
@@ -95,13 +95,15 @@ class Ghost(MhxyScript):
             cooldown(1)
         # 校验双倍 self.__count % 25 == 0
         if self._count % 25 == 0 and self._doublePointNumPer100 != -1:
+            # 关对话
             Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
             cooldown(0.2)
             self.getPoint()
-            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+            self.chase()
         else:
             # 关对话 + 追踪
-            Util.click(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix(), clicks=2, buttons=pyautogui.LEFT)
+            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+            self.chase()
 
     def _newDayCloseDiagDo(self, newDay):
         if newDay is None:
@@ -147,7 +149,7 @@ class Ghost(MhxyScript):
 
             # 上次战斗结束时间相差2分钟
             if self._battleTimeTick is not None and (datetime.datetime.now() - self._battleTimeTick).seconds > 60 * 2:
-                Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+                self.chase()
                 cooldown(10)
 
             # 是否继续捉鬼弹窗 虽然使用确定即可，但是截图截得长了，所以locateOnScreen获取相对截图右下点的位置
@@ -181,21 +183,30 @@ class Ghost(MhxyScript):
                     # pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
-                Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+                self.chase()
                 naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
                 # 闹钟提醒
                 naozhong.start()
             cooldown(2)
 
+    def chase(self):
+        ms = Util.locateCenterOnScreen(r'resources/ghost/ghost_mission.png', confidence=0.8)
+        if ms is not None:
+            pyautogui.leftClick(ms.x, ms.y)
+        else:
+            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+
 
 # 小窗口 pyinstaller -F mhxy_ghost.py
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=str)
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-r', '--round', default=5, type=int)
+    parser.add_argument('-p', '--pos', default=1, type=int)
     args = parser.parse_args()
     pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
     try:
-        Ghost(idx=args.idx).do()
+        Ghost(idx=args.idx, round=args.round, pos=args.pos).do()
     except (FailSafeException):
         pl.playsound('resources/common/music.mp3')

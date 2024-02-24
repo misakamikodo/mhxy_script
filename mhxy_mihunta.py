@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 from configparser import ConfigParser
@@ -48,6 +49,9 @@ class Mihunta(MhxyScript):
 
 # 喊话
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=str)
+    args = parser.parse_args()
     pyautogui.PAUSE = 0.2
     log("start task....")
-    Mihunta().do()
+    Mihunta(idx=args.idx).do()

@@ -11,7 +11,7 @@ class GhostCfgDialog(QDialog, Ui_Dialog):
         super(GhostCfgDialog, self).__init__()
         self.setupUi(self)
         self.pushButton_4.clicked.connect(self.save)
-        self.file_path = os.path.join(os.path.abspath('.'), r'..\resources\ghost\ghost.ini')
+        self.file_path = os.path.join(os.path.abspath('.'), r'resources\ghost\ghost.ini')
         if not os.path.exists(self.file_path):
             raise FileNotFoundError("文件不存在")
         self.conn = ConfigParser()

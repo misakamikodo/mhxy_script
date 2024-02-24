@@ -1,3 +1,5 @@
+import argparse
+
 from mhxy import *
 
 
@@ -16,7 +18,8 @@ class MiJing(MhxyScript):
                 Util.leftClick(1, 2)
                 cooldown(0.5)
                 waitThenClickUtilFindPic(r'resources/richang/donghaiwang.png')
-
+        print("开始位置是点击陆萧然的对话框")
+        cooldown(2)
         Util.leftClick(-3, 9.3)
         cooldown(0.8)
         if Util.locateCenterOnScreen(r'resources/richang/mijing_select.png') is not None:
@@ -25,12 +28,15 @@ class MiJing(MhxyScript):
             Util.leftClick(14, 11.5)  # 确定
             cooldown(0.8)
         btl = Util.locateCenterOnScreen(r'resources/richang/mijing_btl.png')
-        while btl is None:
-            cooldown(0.5)
+        times = 0
+        while btl is None and times < 10:
+            cooldown(1)
             Util.leftClick(-2.5, 12.3)
             btl = Util.locateCenterOnScreen(r'resources/richang/mijing_btl.png')
-            log("close shadow")
-
+            print("关闭可使用物品对继续战斗的遮挡")
+            times += 1
+        if btl is None:
+            pl.playsound('resources/common/music.mp3')
         pyautogui.leftClick(btl.x, btl.y)  # 继续战斗
         cooldown(2.5)
         self.chase()
@@ -65,4 +71,7 @@ class MiJing(MhxyScript):
 
 
 if __name__ == '__main__':
-    MiJing().do()
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    args = parser.parse_args()
+    MiJing(idx=args.idx).do()

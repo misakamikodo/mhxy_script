@@ -1,3 +1,5 @@
+import argparse
+
 from mhxy import *
 
 
@@ -33,4 +35,7 @@ class DaTi(MhxyScript):
 
 
 if __name__ == '__main__':
-    DaTi().do()
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    args = parser.parse_args()
+    DaTi(idx=args.idx).do()

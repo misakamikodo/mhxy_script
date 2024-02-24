@@ -10,7 +10,7 @@ import pydirectinput
 import pyperclip
 from pygetwindow import PyGetWindowException, BaseWindow
 
-LOGGER_ENABLE = False
+LOGGER_ENABLE = True
 
 logger = logging.getLogger('mylogger')
 logger.setLevel(logging.DEBUG)
@@ -333,14 +333,6 @@ class Util:
         pyautogui.leftClick(locate.x, locate.y)
 
     @staticmethod
-    def write(text):
-        # 不支持中文
-        # pyautogui.typewrite(text)
-        pyperclip.copy(text)
-        # log(pyperclip.paste())
-        pyautogui.hotkey('Ctrl', 'v')
-
-    @staticmethod
     def hotKey(*args, **kwargs):
         interval = float(kwargs.get("interval", 0.0))
         for c in args:
@@ -353,6 +345,13 @@ class Util:
                 c = c.lower()
             pydirectinput.keyUp(c)
             time.sleep(interval)
+
+    @staticmethod
+    def write(text):
+        # 不支持中文
+        # pyautogui.typewrite(text)
+        pyperclip.copy(text)
+        Util.hotKey('Ctrl', 'v')
 
 
 def resize2Small(windows):

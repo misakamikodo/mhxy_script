@@ -34,7 +34,9 @@ class GameProcess:
 
     def moveZhuomianbanVertical(self):
         windows = pyautogui.getAllWindows()
-        zhuomianban = (0, 707 + 1)
+        sz = pyautogui.size()
+        no3LineTop = (sz.height - 707 - 36 if sz.height - 707 * 3 < 0 else 707*2 + 1)
+        zhuomianban = (0, 707 + 1, no3LineTop)
         i = 0
         for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
             item.activate()

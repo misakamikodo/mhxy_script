@@ -1,3 +1,4 @@
+import argparse
 import os
 from configparser import ConfigParser
 
@@ -91,4 +92,7 @@ class Baotu(MhxyScript):
 
 
 if __name__ == '__main__':
-    Baotu().do()
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    args = parser.parse_args()
+    Baotu(idx=args.idx).do()

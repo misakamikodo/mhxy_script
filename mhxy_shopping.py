@@ -5,18 +5,18 @@ class Shopping:
     mark = True
     hour = 99
     _lastBuyTime = None
-    _cooldown = 10
+    _cooldown = 4
     categoryPos = None
-    # meigui suipian jifenquan
-    __mode = 'baoshichui'
+    # meigui 玫瑰 suipian 碎片 jifenquan 积分券 gancao 甘草 baoshichui 宝石锤
+    __mode = 'gancao'
 
     def __init__(self) -> None:
         init()
         self._lastBuyTime = datetime.datetime.now().timestamp()
         self.categoryPos = winRelativeXY(5, 8.5)
-        super().__init__()
 
     def _refresh(self):
+        print(self.categoryPos)
         pyautogui.leftClick(self.categoryPos[0], self.categoryPos[1])
         itemTab = self.getItemPos()
         pyautogui.leftClick(itemTab[0], itemTab[1])
@@ -31,6 +31,8 @@ class Shopping:
             itemTab = winRelativeXY(11, 13)
         elif self.__mode == "baoshichui":
             itemTab = winRelativeXY(20, 12)
+        elif self.__mode == "gancao":
+            itemTab = winRelativeXY(11, 8)
         return itemTab
 
     def _multiSelect(self):
@@ -73,7 +75,7 @@ class Shopping:
             else:
                 # 如果有则购买
                 pyautogui.leftClick(point.x, point.y)
-                self._cooldown = 8
+                self._cooldown = 4
                 self._buy()
                 buyCount += 1
                 if buyCount >= 50:
@@ -92,25 +94,49 @@ class Shopping:
 
     def openShop(self):
         cooldown(3)
-        Util.leftClick(1, 6)
+        # 由蹲公示切换到工坊
+        Util.leftClick(1.5, 6)
+        # 打开商城
+        # Util.leftClick(1, 6)
         cooldown(0.3)
-        for i in range(0, 2):
-            pyautogui.moveTo(winRelativeX(5), winRelativeY(17))
-            pyautogui.dragTo(winRelativeX(5), winRelativeY(7), duration=1)
-            cooldown(0.3)
-        fabao = Util.locateCenterOnScreen("resources/shop/category.png")
-        if fabao is not None:
-            pyautogui.leftClick(fabao.x, fabao.y)
-            cooldown(0.1)
+        # 滚动侧边
+        # for i in range(0, 2):
+        #     pyautogui.moveTo(winRelativeX(5), winRelativeY(17))
+        #     pyautogui.dragTo(winRelativeX(5), winRelativeY(7), duration=1)
+        #     cooldown(0.3)
+        # 滚动内部到底
+        Util.leftClick(4, 8.5)
+        for _ in range(0, 2):
+            pyautogui.moveTo(winRelativeX(11), winRelativeY(15))
+            pyautogui.dragTo(winRelativeX(11), winRelativeY(7), duration=0.2)
+        # 找到对应侧边栏
+        # sp = Util.locateCenterOnScreen("resources/shop/category.png")
+        # if sp is not None:
+        #     pyautogui.leftClick(sp.x, sp.y)
+        #     cooldown(0.1)
+        #
+        #     itemTab = self.getItemPos()
+        #     pyautogui.leftClick(itemTab[0], itemTab[1])
+        #
+        #     cooldown(0.2)
+        #     self.categoryPos = (sp.x, sp.y)
+        #
+        cooldown(2)
+        Util.leftClick(4, 8.5)
+        cooldown(0.1)
+        itemTab = self.getItemPos()
+        pyautogui.leftClick(itemTab[0], itemTab[1])
+        cooldown(0.2)
+        self.categoryPos = winRelativeXY(4, 8.5)
 
-            itemTab = self.getItemPos()
-            pyautogui.leftClick(itemTab[0], itemTab[1])
-
-            cooldown(0.2)
-            self.categoryPos = (fabao.x, fabao.y)
         cooldown(3)
 
     def closeShop(self):
+        cooldown(1)
+        Util.leftClick(-2.5, 3.5)
+        cooldown(1)
+
+    def close(self):
         cooldown(1)
         Util.leftClick(-2.5, 3.5)
         cooldown(1)

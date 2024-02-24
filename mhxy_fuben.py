@@ -1,6 +1,5 @@
-import os
+import argparse
 import sys
-from configparser import ConfigParser
 
 from mhxy import *
 
@@ -10,33 +9,28 @@ class Fuben(MhxyScript):
     xiashi_fix = 5.6 + 2
     _fubenIdx = 0
     fubenPos = [
-        ("xiashi", 13, 15),
-        ("xiashi", 7, 15),
 
-        ("norm", 19, 15),
-        ("norm", 13, 15),
-        ("norm", 7, 15)
     ]
     config = {
         'lastFuben': r'resources/small/fuben_flag.png'
     }
 
-    def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
+    def __init__(self, mission=None,
+                 idx=0, changWinPos=True, resizeToSmall=False) -> None:
         super().__init__(idx, changWinPos, resizeToSmall)
-        file_path = os.path.join(os.path.abspath('.'), 'resources/fuben/fuben.ini')
-        if not os.path.exists(file_path):
-            raise FileNotFoundError("文件不存在")
-        conn = ConfigParser()
-        conn.read(file_path)
-        type = int(conn.get('main', 'type'))
-        if type >= 4:
-            self.fubenPos = [self.fubenPos[1], self.fubenPos[2], self.fubenPos[3], self.fubenPos[4]]
-        elif type == 3:
-            self.fubenPos = [self.fubenPos[2], self.fubenPos[3], self.fubenPos[4]]
-        elif type == 2:
-            self.fubenPos = [self.fubenPos[3], self.fubenPos[4]]
-        elif type == 1:
-            self.fubenPos = [self.fubenPos[1], self.fubenPos[3], self.fubenPos[4]]
+        if mission is None:
+            mission = ['xiashi50', 'norm70', 'norm50_1', 'norm50_2']
+        if 'xiashi70' in mission:
+            self.fubenPos.append(("xiashi", 13, 15))
+        if 'xiashi50' in mission:
+            self.fubenPos.append(("xiashi", 7, 15))
+        if 'norm70' in mission:
+            self.fubenPos.append(("norm", 19, 15))
+        if 'norm50_1' in mission:
+            self.fubenPos.append(("norm", 13, 15))
+        if 'norm50_2' in mission:
+            self.fubenPos.append(("norm", 7, 15))
+
     def _changan(self):
         return Util.locateCenterOnScreen(r'resources/fuben/activity.png', confidence=0.95)
 
@@ -134,6 +128,10 @@ class Fuben(MhxyScript):
 
 # 副本 进入第一个副本为起点 小窗口
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='OF Generate')
+    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-m', '--mission', default='xiashi50,norm70,norm50_1,norm50_2', type=str)
+    args = parser.parse_args()
     pyautogui.PAUSE = 0.2
     log("start task....")
-    Fuben().do()
+    Fuben(mission=args.mission.split(","), idx=args.idx).do()
