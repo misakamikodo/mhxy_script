@@ -81,7 +81,9 @@ class MhxyApplication(QMainWindow, main_win):
 
     def exec_script(self, target, args=""):
         # subprocess.check_call(f'python {self.lineEdit.text()}\\{target}.py {args}')
-        res = os.system(f'start python {self.lineEdit.text()}\\{target}.py {args}')
+        cmd = f'start python {self.lineEdit.text()}\\{target}.py {args}'
+        print("执行脚本：" + cmd)
+        res = os.system(cmd)
         print(res)
 
     def dirChange(self, content):
