@@ -47,8 +47,12 @@ class Baotu(MhxyScript):
 
     def mission(self):
         cooldown(0.5)
-        waitUtilFindPic(r'resources/fuben/select.png')
-        Util.leftClick(-3, 13.5)
+        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
+        if ms is not None:
+            pyautogui.doubleClick(ms.x, ms.y)
+        else:
+            waitUtilFindPic(r'resources/fuben/select.png')
+            Util.leftClick(-3, 13.5)
         cooldown(0.5)
         ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
         if ms is not None:
