@@ -285,26 +285,25 @@ class Util:
         return __openCVEnable
 
     @staticmethod
-    def locateCenterOnScreen(pic, confidence=0.9):
+    def locateCenterOnScreen(pic, region=None, confidence=0.9):
+        if region is None:
+            region = (frame.left, frame.top, frameSize[0], frameSize[1])
         cfd = confidence if Util.__openCVEnable() else None
         if isinstance(pic, list):
             res = None
             for i in pic:
                 if cfd is not None:
-                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
-                                                         confidence=cfd)
+                    res = pyautogui.locateCenterOnScreen(i, region=region, confidence=cfd)
                 else:
-                    res = pyautogui.locateCenterOnScreen(i, region=(frame.left, frame.top, frameSize[0], frameSize[1]))
+                    res = pyautogui.locateCenterOnScreen(i, region=region)
                 if res is not None:
                     return res
             return res
         else:
             if cfd is not None:
-                return pyautogui.locateCenterOnScreen(pic, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
-                                                      confidence=cfd)
+                return pyautogui.locateCenterOnScreen(pic, region=region, confidence=cfd)
             else:
-                return pyautogui.locateCenterOnScreen(pic,
-                                                      region=(frame.left, frame.top, frameSize[0], frameSize[1]))
+                return pyautogui.locateCenterOnScreen(pic, region=region)
 
     @staticmethod
     def locateOnScreen(pic, confidence=0.9):
