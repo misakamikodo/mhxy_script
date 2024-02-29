@@ -46,15 +46,21 @@ class Baotu(MhxyScript):
 
 
     def mission(self):
+        def locateBaotuMission():
+            ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png',
+                                           region=(
+                                           int(frame.left + frameSize[0] / 2), frame.top, int(frameSize[0] / 2), frameSize[1]),
+                                           confidence=0.8)
+            return ms
         cooldown(0.5)
-        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
+        ms = locateBaotuMission()
         if ms is not None:
             pyautogui.doubleClick(ms.x, ms.y)
         else:
             waitUtilFindPic(r'resources/fuben/select.png')
             Util.leftClick(-3, 13.5)
         cooldown(0.5)
-        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
+        ms = locateBaotuMission()
         if ms is not None:
             pyautogui.doubleClick(ms.x, ms.y)
         else:
@@ -67,11 +73,10 @@ class Baotu(MhxyScript):
                 timep = datetime.datetime.now()
             cooldown(10)
             btl = battling()
-        ms = Util.locateCenterOnScreen(r'resources/richang/baotu_mission.png', confidence=0.8)
+        ms = locateBaotuMission()
         if ms is not None:
             self.mission()
         log("end")
-
 
     def do(self):
         if self._run_baotu() is False:
