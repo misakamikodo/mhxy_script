@@ -32,7 +32,10 @@ class Fuben(MhxyScript):
             self.fubenPos.append(("norm", 7, 15))
 
     def _changan(self):
-        return Util.locateCenterOnScreen(r'resources/fuben/activity.png', confidence=0.95)
+        return Util.locateCenterOnScreen(r'resources/fuben/activity.png',
+                                         region=(int(frame.left + relativeX2Act(5)), frame.top,
+                                                 int(frameSize[0] - relativeX2Act(5)), int(relativeY2Act(2.8))),
+                                         confidence=0.95)
 
     # 流程任务
     def _do(self):

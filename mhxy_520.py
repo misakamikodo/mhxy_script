@@ -6,9 +6,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-i', '--idx', default=0, type=int)
     # xiashi50,norm70,norm50_1,norm50_2
-    parser.add_argument('-m', '--mission', default='norm50_2', type=str)
+    parser.add_argument('-m', '--mission', default='xiashi50,norm70,norm50_1,norm50_2', type=str)
     parser.add_argument('-gr', '--ground', default=5, type=int)
-    parser.add_argument('-gp', '--gpos', default=1.85, type=float)
+    parser.add_argument('-gp', '--gpos', default=1, type=float)
     parser.add_argument('-sd', '--shutdown', default="False", type=str)
     args = parser.parse_args()
     try:
