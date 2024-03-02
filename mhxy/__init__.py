@@ -165,7 +165,9 @@ def doUtilFindPic(pic, do, warnTimes=None):
     def find():
         if isinstance(pic, list):
             for idx, each in enumerate(pic):
-                locate = Util.locateCenterOnScreen(each)
+                p = each['pic'] if isinstance(each, dict) else each
+                locate = Util.locateCenterOnScreen(p, region=each['region']) \
+                    if isinstance(each, dict) else Util.locateCenterOnScreen(p)
                 if locate is not None:
                     return locate, idx
             return None, None

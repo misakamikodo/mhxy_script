@@ -66,7 +66,10 @@ class Fuben(MhxyScript):
             while changanPos is None:
                 # 找不到头像则正在对话点击头像位置跳过 直到找到头像位置
                 doUtilFindPic([r'resources/small/enter_battle_flag.png',
-                               r'resources/fuben/activity.png'], clickSkip, warnTimes=30)
+                               {"pic": r'resources/fuben/activity.png',
+                                "region": (int(frame.left + relativeX2Act(5)), frame.top,
+                                           int(frameSize[0] - relativeX2Act(5)), int(relativeY2Act(2.8)))}], clickSkip,
+                              warnTimes=30)
                 changanPos = self._changan()
                 cooldown(2)
 
