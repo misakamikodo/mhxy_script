@@ -2,8 +2,7 @@ import os
 from configparser import ConfigParser
 
 from PyQt6.QtWidgets import QDialog
-
-from ..win.ghost_config import Ui_Dialog
+from win.ghost_config import Ui_Dialog
 
 
 class GhostCfgDialog(QDialog, Ui_Dialog):

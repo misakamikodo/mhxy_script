@@ -2,8 +2,7 @@ import os
 from configparser import ConfigParser
 
 from PyQt6.QtWidgets import QDialog
-
-from ..win.menpai_config import Ui_dialog
+from win.menpai_config import Ui_dialog
 
 
 class MenpaiCfgDialog(QDialog, Ui_dialog):

@@ -6,11 +6,11 @@ from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from qtpy.QtCore import (Qt)
 
-from ui.dialog.bangpai_cfg_dialog import BangpaiCfgDialog
-from ui.dialog.baotu_cfg_dialog import BaotuCfgDialog
-from ui.dialog.ghost_cfg_dialog import GhostCfgDialog
-from ui.dialog.menpai_cfg_dialog import MenpaiCfgDialog
-from ui.win.script import Ui_MainWindow as main_win
+from dialog.bangpai_cfg_dialog import BangpaiCfgDialog
+from dialog.baotu_cfg_dialog import BaotuCfgDialog
+from dialog.ghost_cfg_dialog import GhostCfgDialog
+from dialog.menpai_cfg_dialog import MenpaiCfgDialog
+from win.script import Ui_MainWindow as main_win
 
 
 class MhxyApplication(QMainWindow, main_win):

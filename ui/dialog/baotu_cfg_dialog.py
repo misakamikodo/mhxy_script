@@ -2,8 +2,7 @@ import os
 from configparser import ConfigParser
 
 from PyQt6.QtWidgets import QDialog
-
-from ..win.baotu_config import Ui_Dialog
+from win.baotu_config import Ui_Dialog
 
 
 class BaotuCfgDialog(QDialog, Ui_Dialog):
