@@ -14,9 +14,10 @@ class AutoBattle:
         click = False
         while True:
             # linglongshi jingjichang
-            linglongshi = Util.locateCenterOnScreen(rf'resources/small/{self.type}.png')
-            if linglongshi is not None:
-                pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
+            if type is not None:
+                linglongshi = Util.locateCenterOnScreen(rf'resources/small/{self.type}.png')
+                if linglongshi is not None:
+                    pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
             if battling(r'resources/small/no_auto_battle.png'):
                 if not click:
                     cooldown(2)
