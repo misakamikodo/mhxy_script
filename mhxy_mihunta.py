@@ -1,6 +1,5 @@
 import argparse
 import os
-import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -11,7 +10,7 @@ class Mihunta(MhxyScript):
 
     def __init__(self, idx=0, changWinPos=True, resizeToSmall=False) -> None:
         super().__init__(idx, changWinPos, resizeToSmall)
-        file_path = os.path.join(os.path.abspath('.'), 'resources/menpai/menpai.ini')
+        file_path = os.path.join(os.path.abspath('.'), 'resources/mihunta/mihunta.ini')
         if not os.path.exists(file_path):
             raise FileNotFoundError("文件不存在")
         conn = ConfigParser()
@@ -50,8 +49,8 @@ class Mihunta(MhxyScript):
 # 喊话
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=str)
+    parser.add_argument('-i', '--idx', default=0, type=int)
     args = parser.parse_args()
     pyautogui.PAUSE = 0.2
     log("start task....")
-    Mihunta(idx=args.idx).do()
+    Mihunta(idx=int(args.idx)).do()
