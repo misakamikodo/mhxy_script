@@ -73,15 +73,15 @@ class MhxyApplication(QMainWindow, main_win):
         self.shopping3_btn.clicked.connect(self.shopping3Task)
         self.mine_btn.clicked.connect(self.mineTask)
         self.bangpai2_btn.clicked.connect(self.bangpai2Task)
+        self.auto_battle_btn.clicked.connect(self.autoBattleTask)
         # temp
         self.listWidget.hide()
         self.close_mission_btn.hide()
         self.label.hide()
-        self.black_win.hide()
 
     def exec_script(self, target, args=""):
         # subprocess.check_call(f'python {self.lineEdit.text()}\\{target}.py {args}')
-        cmd = f'start python {self.lineEdit.text()}\\{target}.py {args}'
+        cmd = f'start python{"" if self.black_win.isChecked() else "w"} {self.lineEdit.text()}\\{target}.py {args}'
         print("执行脚本：" + cmd)
         res = os.system(cmd)
         print(res)
@@ -105,6 +105,15 @@ class MhxyApplication(QMainWindow, main_win):
     def mineTask(self):
         self.exec_script('mhxy_mine')
         self.addTask("test", f'{self.mine_btn.text()}')
+
+    def autoBattleTask(self):
+        if self.auto_battle_none_rdo.isChecked():
+            self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()}')
+        elif self.auto_battle_jingjichang_rdo.isChecked():
+            self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t jingjichang')
+        elif self.auto_battle_linglongshi_rdo.isChecked():
+            self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t linglongshi')
+        self.addTask("test", f'{self.bangpai2_btn.text()}')
 
     def bangpai2Task(self):
         self.exec_script('mhxy_bangpai2', f'-i {self.getTarget()}')
@@ -276,7 +285,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.exec_script("game_process", "-s origin")
 
     def openLog(self):
-        os.system(f'notepad.exe mhxy_script.log')
+        os.system(f'start notepad.exe mhxy_script.log')
 
     def addTask(self, bindThread, text):
         lwi = QListWidgetItem(text)

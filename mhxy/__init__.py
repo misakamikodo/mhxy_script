@@ -1,6 +1,7 @@
 import datetime
 import json
 import logging
+import sys
 import threading
 import time
 
@@ -27,6 +28,15 @@ def log(*content, **kwargs):
         for each in content:
             logger.log(level, f'[{now}] {each}')
     print(*content)
+
+def handle_exception(exc_type, exc_value, exc_traceback):
+    now = datetime.datetime.now()
+    # 将异常信息写入日志
+    logger.error(f"[{now}] Uncaught exception",
+                  exc_info=(exc_type, exc_value, exc_traceback))
+
+# 设置全局异常处理
+sys.excepthook = handle_exception
 
 class Frame:
     left = 0

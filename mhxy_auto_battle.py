@@ -4,12 +4,17 @@ from mhxy import *
 
 
 class AutoBattle:
+    type=None
+
+    def __init__(self, type=None) -> None:
+        super().__init__()
+        self.type=type
 
     def do(self):
         click = False
         while True:
             # linglongshi jingjichang
-            linglongshi = Util.locateCenterOnScreen(r'resources/small/jingjichang.png')
+            linglongshi = Util.locateCenterOnScreen(rf'resources/small/{self.type}.png')
             if linglongshi is not None:
                 pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
             if battling(r'resources/small/no_auto_battle.png'):
@@ -25,9 +30,10 @@ class AutoBattle:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-t', '--type', default=None, type=str)
     args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")
     init(idx=args.idx)
-    AutoBattle().do()
+    AutoBattle(type=args.type).do()
 
