@@ -196,6 +196,9 @@ class Ui_MainWindow(object):
         self.haidi_btn = QtWidgets.QPushButton(parent=self.zhouchangTab)
         self.haidi_btn.setGeometry(QtCore.QRect(20, 60, 75, 23))
         self.haidi_btn.setObjectName("haidi_btn")
+        self.mihunta_cfg_btn = QtWidgets.QToolButton(parent=self.zhouchangTab)
+        self.mihunta_cfg_btn.setGeometry(QtCore.QRect(100, 100, 37, 18))
+        self.mihunta_cfg_btn.setObjectName("mihunta_cfg_btn")
         self.tabWidget.addTab(self.zhouchangTab, "")
         self.utilTab = QtWidgets.QWidget()
         self.utilTab.setObjectName("utilTab")
@@ -292,7 +295,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -330,6 +333,7 @@ class Ui_MainWindow(object):
         self.mihunta_btn.setText(_translate("MainWindow", "周五迷魂塔"))
         self.menpai_btn.setText(_translate("MainWindow", "周一门派"))
         self.haidi_btn.setText(_translate("MainWindow", "周三海底"))
+        self.mihunta_cfg_btn.setText(_translate("MainWindow", "配置"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.zhouchangTab), _translate("MainWindow", "周常"))
         self.shopping2_btn.setText(_translate("MainWindow", "收关注"))
         self.mine_btn.setText(_translate("MainWindow", "花果山挖矿"))

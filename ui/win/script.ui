@@ -69,7 +69,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="richangTab1">
      <attribute name="title">
@@ -678,6 +678,19 @@
       </property>
       <property name="text">
        <string>周三海底</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="mihunta_cfg_btn">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>100</y>
+        <width>37</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>配置</string>
       </property>
      </widget>
     </widget>

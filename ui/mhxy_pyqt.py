@@ -10,6 +10,7 @@ from dialog.bangpai_cfg_dialog import BangpaiCfgDialog
 from dialog.baotu_cfg_dialog import BaotuCfgDialog
 from dialog.ghost_cfg_dialog import GhostCfgDialog
 from dialog.menpai_cfg_dialog import MenpaiCfgDialog
+from dialog.mihunta_cfg_dialog import MihuntaCfgDialog
 from win.script import Ui_MainWindow as main_win
 
 
@@ -24,6 +25,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.ghost_cfg_btn.clicked.connect(self.openGhostCfgDialog)
         self.menpai_cfg_btn.clicked.connect(self.openMenpaiCfgDialog)
         self.bangpai2_cfg_btn.clicked.connect(self.openBangpaiCfgDialog)
+        self.mihunta_cfg_btn.clicked.connect(self.openMihuntaCfgDialog)
         self.game_process_small_btn.clicked.connect(self.gamoprocess2Small)
         self.game_process_origin_btn.clicked.connect(self.gamoprocess2Origin)
         self.log_btn.clicked.connect(self.openLog)
@@ -261,6 +263,10 @@ class MhxyApplication(QMainWindow, main_win):
 
     def openMenpaiCfgDialog(self):
         popup = MenpaiCfgDialog()
+        popup.exec()
+
+    def openMihuntaCfgDialog(self):
+        popup = MihuntaCfgDialog()
         popup.exec()
 
     def openBangpaiCfgDialog(self):
