@@ -14,7 +14,7 @@ class AutoBattle:
         click = False
         while True:
             # linglongshi jingjichang
-            if type is not None:
+            if self.type is not None:
                 linglongshi = Util.locateCenterOnScreen(rf'resources/small/{self.type}.png')
                 if linglongshi is not None:
                     pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
