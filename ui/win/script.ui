@@ -711,19 +711,6 @@
        <string>收关注</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="mine_btn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>135</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>花果山挖矿</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="shopping1_btn">
       <property name="geometry">
        <rect>
@@ -780,7 +767,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>175</y>
+        <y>135</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -806,7 +793,7 @@
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>175</y>
+        <y>135</y>
         <width>37</width>
         <height>18</height>
        </rect>
@@ -819,7 +806,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>220</y>
+        <y>180</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -832,7 +819,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>210</y>
+        <y>170</y>
         <width>311</width>
         <height>41</height>
        </rect>
@@ -880,6 +867,45 @@
        </property>
        <property name="text">
         <string>竞技场</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>自定义区</string>
+      </property>
+      <widget class="QLineEdit" name="cusomer_ipt">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>301</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="run_customer_btn">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>20</y>
+         <width>75</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>执行命令</string>
        </property>
       </widget>
      </widget>

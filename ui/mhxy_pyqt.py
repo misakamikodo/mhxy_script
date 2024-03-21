@@ -17,6 +17,8 @@ from win.script import Ui_MainWindow as main_win
 class MhxyApplication(QMainWindow, main_win):
     BN = 0
     _threadMap = {}
+    conn = None
+    file_path = None
 
     def __init__(self):
         super(MhxyApplication, self).__init__()
@@ -30,22 +32,23 @@ class MhxyApplication(QMainWindow, main_win):
         self.game_process_origin_btn.clicked.connect(self.gamoprocess2Origin)
         self.log_btn.clicked.connect(self.openLog)
         self.close_mission_btn.clicked.connect(self.closeTask)
+        self.run_customer_btn.clicked.connect(self.runCustomerTask)
         # regexp = QRegularExpression(r"[a-zA-Z]:(\\[\w\u4e00-\u9fa5-{}][\w\u4e00-\u9fa5\s-{}])([.a-z-{}\\]{0,99}[\w\u4e00-\u9fa5-{}])*")
         # validator_regx = QRegularExpressionValidator(self)
         # validator_regx.setRegularExpression(regexp)
         # self.lineEdit.setValidator(validator_regx)
-        file_path = os.path.join(os.path.abspath('.'), r'script.ini')
+        self.file_path = os.path.join(os.path.abspath('.'), r'script.ini')
         dir = self.lineEdit.text()
-        conn = ConfigParser()
-        if os.path.exists(file_path):
-            conn.read(file_path)
-            dir = conn.get('main', 'dir')
+        self.conn = ConfigParser()
+        if os.path.exists(self.file_path):
+            self.conn.read(self.file_path)
+            dir = self.conn.get('main', 'dir')
         if dir == "" or dir is None:
             dir = os.path.abspath('.').replace("\\ui", "")
-            if conn.has_section("main"):
-                conn.set('main', 'dir', dir)
-                conn.write(open(file_path, 'w'))
-            self.lineEdit.setText(dir)
+            if self.conn.has_section("main"):
+                self.conn.set('main', 'dir', dir)
+                self.conn.write(open(self.file_path, 'w'))
+        self.cusomer_ipt.setText(self.conn.get('main', 'lastscript'))
         self.lineEdit.setText(dir)
         os.chdir(dir)
         self.lineEdit.textChanged.connect(self.dirChange)
@@ -250,6 +253,16 @@ class MhxyApplication(QMainWindow, main_win):
     def yabiaoTask(self):
         self.exec_script('mhxy_yabiao', f'-i {self.getTarget()}')
         self.addTask("test", f'{self.yabiao_btn.text()}')
+
+    def runCustomerTask(self):
+        cmd = f'python{"" if self.black_win.isChecked() else "w"} "{self.lineEdit.text()}\\{self.cusomer_ipt.text()}" -i {self.getTarget()}'
+        print("执行脚本：" + cmd)
+        res = os.system(cmd)
+        print(res)
+        self.addTask("test", f'{self.yabiao_btn.text()}')
+        if self.conn.has_section("main"):
+            self.conn.set('main', 'lastscript', self.cusomer_ipt.text())
+            self.conn.write(open(self.file_path, 'w'))
 
     # 配置对话框
 
