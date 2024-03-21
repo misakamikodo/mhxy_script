@@ -76,7 +76,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.shopping1_btn.clicked.connect(self.shopping1Task)
         self.shopping2_btn.clicked.connect(self.shopping2Task)
         self.shopping3_btn.clicked.connect(self.shopping3Task)
-        self.mine_btn.clicked.connect(self.mineTask)
+        # self.mine_btn.clicked.connect(self.mineTask)
         self.bangpai2_btn.clicked.connect(self.bangpai2Task)
         self.auto_battle_btn.clicked.connect(self.autoBattleTask)
         # temp
