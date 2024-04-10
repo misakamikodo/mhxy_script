@@ -1,6 +1,5 @@
 import argparse
 import os
-import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -54,7 +53,7 @@ class Menpai(MhxyScript):
                 cooldown(1)
                 times += 1
                 # 新的一个战斗或完成一轮
-                if times >= 6:
+                if times >= 6 and reachPos is None:
                     log("恢复流程")
                     # 10秒左右还没进入战斗 重新追踪
                     Util.leftClick(self.chaseWin[0], self.chaseWin[1])
