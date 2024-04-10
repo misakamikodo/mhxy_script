@@ -79,6 +79,7 @@ class Baotu(MhxyScript):
         log("end")
 
     def do(self):
+        cooldown(1)
         if self._run_baotu() is False:
             return
         i = 0
