@@ -24,7 +24,37 @@ class DaTi(MhxyScript):
         Util.leftClick(-1.5, 5.5)
         cooldown(1)
 
+    def quwen(self):
+        if not gotoActivity(r'resources/richang/quwen.png'):
+            return
+        cooldown(3)
+        times = 0
+        while times <= 5:
+            # 用 locateAll导致返回的同个位置有重复
+            heart = pyautogui.locateCenterOnScreen(r'resources/richang/quwen_heart.png',
+                                                region=(frame.left, frame.top, frameSize[0], frameSize[1]),
+                                                confidence=0.9)
+            # 颜色不同会被识别，所以不能这样
+            # while heart is not None:
+            #     pyautogui.leftClick(heart.x, heart.y)
+            #     cooldown(1)
+            #     times += 1
+            # else:
+            #     pyautogui.moveTo(winRelativeX(7), winRelativeY(17))
+            #     pyautogui.dragTo(winRelativeX(7), winRelativeY(5), duration=0.5)
+            #     cooldown(2)
+            if heart is not None:
+                pyautogui.leftClick(heart.x, heart.y)
+                cooldown(1)
+                times += 1
+            pyautogui.moveTo(winRelativeX(7), winRelativeY(17))
+            pyautogui.dragTo(winRelativeX(7), winRelativeY(11), duration=0.5)
+            cooldown(2)
+        Util.leftClick(13, 10)
+        cooldown(1)
+
     def do(self):
+        self.quwen()
         now = datetime.datetime.now()
         week = now.weekday()
         hour = now.hour
