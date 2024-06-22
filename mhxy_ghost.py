@@ -201,8 +201,8 @@ class Ghost(MhxyScript):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-i', '--idx', default=0, type=int)
-    parser.add_argument('-r', '--round', default=5, type=int)
-    parser.add_argument('-p', '--pos', default=1, type=int)
+    parser.add_argument('-r', '--round', default=None, type=int)
+    parser.add_argument('-p', '--pos', default=None, type=float)
     args = parser.parse_args()
     pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
