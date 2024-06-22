@@ -232,13 +232,37 @@ def doNormFubenMission():
     escapeBattleDo(do)
 
 # 日常活动
-def gotoActivity(pic):
-    def findPic(pic):
-        reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
-               int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
-        return pyautogui.locateCenterOnScreen(pic,
-                                              region=reg,
-                                              confidence=0.9)
+def gotoActivity(picArr):
+    def findPic(picArr):
+        def locatePic(picArr):
+            reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
+                   int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
+            for idx, pic in enumerate(picArr):
+                actPos = pyautogui.locateCenterOnScreen(pic, region=reg, confidence=0.9)
+                if actPos is not None:
+                    join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
+                                                                   region=(
+                                                                       int(actPos.x + relativeX2Act(4)),
+                                                                       int(actPos.y - relativeY2Act(1)),
+                                                                       int(relativeX2Act(4)), int(relativeY2Act(2.3))),
+                                                                   confidence=0.9)
+                    if join_activity is not None:
+                        return idx, join_activity
+            return None, None
+
+        i = 0
+        idx, actPos = locatePic(picArr)
+        while actPos is None and i in range(0, 3):
+            pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
+            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
+            cooldown(2)
+            idx, actPos = locatePic(picArr)
+            i += 1
+        if actPos is None:
+            log("找不到活动", picArr)
+            Util.leftClick(-1.5, 3.5)
+            return None, None
+        return idx, actPos
 
     cooldown(0.5)
     pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
@@ -254,31 +278,16 @@ def gotoActivity(pic):
     pyautogui.moveTo(winRelativeX(10), winRelativeY(4.6))
     pyautogui.dragTo(winRelativeX(10), winRelativeY(15), duration=0.15)
     cooldown(2)
-    actPos = findPic(pic)
-    i = 0
-    while actPos is None and i in range(0, 3):
-        pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
-        pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-        cooldown(2)
-        actPos = findPic(pic)
-        i += 1
-    if actPos is None:
-        log("找不到活动", pic)
-        Util.leftClick(-1.5, 3.5)
-        return False
-    join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
-                                                   region=(
-                                                   int(actPos.x + relativeX2Act(4)), int(actPos.y - relativeY2Act(1)),
-                                                   int(relativeX2Act(4)), int(relativeY2Act(2.3))),
-                                                   confidence=0.9)
+
+    idx, join_activity = findPic(picArr if isinstance(picArr, list) else [picArr])
+
     if join_activity is not None:
-        pyautogui.leftClick(actPos.x + 250, actPos.y)
+        pyautogui.leftClick(join_activity.x, join_activity.y)
     else:
-        log("任务已完成", pic)
-        Util.leftClick(-1.5, 3.5)
-        return False
+        log("任务已完成", join_activity)
+        return None if isinstance(picArr, list) else False
     cooldown(3)
-    return True
+    return idx if isinstance(picArr, list) else True
 
 
 def cooldown(second):

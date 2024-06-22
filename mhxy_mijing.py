@@ -17,7 +17,7 @@ class MiJing(MhxyScript):
             else:
                 Util.leftClick(1, 2)
                 cooldown(0.5)
-                waitThenClickUtilFindPic(r'resources/richang/donghaiwang.png')
+                waitThenClickUtilFindPic(r'resources/richang/daxue.png')
         print("开始位置是点击陆萧然的对话框")
         cooldown(2)
         Util.leftClick(-3, 9.3)

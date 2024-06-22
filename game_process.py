@@ -91,6 +91,11 @@ class GameProcess:
         pro = 'taskkill /f /im %s'% 'QtWebEngineProcess.exe'
         os.system(pro)
 
+    def closeZhuomianban(self):
+        pro = 'taskkill /f /im %s'% 'MyGame_x64r.exe'
+        os.system(pro)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-s', '--size', default='small', type=str)

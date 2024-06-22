@@ -13,7 +13,7 @@ class AutoBattle:
     def do(self):
         click = False
         while True:
-            # linglongshi jingjichang
+            # linglongshi jingjichang huashang
             if self.type is not None:
                 linglongshi = Util.locateCenterOnScreen(rf'resources/small/{self.type}.png')
                 if linglongshi is not None:

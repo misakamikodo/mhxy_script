@@ -6,9 +6,24 @@ from mhxy import *
 # 答题
 class DaTi(MhxyScript):
 
+    def sumMethod(self):
+        picArr = [r'resources/richang/sanjieqiyuan.png',
+                             r'resources/richang/keju.png',
+                             r'resources/richang/quwen.png']
+        idx = gotoActivity(picArr)
+        if idx is None:
+            return False
+        elif idx==0:
+            self.sanJieQiYuan()
+        elif idx==1:
+            self.keJu()
+        elif idx==2:
+            self.quwen()
+        else:
+            return False
+        return True
+
     def sanJieQiYuan(self):
-        if not gotoActivity(r'resources/richang/sanjieqiyuan.png'):
-            return
         while Util.locateCenterOnScreen(r'resources/richang/sanjieqiyuan_end.png') is None:
             Util.leftClick(10, 7)
             cooldown(2.3)
@@ -16,8 +31,6 @@ class DaTi(MhxyScript):
         cooldown(1)
 
     def keJu(self):
-        if not gotoActivity(r'resources/richang/keju.png'):
-            return
         for i in range(0, 10):
             Util.leftClick(10, 10)
             cooldown(2.3)
@@ -25,8 +38,6 @@ class DaTi(MhxyScript):
         cooldown(1)
 
     def quwen(self):
-        if not gotoActivity(r'resources/richang/quwen.png'):
-            return
         cooldown(3)
         times = 0
         while times <= 5:
@@ -34,15 +45,7 @@ class DaTi(MhxyScript):
             heart = pyautogui.locateCenterOnScreen(r'resources/richang/quwen_heart.png',
                                                 region=(frame.left, frame.top, frameSize[0], frameSize[1]),
                                                 confidence=0.9)
-            # 颜色不同会被识别，所以不能这样
-            # while heart is not None:
-            #     pyautogui.leftClick(heart.x, heart.y)
-            #     cooldown(1)
-            #     times += 1
-            # else:
-            #     pyautogui.moveTo(winRelativeX(7), winRelativeY(17))
-            #     pyautogui.dragTo(winRelativeX(7), winRelativeY(5), duration=0.5)
-            #     cooldown(2)
+            # 颜色不同会被识别
             if heart is not None:
                 pyautogui.leftClick(heart.x, heart.y)
                 cooldown(1)
@@ -54,14 +57,27 @@ class DaTi(MhxyScript):
         cooldown(1)
 
     def do(self):
-        self.quwen()
         now = datetime.datetime.now()
         week = now.weekday()
         hour = now.hour
+        max=1
         if hour >= 11:
-            self.sanJieQiYuan()
+            max+=1
         if hour >= 17 and week < 5:
-            self.keJu()
+            max+=1
+        while self.sumMethod() and max > 1:
+            max -= 1
+        # if not gotoActivity(r'resources/richang/quwen.png'):
+        #     return
+        # self.quwen()
+        # if hour >= 11:
+        #     if not gotoActivity(r'resources/richang/sanjieqiyuan.png'):
+        #         return
+        #     self.sanJieQiYuan()
+        # if hour >= 17 and week < 5:
+        #     if not gotoActivity(r'resources/richang/keju.png'):
+        #         return
+        #     self.keJu()
 
 
 if __name__ == '__main__':

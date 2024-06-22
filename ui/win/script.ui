@@ -830,9 +830,9 @@
       <widget class="QRadioButton" name="auto_battle_linglongshi_rdo">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>150</x>
          <y>20</y>
-         <width>89</width>
+         <width>61</width>
          <height>16</height>
         </rect>
        </property>
@@ -867,6 +867,19 @@
        </property>
        <property name="text">
         <string>竞技场</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="auto_battle_huashang_rdo">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>20</y>
+         <width>61</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>华山</string>
        </property>
       </widget>
      </widget>

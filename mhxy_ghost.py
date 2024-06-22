@@ -180,7 +180,7 @@ class Ghost(MhxyScript):
                     self._startGhostDo()
                 if self._count % 25 == 0:
                     log("完成一千双")
-                    # pl.playsound('resources/common/music.mp3')
+                    #pl.playsound('resources/common/music.mp3')
             # 二十分钟没有下一轮 怀疑掉线
             if self._startTimestamp is not None and (dt.datetime.now() - self._startTimestamp).seconds > self.warnMinute * 60:
                 self.chase()
@@ -190,7 +190,7 @@ class Ghost(MhxyScript):
             cooldown(2)
 
     def chase(self):
-        ms = Util.locateCenterOnScreen(r'resources/ghost/ghost_mission.png', confidence=0.8)
+        ms = Util.locateCenterOnScreen(r'resources/ghost/ghost_mission.png', confidence=0.9)
         if ms is not None:
             pyautogui.leftClick(ms.x, ms.y)
         else:

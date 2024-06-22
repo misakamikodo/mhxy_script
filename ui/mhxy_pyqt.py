@@ -116,6 +116,8 @@ class MhxyApplication(QMainWindow, main_win):
             self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()}')
         elif self.auto_battle_jingjichang_rdo.isChecked():
             self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t jingjichang')
+        elif self.auto_battle_huashang_rdo.isChecked():
+            self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t huashang')
         elif self.auto_battle_linglongshi_rdo.isChecked():
             self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t linglongshi')
         self.addTask("test", f'{self.bangpai2_btn.text()}')
