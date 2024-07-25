@@ -103,6 +103,7 @@ class Ghost(MhxyScript):
         else:
             # 关对话 + 追踪
             Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+            cooldown(1)
             self.chase()
 
     def _newDayCloseDiagDo(self, newDay):
@@ -190,11 +191,11 @@ class Ghost(MhxyScript):
             cooldown(2)
 
     def chase(self):
-        ms = Util.locateCenterOnScreen(r'resources/ghost/ghost_mission.png', confidence=0.9)
-        if ms is not None:
-            pyautogui.leftClick(ms.x, ms.y)
-        else:
-            Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
+        # ms = Util.locateCenterOnScreen(r'resources/ghost/ghost_mission.png', confidence=0.95)
+        # if ms is not None:
+        #     pyautogui.leftClick(ms.x, ms.y)
+        # else:
+        Util.leftClick(self._chaseWin[0], self._chaseWin[1] + self._chaseWinFix())
 
 
 # 小窗口 pyinstaller -F mhxy_ghost.py
