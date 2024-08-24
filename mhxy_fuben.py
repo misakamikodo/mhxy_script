@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 from mhxy import *
 
@@ -140,4 +139,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
     pyautogui.PAUSE = 0.2
     log("start task....")
-    Fuben(mission=args.mission.split(","), idx=args.idx).do()
+    def func(idx):
+        Fuben(mission=args.mission.split(","), idx=idx).do()
+
+    if args.idx == -1:
+        i = 0
+        while args.idx == -1 and len(getWindowList()) > i:
+            func(i)
+            i = i + 1
+    else:
+        func(args.idx)

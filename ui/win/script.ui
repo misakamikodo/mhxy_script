@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>797</width>
-    <height>497</height>
+    <width>795</width>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>450</y>
+      <y>480</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -146,7 +146,7 @@
         <x>0</x>
         <y>40</y>
         <width>31</width>
-        <height>171</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="orientation">
@@ -241,6 +241,19 @@
       </property>
       <property name="text">
        <string>自行保证此时活力到达50</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="missionrichang_shutdown_chk">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>220</y>
+        <width>111</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>完成后自动关机</string>
       </property>
      </widget>
     </widget>
@@ -956,7 +969,7 @@
       <x>620</x>
       <y>310</y>
       <width>161</width>
-      <height>91</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -1030,12 +1043,25 @@
       <string>从左往右</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="target_rdo_m1">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>100</y>
+       <width>89</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>串行</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="log_btn">
     <property name="geometry">
      <rect>
       <x>700</x>
-      <y>420</y>
+      <y>450</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -1084,7 +1110,7 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>420</y>
+      <y>450</y>
       <width>71</width>
       <height>16</height>
      </rect>

@@ -10,17 +10,28 @@ if __name__ == '__main__':
     parser.add_argument('-gr', '--ground', default=2, type=int)
     parser.add_argument('-sd', '--shutdown', default="False", type=str)
     args = parser.parse_args()
-    try:
-        log("start task....")
-        fuben = Fuben(mission=args.mission.split(","),
-                      idx=args.idx)
-        fuben.do()
-        ghost = Ghost(idx=args.idx)
-        ghost.maxRound = args.ground
-        ghost.go()
-        ghost.do()
-        # pl.playsound('resources/common/music.mp3')
-        if args.shutdown == "True":
-            os.system("shutdown -s")
-    except (FailSafeException):
-        pl.playsound('resources/common/music.mp3')
+
+    def func(idx):
+        try:
+            log("start task....")
+            fuben = Fuben(mission=args.mission.split(","),
+                          idx=idx)
+            fuben.do()
+            ghost = Ghost(idx=idx)
+            ghost.maxRound = args.ground
+            ghost.go()
+            ghost.do()
+            # pl.playsound('resources/common/music.mp3')
+        except (FailSafeException):
+            pl.playsound('resources/common/music.mp3')
+
+    if args.idx == -1:
+        i = 0
+        while args.idx == -1 and len(getWindowList()) > i:
+            func(i)
+            i = i + 1
+    else:
+        func(args.idx)
+
+    if args.shutdown == "True":
+        os.system("shutdown -s")

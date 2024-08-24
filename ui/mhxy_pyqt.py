@@ -107,9 +107,9 @@ class MhxyApplication(QMainWindow, main_win):
         self.exec_script('mhxy_shopping3')
         self.addTask("test", f'{self.shopping3_btn.text()}')
 
-    def mineTask(self):
-        self.exec_script('mhxy_mine')
-        self.addTask("test", f'{self.mine_btn.text()}')
+    # def mineTask(self):
+    #     self.exec_script('mhxy_mine')
+    #     self.addTask("test", f'{self.mine_btn.text()}')
 
     def autoBattleTask(self):
         if self.auto_battle_none_rdo.isChecked():
@@ -229,7 +229,7 @@ class MhxyApplication(QMainWindow, main_win):
             arr.append(self.yabiao_btn.text())
             mission.append("yabiao")
         self.addTask("test", f'单人日常[{str.join(",", arr)}]')
-        self.exec_script("mhxy_richang", f'-i {self.getTarget()} -m {str.join(",", mission)}')
+        self.exec_script("mhxy_richang", f'-i {self.getTarget()} -m {str.join(",", mission)} --shutdown {self.missionrichang_shutdown_chk.isChecked()}')
 
     # 获取执行目标
     def getTarget(self):
@@ -239,6 +239,8 @@ class MhxyApplication(QMainWindow, main_win):
             return 1
         elif self.target_rdo3.isChecked():
             return 2
+        elif self.target_rdo_m1.isChecked():
+            return -1
 
     def baotuTask(self):
         self.exec_script('mhxy_baotu', f'-i {self.getTarget()}')
@@ -257,7 +259,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.addTask("test", f'{self.yabiao_btn.text()}')
 
     def runCustomerTask(self):
-        cmd = f'python{"" if self.black_win.isChecked() else "w"} "{self.lineEdit.text()}\\{self.cusomer_ipt.text()}" -i {self.getTarget()}'
+        cmd = f'python{"" if self.black_win.isChecked() else "w"} {self.lineEdit.text()}\\{self.cusomer_ipt.text()} -i {self.getTarget()}'
         print("执行脚本：" + cmd)
         res = os.system(cmd)
         print(res)

@@ -207,7 +207,17 @@ if __name__ == '__main__':
     args = parser.parse_args()
     pyautogui.PAUSE = 1  # 调用在执行动作后暂停的秒数，只能在执行一些pyautogui动作后才能使用，建议用time.sleep
     pyautogui.FAILSAFE = True  # 启用自动防故障功能，左上角的坐标为（0，0），将鼠标移到屏幕的左上角，来抛出failSafeException异常
-    try:
-        Ghost(idx=args.idx, round=args.round, pos=args.pos).do()
-    except (FailSafeException):
-        pl.playsound('resources/common/music.mp3')
+
+    def func(idx):
+        try:
+            Ghost(idx=idx, round=args.round, pos=args.pos).do()
+        except (FailSafeException):
+            pl.playsound('resources/common/music.mp3')
+
+    if args.idx == -1:
+        i = 0
+        while args.idx == -1 and len(getWindowList()) > i:
+            func(i)
+            i = i + 1
+    else:
+        func(args.idx)

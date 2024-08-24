@@ -109,4 +109,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-i', '--idx', default=0, type=int)
     args = parser.parse_args()
-    Baotu(idx=args.idx).do()
+
+    def func(idx):
+        Baotu(idx=idx).do()
+
+    if args.idx == -1:
+        i = 0
+        while args.idx == -1 and len(getWindowList()) > i:
+            func(i)
+            i = i + 1
+    else:
+        func(args.idx)

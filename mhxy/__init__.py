@@ -149,6 +149,10 @@ def escapeBattleDo(do,
                 log("escape battle")
                 cooldown(1.5)
                 alreadyDo = True
+                # 花果山变身
+                huaguoChange = Util.locateCenterOnScreen(r'resources/small/huaguo_change.png')
+                if huaguoChange is not None:
+                    pyautogui.leftClick(huaguoChange.x, huaguoChange.y)
                 do()
                 cooldown(2)
             else:
@@ -260,6 +264,7 @@ def gotoActivity(picArr):
             i += 1
         if actPos is None:
             log("找不到活动", picArr)
+            cooldown(1)
             Util.leftClick(-1.5, 3.5)
             return None, None
         return idx, actPos
@@ -382,6 +387,18 @@ def resize2Small(windows):
                      duration=1.3)
 
 
+def getWindowList():
+    windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
+    windowsList = list(filter(lambda x: x.left > 0, windowsList))
+    windowsList.sort(key=lambda x: (x.left / 4, x.top))
+    moniqiWin = list(
+        filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
+               pyautogui.getAllWindows()))
+    moniqiWin.sort(key=lambda x: (x.left / 4, x.top))
+    for each in moniqiWin:
+        windowsList.append(each)
+    return windowsList
+
 '''
 @:param resizeToSmall 是否修改窗口为小窗口
 @:param changWinPos 窗口位置是否发生移动
@@ -402,17 +419,7 @@ def init(idx=0, resizeToSmall=False, changWinPos=True, config=None):
     def getFrameSize(idx) -> BaseWindow:
         window = None
         while window is None or window.left < 0:
-            windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
-            windowsList = list(filter(lambda x: x.left > 0, windowsList))
-            windowsList.sort(key=lambda x: (x.left / 4, x.top))
-
-            moniqiWin = list(
-                filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
-                       pyautogui.getAllWindows()))
-            moniqiWin.sort(key=lambda x: (x.left / 4, x.top))
-            for each in moniqiWin:
-                windowsList.append(each)
-
+            windowsList = getWindowList()
             if len(windowsList) > 0:
                 window = windowsList[idx]
             cooldown(0.5)

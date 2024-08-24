@@ -1,6 +1,5 @@
 import argparse
 import os
-import sys
 from configparser import ConfigParser
 
 from mhxy import *
@@ -161,4 +160,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")
-    Bangpai(idx=args.idx).do()
+
+    def func(idx):
+        Bangpai(idx=idx).do()
+
+    if args.idx == -1:
+        i = 0
+        while args.idx == -1 and len(getWindowList()) > i:
+            func(i)
+            i = i + 1
+    else:
+        func(args.idx)
+
