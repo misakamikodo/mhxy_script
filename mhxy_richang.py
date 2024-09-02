@@ -9,6 +9,7 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--idx', default=0, type=int)
     parser.add_argument('-m', '--mission', default='baotu,mijing,dati,yabiao', type=str)
     parser.add_argument('-sd', '--shutdown', default="False", type=str)
+    parser.add_argument('-w', '--wait', default="False", type=str)
     args = parser.parse_args()
     missionSet = set(args.mission.split(","))
     cooldown(1)
@@ -28,8 +29,15 @@ if __name__ == '__main__':
         if 'yabiao' in missionSet:
             if gotoActivity(r'resources/richang/yabiao.png'):
                 YaBiao(config=config).do()
-        if args.shutdown == "True":
-            os.system("shutdown -s")
+
+    if args.wait == "True":
+        time = datetime.datetime.now()
+        while datetime.datetime.now() - time > datetime.timedelta(minutes=3):
+            # 一定要小于一次战斗的时间
+            cooldown(5)
+            if battling():
+                time = datetime.datetime.now()
+        allEscapeTeam()
 
     if args.idx == -1:
         i = 0
@@ -38,6 +46,9 @@ if __name__ == '__main__':
             i = i + 1
     else:
         func(args.idx)
+
+    if args.shutdown == "True":
+        os.system("shutdown -s")
 
 
 

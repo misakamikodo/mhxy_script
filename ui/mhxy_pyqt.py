@@ -175,7 +175,11 @@ class MhxyApplication(QMainWindow, main_win):
                 rd = int(self.ghost_ipt.text())
                 ground=rd
                 arr.append(f"{rd}鬼")
-        self.exec_script('mhxy_520', f'-i {self.getTarget()} -m {str.join(",", mission)} -gr {ground} --shutdown {self.mission520_shutdown_chk.isChecked()}')
+        self.exec_script('mhxy_520', f'-i {self.getTarget()} '
+                                     f'-m {str.join(",", mission)} '
+                                     f'-gr {ground} '
+                                     f'-rc {self.richang_chk.isChecked()} '
+                                     f'--shutdown {self.mission520_shutdown_chk.isChecked()}')
         self.addTask("test", f'多人日常[{str.join(",", arr)}]')
 
     def xiashi70Task(self):
@@ -229,7 +233,10 @@ class MhxyApplication(QMainWindow, main_win):
             arr.append(self.yabiao_btn.text())
             mission.append("yabiao")
         self.addTask("test", f'单人日常[{str.join(",", arr)}]')
-        self.exec_script("mhxy_richang", f'-i {self.getTarget()} -m {str.join(",", mission)} --shutdown {self.missionrichang_shutdown_chk.isChecked()}')
+        self.exec_script("mhxy_richang", f'-i {self.getTarget()} '
+                                         f'-m {str.join(",", mission)} '
+                                         f'-w {self.wait_chk.isChecked()} '
+                                         f'--shutdown {self.missionrichang_shutdown_chk.isChecked()}')
 
     # 获取执行目标
     def getTarget(self):

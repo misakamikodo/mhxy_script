@@ -120,7 +120,6 @@ def battling(battleingPic=r'resources/small/enter_battle_flag.png'):
 def notBattling(notBattlingPic):
     return Util.locateOnScreen(notBattlingPic) is not None
 
-
 # 关闭任务侧边栏
 def closeMission():
     Util.leftClick(-7, 4.3)
@@ -532,3 +531,20 @@ class MhxyScript:
 
     def do(self):
         pass
+
+
+class __EscapeTeam(MhxyScript):
+    def escape(self):
+        cooldown(1.5)
+        Util.doubleClick(-1, 4)
+        cooldown(1.5)
+        Util.doubleClick(3, -2.8)
+        cooldown(1.5)
+        Util.doubleClick(-2.35, 3.2)
+        cooldown(1.5)
+
+
+def allEscapeTeam():
+    size = len(getWindowList())
+    for i in range(0, size):
+        __EscapeTeam(idx=i).escape()

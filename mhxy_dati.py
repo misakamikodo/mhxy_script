@@ -60,11 +60,11 @@ class DaTi(MhxyScript):
         now = datetime.datetime.now()
         week = now.weekday()
         hour = now.hour
-        max=1
+        max = 1
         if hour >= 11:
-            max+=1
+            max += 1
         if hour >= 17 and week < 5:
-            max+=1
+            max += 1
         while self.sumMethod() and max > 1:
             max -= 1
         # if not gotoActivity(r'resources/richang/quwen.png'):
