@@ -89,7 +89,6 @@ class MhxyApplication(QMainWindow, main_win):
         cmd = f'start python{"" if self.black_win.isChecked() else "w"} "{self.lineEdit.text()}\\{target}.py" {args}'
         print("执行脚本：" + cmd)
         res = os.system(cmd)
-        print(res)
 
     def dirChange(self, content):
         os.chdir(content)

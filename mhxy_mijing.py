@@ -72,7 +72,7 @@ class MiJing(MhxyScript):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
     args = parser.parse_args()
 
     def func(idx):

@@ -23,10 +23,12 @@ class Baotu(MhxyScript):
         baotuLocation = Util.locateCenterOnScreen('resources/baotu/baotu_item.png', confidence=0.85)
         if baotuLocation is not None:
             return baotuLocation
-        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
-        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(13), duration=0.3)
         for _ in range(0, 2):
-            pyautogui.moveTo(winRelativeX(17.3), winRelativeY(13))
+            pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
+            pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
+            cooldown(1)
+        for _ in range(0, 3):
+            pyautogui.moveTo(winRelativeX(17.3), winRelativeY(14))
             pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
             baotuLocation = Util.locateCenterOnScreen('resources/baotu/baotu_item.png')
             if baotuLocation is not None:
@@ -107,7 +109,7 @@ class Baotu(MhxyScript):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
     args = parser.parse_args()
 
     def func(idx):

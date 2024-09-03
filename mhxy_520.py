@@ -8,24 +8,28 @@ from mhxy_yabiao import *
 # 520
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
     # xiashi50,norm70,norm50_1,norm50_2
-    parser.add_argument('-m', '--mission', default='xiashi50,norm70,norm50_1,norm50_2', type=str)
-    parser.add_argument('-gr', '--ground', default=2, type=int)
-    parser.add_argument('-rc', '--richang', default="False", type=str)
-    parser.add_argument('-sd', '--shutdown', default="False", type=str)
+    parser.add_argument('-m', '--mission', required=False, default='xiashi50,norm70,norm50_1,norm50_2', type=str)
+    parser.add_argument('-gr', '--ground', required=False, default=2, type=int)
+    parser.add_argument('-rc', '--richang', required=False, default="False", type=str)
+    parser.add_argument('-sd', '--shutdown', required=False, default="False", type=str)
     args = parser.parse_args()
 
     def func(idx):
         try:
             log("start task....")
-            fuben = Fuben(mission=args.mission.split(","),
-                          idx=idx)
-            fuben.do()
-            ghost = Ghost(idx=idx)
-            ghost.maxRound = args.ground
-            ghost.go()
-            ghost.do()
+            missionArr = args.mission.split(",")
+            print(missionArr)
+            if len(missionArr) > 0:
+                fuben = Fuben(mission=missionArr, idx=idx)
+                fuben.do()
+
+            if args.ground > 0:
+                ghost = Ghost(idx=idx)
+                ghost.maxRound = args.ground
+                ghost.go()
+                ghost.do()
             # pl.playsound('resources/common/music.mp3')
         except (FailSafeException):
             pl.playsound('resources/common/music.mp3')
@@ -44,7 +48,7 @@ if __name__ == '__main__':
     elif args.richang == "True":
         allEscapeTeam()
         i = 0
-        while args.idx == -1 and len(getWindowList()) > i:
+        while len(getWindowList()) > i:
             config = init(idx=i)
             baotu = Baotu(config=config)
             if gotoActivity(r'resources/richang/baotu.png'):

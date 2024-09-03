@@ -538,9 +538,11 @@ class __EscapeTeam(MhxyScript):
         cooldown(1.5)
         Util.doubleClick(-1, 4)
         cooldown(1.5)
-        Util.doubleClick(3, -2.8)
-        cooldown(1.5)
-        Util.doubleClick(-2.35, 3.2)
+        teamLeft = Util.locateCenterOnScreen(r'resources/small/left_team.png')
+        if teamLeft is not None:
+            pyautogui.leftClick(teamLeft.x, teamLeft.y)
+            cooldown(1.5)
+        Util.leftClick(-2.35, 3.2)
         cooldown(1.5)
 
 

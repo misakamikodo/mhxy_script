@@ -6,10 +6,10 @@ from mhxy_yabiao import *
 # 秘境、押镖、答题、宝图
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
-    parser.add_argument('-m', '--mission', default='baotu,mijing,dati,yabiao', type=str)
-    parser.add_argument('-sd', '--shutdown', default="False", type=str)
-    parser.add_argument('-w', '--wait', default="False", type=str)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
+    parser.add_argument('-m', '--mission', required=False, default='baotu,mijing,dati,yabiao', type=str)
+    parser.add_argument('-sd', '--shutdown', required=False, default="False", type=str)
+    parser.add_argument('-w', '--wait', required=False, default="False", type=str)
     args = parser.parse_args()
     missionSet = set(args.mission.split(","))
     cooldown(1)
@@ -32,10 +32,10 @@ if __name__ == '__main__':
 
     if args.wait == "True":
         time = datetime.datetime.now()
-        while datetime.datetime.now() - time > datetime.timedelta(minutes=3):
+        while datetime.datetime.now() - time < datetime.timedelta(minutes=3):
             # 一定要小于一次战斗的时间
             cooldown(5)
-            if battling():
+            if pyautogui.locateOnScreen(r'resources/small/enter_battle_flag.png') is not None:
                 time = datetime.datetime.now()
         allEscapeTeam()
 

@@ -34,7 +34,7 @@ class Haidi(MhxyScript):
 # 副本 进入第一个副本为起点
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=str)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=str)
     args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")

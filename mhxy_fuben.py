@@ -134,8 +134,8 @@ class Fuben(MhxyScript):
 # 副本 进入第一个副本为起点 小窗口
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
-    parser.add_argument('-m', '--mission', default='xiashi50,norm70,norm50_1,norm50_2', type=str)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
+    parser.add_argument('-m', '--mission', required=False, default='xiashi50,norm70,norm50_1,norm50_2', type=str)
     args = parser.parse_args()
     pyautogui.PAUSE = 0.2
     log("start task....")

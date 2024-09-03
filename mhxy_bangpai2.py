@@ -156,7 +156,7 @@ class Bangpai(MhxyScript):
 # 大窗口
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', default=0, type=int)
+    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
     args = parser.parse_args()
     pyautogui.PAUSE = 0.5
     log("start task....")
