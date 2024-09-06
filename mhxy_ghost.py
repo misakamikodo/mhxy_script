@@ -174,7 +174,7 @@ class Ghost(MhxyScript):
                 if self._count > self.maxRound:
                     self._flag = False
                     # 关闭对话框用防止影响接下来的脚本
-                    Util.doubleClick(11, 11)
+                    Util.leftClick(11, 11)
                     # pl.playsound('resources/common/music.mp3')
                 else:
                     self._startMission(startLocation)
