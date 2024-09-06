@@ -35,7 +35,7 @@ if __name__ == '__main__':
         while datetime.datetime.now() - time < datetime.timedelta(minutes=3):
             # 一定要小于一次战斗的时间
             cooldown(5)
-            if pyautogui.locateOnScreen(r'resources/small/enter_battle_flag.png') is not None:
+            if pyautogui.locateOnScreen(r'resources/small/enter_battle_flag.png', confidence=0.9) is not None:
                 time = datetime.datetime.now()
         allEscapeTeam()
 
