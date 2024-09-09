@@ -128,6 +128,13 @@ def closeMission():
 
 
 # 开启战斗后进行操作
+def waitEscapeBattle():
+    waitUtilFindPic(r'resources/small/enter_battle_flag.png')
+    while Util.locateOnScreen(r'resources/small/enter_battle_flag.png') is not None:
+        cooldown(2)
+
+
+# 开启战斗后进行操作
 def enterBattleDo(do, notBattlingPic=r'resources/origin/activity.png'):
     escapeBattleDo(None, notBattlingPic=notBattlingPic, battleingPic=None, battleDoFunc=do)
 
@@ -550,3 +557,20 @@ def allEscapeTeam():
     size = len(getWindowList())
     for i in range(0, size):
         __EscapeTeam(idx=i).escape()
+
+# 使用背包的物品
+def findAndUseInBag(pic):
+    loc = Util.locateCenterOnScreen(pic, confidence=0.85)
+    if loc is not None:
+        Util.doubleClick(loc.x, loc.y)
+    for _ in range(0, 2):
+        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
+        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
+        cooldown(1)
+    for _ in range(0, 3):
+        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(14))
+        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
+        loc = Util.locateCenterOnScreen(pic)
+        if loc is not None:
+            Util.doubleClick(loc.x, loc.y)
+        cooldown(2)

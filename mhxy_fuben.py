@@ -11,7 +11,7 @@ class Fuben(MhxyScript):
 
     ]
     config = {
-        'lastFuben': r'resources/small/fuben_flag.png'
+        'lastFuben': r'resources/fuben/fuben_flag.png'
     }
 
     def __init__(self, mission=None,
