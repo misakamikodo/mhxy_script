@@ -575,3 +575,4 @@ def findAndUseInBag(pic):
         loc = Util.locateCenterOnScreen(pic)
         if loc is not None:
             pyautogui.doubleClick(loc.x, loc.y)
+            return
