@@ -560,9 +560,10 @@ def allEscapeTeam():
 
 # 使用背包的物品
 def findAndUseInBag(pic):
+    Util.leftClick(23, 16)
     loc = Util.locateCenterOnScreen(pic, confidence=0.85)
     if loc is not None:
-        Util.doubleClick(loc.x, loc.y)
+        pyautogui.doubleClick(loc.x, loc.y)
     for _ in range(0, 2):
         pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
         pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
@@ -572,5 +573,5 @@ def findAndUseInBag(pic):
         pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
         loc = Util.locateCenterOnScreen(pic)
         if loc is not None:
-            Util.doubleClick(loc.x, loc.y)
+            pyautogui.doubleClick(loc.x, loc.y)
         cooldown(2)
