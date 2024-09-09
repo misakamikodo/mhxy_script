@@ -9,6 +9,7 @@ from qtpy.QtCore import (Qt)
 from dialog.bangpai_cfg_dialog import BangpaiCfgDialog
 from dialog.baotu_cfg_dialog import BaotuCfgDialog
 from dialog.ghost_cfg_dialog import GhostCfgDialog
+from dialog.linlongshi_cfg_dialog import LinlongshiCfgDialog
 from dialog.menpai_cfg_dialog import MenpaiCfgDialog
 from dialog.mihunta_cfg_dialog import MihuntaCfgDialog
 from win.script import Ui_MainWindow as main_win
@@ -27,6 +28,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.ghost_cfg_btn.clicked.connect(self.openGhostCfgDialog)
         self.menpai_cfg_btn.clicked.connect(self.openMenpaiCfgDialog)
         self.bangpai2_cfg_btn.clicked.connect(self.openBangpaiCfgDialog)
+        self.linlongshi_cfg_btn.clicked.connect(self.openLinlongshiCfgDialog)
         self.mihunta_cfg_btn.clicked.connect(self.openMihuntaCfgDialog)
         self.game_process_small_btn.clicked.connect(self.gamoprocess2Small)
         self.game_process_origin_btn.clicked.connect(self.gamoprocess2Origin)
@@ -78,6 +80,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.shopping3_btn.clicked.connect(self.shopping3Task)
         # self.mine_btn.clicked.connect(self.mineTask)
         self.bangpai2_btn.clicked.connect(self.bangpai2Task)
+        self.linlongshi_btn.clicked.connect(self.linlongshiTask)
         self.auto_battle_btn.clicked.connect(self.autoBattleTask)
         # temp
         self.listWidget.hide()
@@ -124,6 +127,10 @@ class MhxyApplication(QMainWindow, main_win):
     def bangpai2Task(self):
         self.exec_script('mhxy_bangpai2', f'-i {self.getTarget()}')
         self.addTask("test", f'{self.bangpai2_btn.text()}')
+
+    def linlongshiTask(self):
+        self.exec_script('mhxy_linlongshi', f'-i {self.getTarget()}')
+        self.addTask("test", f'{self.linlongshi_btn.text()}')
 
     # 周常
     def menpaiTask(self):
@@ -294,6 +301,10 @@ class MhxyApplication(QMainWindow, main_win):
 
     def openBangpaiCfgDialog(self):
         popup = BangpaiCfgDialog()
+        popup.exec()
+
+    def openLinlongshiCfgDialog(self):
+        popup = LinlongshiCfgDialog()
         popup.exec()
 
     # # 获取所有正在运行的进程

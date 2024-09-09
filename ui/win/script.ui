@@ -69,7 +69,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="richangTab1">
      <attribute name="title">
@@ -848,7 +848,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>230</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -861,7 +861,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>170</y>
+        <y>220</y>
         <width>311</width>
         <height>41</height>
        </rect>
@@ -929,7 +929,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>230</y>
+        <y>280</y>
         <width>411</width>
         <height>51</height>
        </rect>
@@ -963,6 +963,32 @@
         <string>执行命令</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="linlongshi_btn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>带队红色玲珑石*5</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="linlongshi_cfg_btn">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>180</y>
+        <width>37</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>配置</string>
+      </property>
      </widget>
     </widget>
    </widget>
