@@ -564,6 +564,7 @@ def findAndUseInBag(pic):
     loc = Util.locateCenterOnScreen(pic, confidence=0.85)
     if loc is not None:
         pyautogui.doubleClick(loc.x, loc.y)
+        return
     for _ in range(0, 2):
         pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
         pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
@@ -574,4 +575,3 @@ def findAndUseInBag(pic):
         loc = Util.locateCenterOnScreen(pic)
         if loc is not None:
             pyautogui.doubleClick(loc.x, loc.y)
-        cooldown(2)
