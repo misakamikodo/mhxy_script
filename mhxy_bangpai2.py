@@ -24,7 +24,6 @@ class Bangpai(MhxyScript):
     _allList = []
 
     def __init__(self, idx=0, changWinPos=True) -> None:
-        # init(resizeToSmall=True)
         super().__init__(idx=idx, changWinPos=changWinPos)
         file_path = os.path.join(os.path.abspath('.'), 'resources/bangpai/small/bangpai.ini')
         if not os.path.exists(file_path):
@@ -87,8 +86,14 @@ class Bangpai(MhxyScript):
             cooldown(3)
             pyautogui.leftClick(locate.x, locate.y)
             cooldown(0.3)
+
+        def hanhuaFunc(locate, chaseWin):
+            Util.leftClick(-2.5, 3)
+            cooldown(3)
+            Util.leftClick(-2.5, 3)
+            cooldown(0.3)
         # 喊话任务
-        hanhua = BangpaiPicNode(r'resources/bangpai/small/hanhua.png', completeFunc=fanwenFunc)
+        hanhua = BangpaiPicNode(r'resources/bangpai/small/hanhua.png', completeFunc=hanhuaFunc)
         leafNode.append(hanhua)
 
         # 结束

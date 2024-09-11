@@ -30,6 +30,7 @@ class Baotu(MhxyScript):
         for _ in range(0, 3):
             pyautogui.moveTo(winRelativeX(17.3), winRelativeY(14))
             pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
+            cooldown(1)
             baotuLocation = Util.locateCenterOnScreen('resources/baotu/baotu_item.png')
             if baotuLocation is not None:
                 return baotuLocation
