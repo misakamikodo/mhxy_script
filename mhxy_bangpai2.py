@@ -88,9 +88,9 @@ class Bangpai(MhxyScript):
             cooldown(0.3)
 
         def hanhuaFunc(locate, chaseWin):
-            Util.leftClick(-2.5, 3)
+            Util.leftClick(-3.5, -3)
             cooldown(3)
-            Util.leftClick(-2.5, 3)
+            Util.leftClick(-3.5, -3)
             cooldown(0.3)
         # 喊话任务
         hanhua = BangpaiPicNode(r'resources/bangpai/small/hanhua.png', completeFunc=hanhuaFunc)
