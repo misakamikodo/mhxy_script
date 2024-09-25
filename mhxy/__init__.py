@@ -60,7 +60,6 @@ frame = Frame(0, 0)
 originSize = [1040, 807]
 smallSize = (907, 707)
 # 鼠标到变化态需要向做微调距离
-resizeOffset = (10, 7)
 frameSize = [0, 0]
 
 frameOriginSizeCm = [28.1, 21.8]
@@ -258,29 +257,37 @@ def gotoActivity(picArr):
                                                                    confidence=0.9)
                     if join_activity is not None:
                         return idx, join_activity
+                    else:
+                        log("任务已完成", pic)
+
             return None, None
 
         i = 0
-        idx, actPos = locatePic(picArr)
-        while actPos is None and i in range(0, 3):
+        idx, join_activity = locatePic(picArr)
+        while join_activity is None and i in range(0, 3):
             pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
             pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
             cooldown(2)
-            idx, actPos = locatePic(picArr)
+            idx, join_activity = locatePic(picArr)
             i += 1
-        if actPos is None:
-            log("找不到活动", picArr)
+        if join_activity is None:
             cooldown(1)
-            Util.leftClick(-1.5, 3.5)
             return None, None
-        return idx, actPos
+        print("找到活动", picArr[idx])
+        return idx, join_activity
 
     cooldown(0.5)
+    times = 0
     pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
     while pos is None:
         log("请关闭弹窗等遮挡物")
         cooldown(10)
         pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+        times += 1
+        if times >= 20:
+            naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
+            naozhong.start()
+
     pyautogui.leftClick(pos.x, pos.y)
     cooldown(0.5)
     # 在地煞等时间点会切到挑战活动去
@@ -295,7 +302,9 @@ def gotoActivity(picArr):
     if join_activity is not None:
         pyautogui.leftClick(join_activity.x, join_activity.y)
     else:
-        log("任务已完成", join_activity)
+        log("任务已完成或找不到", picArr)
+        cooldown(0.5)
+        Util.leftClick(-1.5, 3.5)
         return None if isinstance(picArr, list) else False
     cooldown(3)
     return idx if isinstance(picArr, list) else True
@@ -388,9 +397,7 @@ class Util:
 def resize2Small(windows):
     while not windows.isActive:
         cooldown(1)
-    pyautogui.moveTo(windows.right - resizeOffset[0], windows.bottom - resizeOffset[1])
-    pyautogui.dragTo(windows.left + (smallSize[0] - resizeOffset[0]), windows.top + (smallSize[1] - resizeOffset[1]),
-                     duration=1.3)
+    windows.resizeTo(smallSize[0], smallSize[1])
 
 
 def getWindowList():

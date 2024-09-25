@@ -13,11 +13,11 @@ class DaTi(MhxyScript):
         idx = gotoActivity(picArr)
         if idx is None:
             return False
-        elif idx==0:
+        elif idx == 0:
             self.sanJieQiYuan()
-        elif idx==1:
+        elif idx == 1:
             self.keJu()
-        elif idx==2:
+        elif idx == 2:
             self.quwen()
         else:
             return False
