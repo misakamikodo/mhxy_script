@@ -8,18 +8,14 @@ class GameProcess:
     _moveOffset = (60, 20)
 
     def __moveZhuomianbanFunc(self, size, target=None):
-        windows = pyautogui.getAllWindows()
+        winList = getWindowList()
         zhuomianban = (71, 964, 71)
         i = 0
-        winList = list(filter(lambda x: x.title.startswith("梦幻西游："), windows))
         if target is not None:
             winList.sort(key=lambda x: (x.left / 4, x.top))
             winList = [winList[min(target, len(winList)-1)]]
         for item in winList:
-            item.activate()
             log(item)
-            if item.left < 0:
-                log("notSafe")
             item.resizeTo(smallSize[0], smallSize[1])
             cooldown(1)
             sz = pyautogui.size()
@@ -36,10 +32,7 @@ class GameProcess:
         zhuomianban = (0, 707 + 1, no3LineTop)
         i = 0
         for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
-            item.activate()
             log(item)
-            if item.left < 0:
-                log("notSafe")
             item.resizeTo(smallSize[0], smallSize[1])
             pyautogui.moveTo(item.left + self._moveOffset[0], item.top + self._moveOffset[1])
             cooldown(1)
@@ -53,7 +46,6 @@ class GameProcess:
     def moveZhuomianban2Origin(self):
         windows = pyautogui.getAllWindows()
         item = list(filter(lambda x: x.title.startswith("梦幻西游"), windows))[0]
-        item.activate()
         log(item)
         item.resizeTo(originSize[0], originSize[1])
         cooldown(3)
@@ -66,10 +58,7 @@ class GameProcess:
         windows = pyautogui.getAllWindows()
         i = 0
         for item in list(filter(lambda x: x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - "), windows)):
-            item.activate()
             log(item)
-            if item.left < 0:
-                log("notSafe")
             pyautogui.moveTo(item.right - 5, item.top + 15)
             pyautogui.dragTo(item.left + (size[0] - 5), item.top + 15,
                              duration=1)
