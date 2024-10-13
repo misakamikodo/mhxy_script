@@ -2,7 +2,7 @@
 
 安装完包依赖后 需要opencv-python支持(pip install opencv-python)才能模糊匹配图片
 
-屏幕分辨率1920x1080可直接使用
+屏幕分辨率1920x1080可直接使用（游戏窗口初始大小是1040×807，调节小窗口后是907×707 这种我觉得都行）
 
 屏幕分辨率和我不一致的大概率可能需要在理解代码条件下进行二次开发使用（在小屏笔记本上试过，运行效果不符合期望，但是如果屏幕足够大一般都可以）。
 
@@ -14,15 +14,13 @@ pyautogui部分不支持mac，在mac上运行应该运行不了
 
 * originSize（打开桌面版后桌面版的像素大小，=frameSize实际值），
 
-* smallSize（使用 game_process.py 调整的小窗口像素大小，部分脚本使用小窗口）（以上两个通过game_process的控制台输出可以看到），
-
-* resizeOffset（调整窗口大小时对右下角操作使用的偏移量，取能使用的值即可，应该不用改），
+* smallSize（使用 game_process.py 调整的小窗口像素大小，大部分脚本使用小窗口）（以上两个通过game_process的控制台输出可以看到）
 
 * frameOriginSizeCm（为了方便编写，初始窗口像素大小换算的厘米值，这样可以在屏幕上通过尺子测距来调整坐标），
 
 game_process.py 中执行情况调整到适合自己的位置即可
 
-其次可能需要修改替换资源目录中脚本的截图，最后改部分脚本中写死的厘米坐标。
+其次可能需要修改替换资源目录中脚本的截图，最后改脚本中写死的厘米坐标。
 
 ### 注意事项
 
@@ -51,6 +49,7 @@ PS:电脑配置可以的推荐搞个虚拟机运行，这样不仅可以自定�
 * mhxy_auto_battle 自动战斗工具 (可用于混“28怒”、玲珑石等任务挂机)
 * mhxy_hanhua 喊话工具
 * mhxy_mine 挖矿
+* mhxy_linlongshi 红色玲珑石带队×5
 * mhxy_remote_control 远程控制模块 例如接收指令执行任务
 * mhxy_remote_client 用于对接 mhxy_shopping2 和 mhxy_remote_control 的工具
 * mhxy_shopping 蹲非珍品
