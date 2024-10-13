@@ -37,7 +37,9 @@ class Linlingshi(MhxyScript):
                 Util.leftClick(-1, 3.5 + 2 * self.chasepos)
                 waitThenClickUtilFindPic(r'resources/linlongshi/select.png')
                 cooldown(1)
-                # 花果山不考虑
+                # 花果山
+                pyautogui.rightClick()
+                cooldown(0.2)
                 Util.leftClick(-1.2, -1.2)
                 waitEscapeBattle()
                 # 关闭对话框用防止影响接下来的脚本

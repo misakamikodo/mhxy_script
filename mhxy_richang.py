@@ -37,7 +37,7 @@ if __name__ == '__main__':
             cooldown(5)
             if pyautogui.locateOnScreen(r'resources/small/enter_battle_flag.png', confidence=0.9) is not None:
                 time = datetime.datetime.now()
-        allEscapeTeam()
+        allEscapeTeam(bugFix=True)
 
     if args.idx == -1:
         i = 0

@@ -20,7 +20,11 @@ class AutoBattle:
                     pyautogui.leftClick(linglongshi.x, linglongshi.y - 10)
             if battling(r'resources/small/no_auto_battle.png'):
                 if not click:
-                    cooldown(2)
+                    cooldown(1.5)
+                    # 花果山
+                    pyautogui.moveTo(winRelativeX(-1.2), winRelativeY(-1.2))
+                    pyautogui.rightClick()
+                    cooldown(0.2)
                     Util.leftClick(-1.2, -1.2)
                     click = True
                 cooldown(2)

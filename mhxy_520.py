@@ -46,7 +46,7 @@ if __name__ == '__main__':
     if args.richang != "True" and args.shutdown == "True":
         os.system("shutdown -s")
     elif args.richang == "True":
-        allEscapeTeam()
+        allEscapeTeam(bugFix=True)
         i = 0
         while len(getWindowList()) > i:
             config = init(idx=i)

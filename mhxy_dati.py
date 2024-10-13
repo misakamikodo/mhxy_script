@@ -6,7 +6,7 @@ from mhxy import *
 # 答题
 class DaTi(MhxyScript):
 
-    def sumMethod(self):
+    def findThenExec(self):
         picArr = [r'resources/richang/sanjieqiyuan.png',
                              r'resources/richang/keju.png',
                              r'resources/richang/quwen.png']
@@ -58,6 +58,7 @@ class DaTi(MhxyScript):
 
     def do(self):
         now = datetime.datetime.now()
+        # 0~6
         week = now.weekday()
         hour = now.hour
         max = 1
@@ -65,19 +66,8 @@ class DaTi(MhxyScript):
             max += 1
         if hour >= 17 and week < 5:
             max += 1
-        while self.sumMethod() and max > 1:
+        while self.findThenExec() and max > 1:
             max -= 1
-        # if not gotoActivity(r'resources/richang/quwen.png'):
-        #     return
-        # self.quwen()
-        # if hour >= 11:
-        #     if not gotoActivity(r'resources/richang/sanjieqiyuan.png'):
-        #         return
-        #     self.sanJieQiYuan()
-        # if hour >= 17 and week < 5:
-        #     if not gotoActivity(r'resources/richang/keju.png'):
-        #         return
-        #     self.keJu()
 
 
 if __name__ == '__main__':

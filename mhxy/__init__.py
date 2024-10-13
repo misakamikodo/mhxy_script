@@ -242,31 +242,32 @@ def doNormFubenMission():
 
 # 日常活动
 def gotoActivity(picArr):
-    def findPic(picArr):
-        def locatePic(picArr):
-            reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
-                   int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
-            for idx, pic in enumerate(picArr):
-                actPos = pyautogui.locateCenterOnScreen(pic, region=reg, confidence=0.9)
-                if actPos is not None:
-                    join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
-                                                                   region=(
-                                                                       int(actPos.x + relativeX2Act(4)),
-                                                                       int(actPos.y - relativeY2Act(1)),
-                                                                       int(relativeX2Act(4)), int(relativeY2Act(2.3))),
-                                                                   confidence=0.9)
-                    if join_activity is not None:
-                        return idx, join_activity
-                    else:
-                        log("任务已完成", pic)
+    def locatePic(picArr):
+        reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
+               int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
+        for idx, pic in enumerate(picArr):
+            actPos = pyautogui.locateCenterOnScreen(pic, region=reg, confidence=0.9)
+            if actPos is not None:
+                join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
+                                                               region=(
+                                                                   int(actPos.x + relativeX2Act(4)),
+                                                                   int(actPos.y - relativeY2Act(1)),
+                                                                   int(relativeX2Act(4)), int(relativeY2Act(2.3))),
+                                                               confidence=0.9)
+                if join_activity is not None:
+                    return idx, join_activity
+                else:
+                    log("任务已完成", pic)
 
-            return None, None
+        return None, None
+
+    def findPic(picArr):
 
         i = 0
         idx, join_activity = locatePic(picArr)
         while join_activity is None and i in range(0, 3):
-            pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
-            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
+            pyautogui.moveTo(winRelativeX(14.2), winRelativeY(10))
+            pyautogui.dragTo(winRelativeX(14.2), winRelativeY(4.6), duration=0.8)
             cooldown(2)
             idx, join_activity = locatePic(picArr)
             i += 1
@@ -288,13 +289,14 @@ def gotoActivity(picArr):
             naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
             naozhong.start()
 
+    # log("打开活动窗")
     pyautogui.leftClick(pos.x, pos.y)
     cooldown(0.5)
     # 在地煞等时间点会切到挑战活动去
     Util.leftClick(3, 4.5)
     cooldown(0.5)
-    pyautogui.moveTo(winRelativeX(10), winRelativeY(4.6))
-    pyautogui.dragTo(winRelativeX(10), winRelativeY(15), duration=0.15)
+    pyautogui.moveTo(winRelativeX(14.2), winRelativeY(4.6))
+    pyautogui.dragTo(winRelativeX(14.2), winRelativeY(15), duration=0.15)
     cooldown(2)
 
     idx, join_activity = findPic(picArr if isinstance(picArr, list) else [picArr])
@@ -303,7 +305,8 @@ def gotoActivity(picArr):
         pyautogui.leftClick(join_activity.x, join_activity.y)
     else:
         log("任务已完成或找不到", picArr)
-        cooldown(0.5)
+        cooldown(1)
+        # log("关闭活动窗")
         Util.leftClick(-1.5, 3.5)
         return None if isinstance(picArr, list) else False
     cooldown(3)
@@ -548,7 +551,7 @@ class MhxyScript:
 
 
 class __EscapeTeam(MhxyScript):
-    def escape(self):
+    def escape(self, bugFix=False):
         cooldown(2)
         Util.doubleClick(-1, 4)
         cooldown(2)
@@ -558,12 +561,20 @@ class __EscapeTeam(MhxyScript):
             cooldown(2)
         Util.leftClick(-2.35, 3.2)
         cooldown(2)
+        # 离开队可能动不了的bug
+        if bugFix:
+            cooldown(1)
+            Util.leftClick(-1, 1.5)
+            cooldown(1)
+            Util.leftClick(-1.5, 9)
+            cooldown(1)
+            Util.leftClick(-5, 4.5)
 
 
-def allEscapeTeam():
+def allEscapeTeam(bugFix = False):
     size = len(getWindowList())
     for i in range(0, size):
-        __EscapeTeam(idx=i).escape()
+        __EscapeTeam(idx=i).escape(bugFix)
 
 # 使用背包的物品
 def findAndUseInBag(pic):
