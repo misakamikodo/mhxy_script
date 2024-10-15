@@ -82,9 +82,9 @@ class Baotu(MhxyScript):
 
     def do(self):
         # 关闭九转、九幽地狱提示弹窗
-        dialog = Util.locateCenterOnScreen('resources/baotu/baotu_dialog.png')
-        if dialog is not None:
-            pyautogui.leftClick(dialog.x, dialog.y)
+        # dialog = Util.locateCenterOnScreen('resources/baotu/baotu_dialog.png')
+        # if dialog is not None:
+        #     pyautogui.leftClick(dialog.x, dialog.y)
         cooldown(1)
         if self._run_baotu() is False:
             return

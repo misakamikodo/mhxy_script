@@ -282,6 +282,7 @@ def gotoActivity(picArr):
     pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
     while pos is None:
         log("请关闭弹窗等遮挡物")
+        pyautogui.rightClick()
         cooldown(10)
         pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
         times += 1
