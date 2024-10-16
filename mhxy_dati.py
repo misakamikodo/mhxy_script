@@ -72,17 +72,16 @@ class DaTi(MhxyScript):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
+    parser.add_argument('-ir', '--idxArray', required=False, default='0', type=str)
     args = parser.parse_args()
+    indexArr = args.idxArray.split(',')
 
     def func(idx):
         DaTi(idx=idx).do()
 
-    if args.idx == -1:
-        i = 0
-        while args.idx == -1 and len(getWindowList()) > i:
-            func(i)
-            i = i + 1
+    if len(indexArr) != 1:
+        for each in indexArr:
+            func(int(each))
     else:
-        func(args.idx)
+        func(int(indexArr[0]))
 

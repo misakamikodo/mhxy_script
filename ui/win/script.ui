@@ -9,40 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
-    <height>523</height>
+    <width>802</width>
+    <height>524</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>梦幻手游助手</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="close_mission_btn">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>280</y>
-      <width>81</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>终止选中任务</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>80</y>
-      <width>101</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>正在运行的程序</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -657,12 +631,12 @@
        <rect>
         <x>20</x>
         <y>340</y>
-        <width>111</width>
+        <width>191</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>离队串行日常</string>
+       <string>结束后离队全选窗口日常</string>
       </property>
      </widget>
     </widget>
@@ -1022,15 +996,15 @@
     <property name="geometry">
      <rect>
       <x>620</x>
-      <y>310</y>
+      <y>80</y>
       <width>161</width>
-      <height>121</height>
+      <height>351</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QRadioButton" name="target_rdo2">
+    <widget class="QCheckBox" name="target_rdo2">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1043,7 +1017,7 @@
       <string>第二窗口</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="target_rdo1">
+    <widget class="QCheckBox" name="target_rdo1">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1072,7 +1046,7 @@
       <string>执行目标</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="target_rdo3">
+    <widget class="QCheckBox" name="target_rdo3">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1098,7 +1072,7 @@
       <string>从左往右</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="target_rdo_m1">
+    <widget class="QCheckBox" name="target_rdo4">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1108,7 +1082,61 @@
       </rect>
      </property>
      <property name="text">
-      <string>串行</string>
+      <string>第四窗口</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="target_rdo5">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>130</y>
+       <width>89</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>第五窗口</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="target_rdo_allchk">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>全选</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="target_rdo_nochk">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>170</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>全不选</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>61</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>多选执行
+完进行下
+一个窗口</string>
      </property>
     </widget>
    </widget>
@@ -1123,16 +1151,6 @@
     </property>
     <property name="text">
      <string>打开日志</string>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>100</y>
-      <width>161</width>
-      <height>171</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">

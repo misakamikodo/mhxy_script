@@ -6,13 +6,14 @@ from mhxy_yabiao import *
 # 秘境、押镖、答题、宝图
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
-    parser.add_argument('-i', '--idx', required=False, default=0, type=int)
+    parser.add_argument('-ir', '--idxArray', required=False, default='0', type=str)
     parser.add_argument('-m', '--mission', required=False, default='baotu,mijing,dati,yabiao', type=str)
     parser.add_argument('-sd', '--shutdown', required=False, default="False", type=str)
     parser.add_argument('-w', '--wait', required=False, default="False", type=str)
     args = parser.parse_args()
     missionSet = set(args.mission.split(","))
     cooldown(1)
+    indexArr = args.idxArray.split(',')
 
     def func(idx):
         config = init(idx=idx)
@@ -39,13 +40,11 @@ if __name__ == '__main__':
                 time = datetime.datetime.now()
         allEscapeTeam(bugFix=True)
 
-    if args.idx == -1:
-        i = 0
-        while args.idx == -1 and len(getWindowList()) > i:
-            func(i)
-            i = i + 1
+    if len(indexArr) != 1:
+        for each in indexArr:
+            func(int(each))
     else:
-        func(args.idx)
+        func(int(indexArr[0]))
 
     if args.shutdown == "True":
         os.system("shutdown -s")

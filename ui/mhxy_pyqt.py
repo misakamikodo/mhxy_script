@@ -20,6 +20,7 @@ class MhxyApplication(QMainWindow, main_win):
     _threadMap = {}
     conn = None
     file_path = None
+    singleChkMode = False
 
     def __init__(self):
         super(MhxyApplication, self).__init__()
@@ -33,7 +34,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.game_process_small_btn.clicked.connect(self.gamoprocess2Small)
         self.game_process_origin_btn.clicked.connect(self.gamoprocess2Origin)
         self.log_btn.clicked.connect(self.openLog)
-        self.close_mission_btn.clicked.connect(self.closeTask)
+        # self.close_mission_btn.clicked.connect(self.closeTask)
         self.run_customer_btn.clicked.connect(self.runCustomerTask)
         # regexp = QRegularExpression(r"[a-zA-Z]:(\\[\w\u4e00-\u9fa5-{}][\w\u4e00-\u9fa5\s-{}])([.a-z-{}\\]{0,99}[\w\u4e00-\u9fa5-{}])*")
         # validator_regx = QRegularExpressionValidator(self)
@@ -54,6 +55,14 @@ class MhxyApplication(QMainWindow, main_win):
         self.lineEdit.setText(dir)
         os.chdir(dir)
         self.lineEdit.textChanged.connect(self.dirChange)
+        self.tabWidget.currentChanged.connect(self.tabWidgetChange)
+        self.target_rdo_allchk.clicked.connect(self.allChk)
+        self.target_rdo_nochk.clicked.connect(self.noChk)
+        self.target_rdo1.clicked.connect(self.chk1)
+        self.target_rdo2.clicked.connect(self.chk2)
+        self.target_rdo3.clicked.connect(self.chk3)
+        self.target_rdo4.clicked.connect(self.chk4)
+        self.target_rdo5.clicked.connect(self.chk5)
         # 日常
         self.batch_richang.clicked.connect(self.richangTask)
         self.baotu_btn.clicked.connect(self.baotuTask)
@@ -83,9 +92,9 @@ class MhxyApplication(QMainWindow, main_win):
         self.linlongshi_btn.clicked.connect(self.linlongshiTask)
         self.auto_battle_btn.clicked.connect(self.autoBattleTask)
         # temp
-        self.listWidget.hide()
-        self.close_mission_btn.hide()
-        self.label.hide()
+        # self.listWidget.hide()
+        # self.close_mission_btn.hide()
+        # self.label.hide()
 
     def exec_script(self, target, args=""):
         # subprocess.check_call(f'python {self.lineEdit.text()}\\{target}.py {args}')
@@ -96,6 +105,53 @@ class MhxyApplication(QMainWindow, main_win):
     def dirChange(self, content):
         os.chdir(content)
         # print(content)
+
+    def tabWidgetChange(self, evt):
+        self.singleChkMode = evt != 0
+        if self.singleChkMode:
+            rdo = [self.target_rdo1, self.target_rdo2, self.target_rdo3, self.target_rdo4, self.target_rdo5]
+            for radio in rdo:
+                if radio.isChecked():
+                    index = rdo.index(radio)
+                    for next_radio in rdo[index + 1:]:
+                        next_radio.setChecked(False)
+                    break
+
+    def allChk(self, evt):
+        self.target_rdo1.setChecked(True)
+        self.target_rdo2.setChecked(True)
+        self.target_rdo3.setChecked(True)
+        self.target_rdo4.setChecked(True)
+        self.target_rdo5.setChecked(True)
+
+    def noChk(self, evt):
+        self.target_rdo1.setChecked(False)
+        self.target_rdo2.setChecked(False)
+        self.target_rdo3.setChecked(False)
+        self.target_rdo4.setChecked(False)
+        self.target_rdo5.setChecked(False)
+
+    def chk(self, no):
+        if self.singleChkMode:
+            rdo = [self.target_rdo1,self.target_rdo2,self.target_rdo3,self.target_rdo4,self.target_rdo5]
+            for i in range(0, 5):
+                if i != no:
+                    rdo[i].setChecked(False)
+
+    def chk1(self, evt):
+        self.chk(0)
+
+    def chk2(self, evt):
+        self.chk(1)
+
+    def chk3(self, evt):
+        self.chk(2)
+
+    def chk4(self, evt):
+        self.chk(3)
+
+    def chk5(self, evt):
+        self.chk(4)
 
     def shopping1Task(self):
         self.exec_script('mhxy_shopping1')
@@ -239,10 +295,25 @@ class MhxyApplication(QMainWindow, main_win):
             arr.append(self.yabiao_btn.text())
             mission.append("yabiao")
         self.addTask("test", f'单人日常[{str.join(",", arr)}]')
-        self.exec_script("mhxy_richang", f'-i {self.getTarget()} '
+        self.exec_script("mhxy_richang", f'-ir {self.getTargetArr()} '
                                          f'-m {str.join(",", mission)} '
                                          f'-w {self.wait_chk.isChecked()} '
                                          f'--shutdown {self.missionrichang_shutdown_chk.isChecked()}')
+
+    # 获取执行目标
+    def getTargetArr(self):
+        arr = []
+        if self.target_rdo1.isChecked():
+            arr.append('0')
+        elif self.target_rdo2.isChecked():
+            arr.append('1')
+        elif self.target_rdo3.isChecked():
+            arr.append('2')
+        elif self.target_rdo4.isChecked():
+            arr.append('3')
+        elif self.target_rdo5.isChecked():
+            arr.append('4')
+        return ','.join(arr)
 
     # 获取执行目标
     def getTarget(self):
@@ -252,23 +323,25 @@ class MhxyApplication(QMainWindow, main_win):
             return 1
         elif self.target_rdo3.isChecked():
             return 2
-        elif self.target_rdo_m1.isChecked():
-            return -1
+        elif self.target_rdo4.isChecked():
+            return 4
+        elif self.target_rdo5.isChecked():
+            return 5
 
     def baotuTask(self):
-        self.exec_script('mhxy_baotu', f'-i {self.getTarget()}')
+        self.exec_script('mhxy_baotu', f'-ir {self.getTargetArr()}')
         self.addTask("baotu", f'{self.baotu_btn.text()}')
 
     def mijingTask(self):
-        self.exec_script('mhxy_mijing', f'-i {self.getTarget()}')
+        self.exec_script('mhxy_mijing', f'-ir {self.getTargetArr()}')
         self.addTask("test", f'{self.mijing_btn.text()}')
 
     def datiTask(self):
-        self.exec_script('mhxy_dati', f'-i {self.getTarget()}')
+        self.exec_script('mhxy_dati', f'-ir {self.getTargetArr()}')
         self.addTask("test", f'{self.dati_btn.text()}')
 
     def yabiaoTask(self):
-        self.exec_script('mhxy_yabiao', f'-i {self.getTarget()}')
+        self.exec_script('mhxy_yabiao', f'-ir {self.getTargetArr()}')
         self.addTask("test", f'{self.yabiao_btn.text()}')
 
     def runCustomerTask(self):
@@ -330,7 +403,7 @@ class MhxyApplication(QMainWindow, main_win):
     def addTask(self, bindThread, text):
         lwi = QListWidgetItem(text)
         lwi.setData(Qt.UserRole, bindThread)
-        self.listWidget.addItem(lwi)
+        # self.listWidget.addItem(lwi)
 
     def closeTask(self):
         target = self.listWidget.selectedItems()
