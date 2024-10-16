@@ -8,23 +8,23 @@ class GameProcess:
 
     def __moveZhuomianbanFunc(self, size, target=None):
         winList = getWindowList()
-        zhuomianban = (71, 964, 71, 964)
+        sz = pyautogui.size()
+        x0 = size[0] - 15
+        l = int((sz.width - 2 * x0) / 2)
+        zhuomianban = (l, l + x0, l, l + x0, int((sz.width - size[0]) / 2))
         i = 0
         if target is not None:
             winList.sort(key=lambda x: (x.left, x.top))
             winList = [winList[min(target, len(winList) - 1)]]
         for idx, item in enumerate(winList):
             log(item)
-            item.resizeTo(smallSize[0], smallSize[1])
+            item.resizeTo(size[0], size[1])
             cooldown(1)
-            sz = pyautogui.size()
             if idx == 4:
-                p = (sz.width - item.width) / 2, (sz.height - item.height) / 2
-                item.moveTo(int(p[0]), int(p[1]))
+                item.moveTo(zhuomianban[4], int((sz.height - size[1]) / 2))
             else:
                 # 这里任务栏写死36
-                no2LineTop = (sz.height - item.height - 36 if sz.height - item.height * 2 < 0 else item.height) * int(
-                    i / 2)
+                no2LineTop = (sz.height - size[1] - 36 if sz.height - size[1] * 2 < 0 else size[1]) * int(i / 2)
                 item.moveTo(zhuomianban[i], no2LineTop)
                 i += 1
             log("处理后：", item)
@@ -32,15 +32,13 @@ class GameProcess:
     def moveZhuomianbanVertical(self):
         windows = pyautogui.getAllWindows()
         sz = pyautogui.size()
-        no3LineTop = (sz.height - 707 - 36 if sz.height - 707 * 3 < 0 else 707 * 2 + 1)
-        zhuomianban = (0, 707 + 1, no3LineTop)
         i = 0
         for item in list(filter(lambda x: x.title.startswith("梦幻西游："), windows)):
             log(item)
             item.resizeTo(smallSize[0], smallSize[1])
-            pyautogui.moveTo(item.left + self._moveOffset[0], item.top + self._moveOffset[1])
+            item.moveTo(int((sz.width - smallSize[0]) / 2),
+                        int(min(i * (smallSize[1] - 15), sz.height - smallSize[1] - 36)))
             cooldown(1)
-            item.moveTo(71, zhuomianban[i])
             i += 1
             log("处理后：", item)
 
@@ -60,15 +58,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OF Generate')
     parser.add_argument('-tg', '--target', required=False, default=None, type=int)
     parser.add_argument('-s', '--size', default='small', type=str)
-    parser.add_argument('-d', '--direct', default='horizontal', type=str)
+    parser.add_argument('-d', '--direct', default='h', type=str)
     parser.add_argument('--type', default='zhuomian', type=str)
     args = parser.parse_args()
 
     resize = GameProcess()
     if args.size == 'small':
-        if args.direct == 'horizontal':
+        if args.direct == 'h':
             resize.moveZhuomianban(target=args.target)
-        else:
+        else: # v
             resize.moveZhuomianbanVertical()
     else:
         resize.moveZhuomianban2Origin()

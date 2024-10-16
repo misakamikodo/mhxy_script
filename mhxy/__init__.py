@@ -406,14 +406,14 @@ def resize2Small(windows):
 
 def getWindowList():
     windowsList = pyautogui.getWindowsWithTitle('梦幻西游：时空')
-    windowsList = list(filter(lambda x: x.left > 0, windowsList))
-    windowsList.sort(key=lambda x: (x.left / 4, x.top))
-    moniqiWin = list(
-        filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
-               pyautogui.getAllWindows()))
-    moniqiWin.sort(key=lambda x: (x.left / 4, x.top))
-    for each in moniqiWin:
-        windowsList.append(each)
+    windowsList = list(filter(lambda x: x.left >= 0, windowsList))
+    windowsList.sort(key=lambda x: (x.left, x.top))
+    # moniqiWin = list(
+    #     filter(lambda x: x.left > 0 and (x.title.startswith("MuMu模拟器12") or x.title.startswith("梦幻西游 - ")),
+    #            pyautogui.getAllWindows()))
+    # moniqiWin.sort(key=lambda x: (x.left, x.top))
+    # for each in moniqiWin:
+    #     windowsList.append(each)
     return windowsList
 
 '''
