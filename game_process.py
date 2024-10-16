@@ -7,7 +7,6 @@ class GameProcess:
 
     def __moveZhuomianbanFunc(self, size, target=None):
         winList = getWindowList()
-        print(len(winList))
         zhuomianban = (0, smallSize[0] - 15, smallSize[0] * 2 - 30, int(smallSize[0] / 2) - 15, int(smallSize[0] / 2) + smallSize[0] - 30)
         i = 0
         if target is not None:
