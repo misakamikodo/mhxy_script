@@ -4,7 +4,7 @@ from configparser import ConfigParser
 
 from mhxy import *
 
-nxtNode = PicNode(r'resources/bangpai/small/next.png')
+nxtNode = PicNode(r'resources/bangpai/next.png')
 
 class BangpaiPicNode(PicNode):
 
@@ -17,7 +17,7 @@ class BangpaiPicNode(PicNode):
 
 # 小窗口
 class Bangpai(MhxyScript):
-    chaseWin = [-0.5, 3.8 + 0]
+    chaseWin = [-0.4, 2.7 + 0]
     # 结束状态
     _rootList = []
 
@@ -25,13 +25,13 @@ class Bangpai(MhxyScript):
 
     def __init__(self, idx=0, changWinPos=True) -> None:
         super().__init__(idx=idx, changWinPos=changWinPos)
-        file_path = os.path.join(os.path.abspath('.'), 'resources/bangpai/small/bangpai.ini')
+        file_path = os.path.join(os.path.abspath('.'), 'resources/bangpai/bangpai.ini')
         if not os.path.exists(file_path):
             raise FileNotFoundError("文件不存在")
         conn = ConfigParser()
         conn.read(file_path)
         chasepos = float(conn.get('main', 'chasepos'))
-        self.chaseWin[1] = 3.8 + chasepos * 2
+        self.chaseWin[1] = 2.7 + chasepos * 1.5
 
         # 结束状态 下一步是root（除了finish标志）
         leafNode = []
@@ -42,10 +42,10 @@ class Bangpai(MhxyScript):
 
         def shangchen(locate, chaseWin):
             cooldown(1)
-            shangchen = Util.locateCenterOnScreen(r'resources/bangpai/small/shangchen.png') is not None
+            shangchen = Util.locateCenterOnScreen(r'resources/bangpai/shangchen.png') is not None
             # 选择第二个商品（防止商品被买）
             if shangchen:
-                Util.leftClick(17, 7)
+                Util.leftClick(13, 5)
                 cooldown(0.3)
                 pyautogui.leftClick(locate.x, locate.y)
             else:
@@ -59,8 +59,8 @@ class Bangpai(MhxyScript):
 
         # 访问任务
         battle = BangpaiPicNode(r'resources/small/enter_battle_flag.png', completeFunc=battleFunc)
-        qiecuo = BangpaiPicNode(r'resources/bangpai/small/qiecuo.png', completeFunc=clickFunc)
-        fanwen = BangpaiPicNode(r'resources/bangpai/small/fanwen.png')
+        qiecuo = BangpaiPicNode(r'resources/bangpai/qiecuo.png', completeFunc=clickFunc)
+        fanwen = BangpaiPicNode(r'resources/bangpai/fanwen.png')
         qiecuo.setNext([battle])
         fanwen.next = [battle, nxtNode]
         # 访问、已有二级药的任务结束
@@ -69,12 +69,12 @@ class Bangpai(MhxyScript):
         leafNode.append(battle)
 
         # 三级药烹饪wupin任务 *购买->总管->上交 二级药wupin2任务 *购买->总管
-        shangjiao = BangpaiPicNode(r'resources/bangpai/small/shangjiao.png')
+        shangjiao = BangpaiPicNode(r'resources/bangpai/shangjiao.png')
         fanwen.next.append(shangjiao)
-        wupin = BangpaiPicNode(r'resources/bangpai/small/wupin.png', completeFunc=shangchen)
+        wupin = BangpaiPicNode(r'resources/bangpai/wupin.png', completeFunc=shangchen)
         # 可能购买失败，所以还是
         wupin.setNext([fanwen])
-        wupin2 = BangpaiPicNode(r'resources/bangpai/small/wupin2.png', completeFunc=clickFunc)
+        wupin2 = BangpaiPicNode(r'resources/bangpai/wupin2.png', completeFunc=clickFunc)
         wupin2.next = [fanwen, nxtNode]
         # 二级药结束点
         # leafNode.append(fanwen)
@@ -88,19 +88,19 @@ class Bangpai(MhxyScript):
             cooldown(0.3)
 
         def hanhuaFunc(locate, chaseWin):
-            Util.leftClick(-3.5, -3)
+            Util.leftClick(-2.1, -2.6)
             cooldown(3)
-            Util.leftClick(-3.5, -3)
+            Util.leftClick(-2.1, -2.6)
             cooldown(0.3)
         # 喊话任务
-        hanhua = BangpaiPicNode(r'resources/bangpai/small/hanhua.png', completeFunc=hanhuaFunc)
+        hanhua = BangpaiPicNode(r'resources/bangpai/hanhua.png', completeFunc=hanhuaFunc)
         leafNode.append(hanhua)
 
         # 结束
         def finishFunc(locate, chaseWin):
             sys.exit(0)
 
-        finish = BangpaiPicNode(r'resources/bangpai/small/finish.png', completeFunc=finishFunc)
+        finish = BangpaiPicNode(r'resources/bangpai/finish.png', completeFunc=finishFunc)
 
         self._rootList = [qiecuo, fanwen, wupin, wupin2, hanhua] #  finish
 
@@ -114,7 +114,6 @@ class Bangpai(MhxyScript):
         nxtNode.next = self._rootList
 
     def do(self):
-
         nodePointer = self._rootList
         findPicNode = None
         while findPicNode is None or findPicNode.next is not None:

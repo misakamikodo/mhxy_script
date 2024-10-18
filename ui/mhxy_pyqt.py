@@ -28,7 +28,7 @@ class MhxyApplication(QMainWindow, main_win):
         self.baotu_cfg_btn.clicked.connect(self.openBaotuCfgDialog)
         self.ghost_cfg_btn.clicked.connect(self.openGhostCfgDialog)
         self.menpai_cfg_btn.clicked.connect(self.openMenpaiCfgDialog)
-        self.bangpai2_cfg_btn.clicked.connect(self.openBangpaiCfgDialog)
+        self.bangpai_cfg_btn.clicked.connect(self.openBangpaiCfgDialog)
         self.linlongshi_cfg_btn.clicked.connect(self.openLinlongshiCfgDialog)
         self.mihunta_cfg_btn.clicked.connect(self.openMihuntaCfgDialog)
         self.game_process_small_btn.clicked.connect(self.gamoprocess2Small)
@@ -84,11 +84,11 @@ class MhxyApplication(QMainWindow, main_win):
         self.haidi_btn.clicked.connect(self.haidiTask)
         self.mihunta_btn.clicked.connect(self.mihuntaTask)
         # 工具
-        self.shopping1_btn.clicked.connect(self.shopping1Task)
-        self.shopping2_btn.clicked.connect(self.shopping2Task)
-        self.shopping3_btn.clicked.connect(self.shopping3Task)
+        # self.shopping1_btn.clicked.connect(self.shopping1Task)
+        # self.shopping2_btn.clicked.connect(self.shopping2Task)
+        # self.shopping3_btn.clicked.connect(self.shopping3Task)
         # self.mine_btn.clicked.connect(self.mineTask)
-        self.bangpai2_btn.clicked.connect(self.bangpai2Task)
+        self.bangpai_btn.clicked.connect(self.bangpaiTask)
         self.linlongshi_btn.clicked.connect(self.linlongshiTask)
         self.auto_battle_btn.clicked.connect(self.autoBattleTask)
         # temp
@@ -178,11 +178,11 @@ class MhxyApplication(QMainWindow, main_win):
             self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t huashang')
         elif self.auto_battle_linglongshi_rdo.isChecked():
             self.exec_script('mhxy_auto_battle', f'-i {self.getTarget()} -t linglongshi')
-        self.addTask("test", f'{self.bangpai2_btn.text()}')
+        self.addTask("test", f'{self.bangpai_btn.text()}')
 
-    def bangpai2Task(self):
-        self.exec_script('mhxy_bangpai2', f'-i {self.getTarget()}')
-        self.addTask("test", f'{self.bangpai2_btn.text()}')
+    def bangpaiTask(self):
+        self.exec_script('mhxy_bangpai', f'-i {self.getTarget()}')
+        self.addTask("test", f'{self.bangpai_btn.text()}')
 
     def linlongshiTask(self):
         self.exec_script('mhxy_linlongshi', f'-i {self.getTarget()}')
@@ -295,6 +295,12 @@ class MhxyApplication(QMainWindow, main_win):
             arr.append(self.yabiao_btn.text())
             mission.append("yabiao")
         self.addTask("test", f'单人日常[{str.join(",", arr)}]')
+        # for i in self.getTargetArr().split(','):
+        #     self.exec_script("mhxy_richang", f'-ir {i} '
+        #                                      f'-m {str.join(",", mission)} '
+        #                                      f'-w {self.wait_chk.isChecked()} '
+        #                                      f'--shutdown {self.missionrichang_shutdown_chk.isChecked()}')
+        #     time.sleep(20)
         self.exec_script("mhxy_richang", f'-ir {self.getTargetArr()} '
                                          f'-m {str.join(",", mission)} '
                                          f'-w {self.wait_chk.isChecked()} '
@@ -305,13 +311,13 @@ class MhxyApplication(QMainWindow, main_win):
         arr = []
         if self.target_rdo1.isChecked():
             arr.append('0')
-        elif self.target_rdo2.isChecked():
+        if self.target_rdo2.isChecked():
             arr.append('1')
-        elif self.target_rdo3.isChecked():
+        if self.target_rdo3.isChecked():
             arr.append('2')
-        elif self.target_rdo4.isChecked():
+        if self.target_rdo4.isChecked():
             arr.append('3')
-        elif self.target_rdo5.isChecked():
+        if self.target_rdo5.isChecked():
             arr.append('4')
         return ','.join(arr)
 

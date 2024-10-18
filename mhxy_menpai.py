@@ -16,7 +16,7 @@ class Menpai(MhxyScript):
         conn = ConfigParser()
         conn.read(file_path)
         chasepos = float(conn.get('main', 'chasepos'))
-        self.chaseWin[1] = 3.8 + chasepos * 2
+        self.chaseWin[1] = 2.7 + chasepos * 1.5
 
     def take_mission(self, startPos):
         pyautogui.leftClick(startPos.x, startPos.y)
@@ -30,7 +30,7 @@ class Menpai(MhxyScript):
             return Util.locateCenterOnScreen(r'resources/menpai/start.png')
 
         def reach_pos():
-            return Util.locateCenterOnScreen(r'resources/menpai/select.png')
+            return Util.locateCenterOnScreen(r'resources/menpai/dialogpick.png')
 
         # 流程任务 领取任务开始
         def do_out_of_battle():

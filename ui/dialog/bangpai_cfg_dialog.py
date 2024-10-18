@@ -2,7 +2,7 @@ import os
 from configparser import ConfigParser
 
 from PyQt6.QtWidgets import QDialog
-from win.bangpai2_config import Ui_Dialog
+from win.bangpai_config import Ui_Dialog
 
 
 class BangpaiCfgDialog(QDialog, Ui_Dialog):

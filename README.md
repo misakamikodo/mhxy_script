@@ -37,7 +37,7 @@ PS:电脑配置可以的推荐搞个虚拟机运行，这样不仅可以自定�
 * mhxy_520 副本捉鬼
 * mhxy_even_guaji 常用挂机系列汇总 (可用于晚间挂机)
 * mhxy_richang 宝图 秘境 答题 押镖
-* mhxy_bangpai2 帮派任务(小窗口)
+* mhxy_bangpai 帮派任务(小窗口)
 * mhxy_baotu 宝图
 * mhxy_mijing 秘境
 * mhxy_dati 答题

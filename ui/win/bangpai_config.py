@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'bangpai2_config.ui'
+# Form implementation generated from reading ui file 'bangpai_config.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #

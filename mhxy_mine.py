@@ -40,7 +40,7 @@ class MineUtil:
         elif type == "changshou":
             pos = (-6, 6)
         else:
-            pos = (-7.8, 3.8)
+            pos = (-7.8, 2.7)
         Util.leftClick(pos[0], pos[1])
 
 

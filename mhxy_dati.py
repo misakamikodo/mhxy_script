@@ -24,17 +24,19 @@ class DaTi(MhxyScript):
         return True
 
     def sanJieQiYuan(self):
-        while Util.locateCenterOnScreen(r'resources/richang/sanjieqiyuan_end.png') is None:
-            Util.leftClick(10, 7)
+        i = 0
+        while Util.locateCenterOnScreen(r'resources/richang/sanjieqiyuan_end.png') is None or i > 30:
+            Util.leftClick(7.5, 6)
+            i += 1
             cooldown(2.3)
-        Util.leftClick(-1.5, 4.5)
+        Util.leftClick(-1.2, 3.3)
         cooldown(1)
 
     def keJu(self):
         for i in range(0, 10):
-            Util.leftClick(10, 10)
+            Util.leftClick(8, 7.2)
             cooldown(2.3)
-        Util.leftClick(-1.5, 5.5)
+        Util.leftClick(-1.2, 4.3)
         cooldown(1)
 
     def quwen(self):
@@ -44,16 +46,16 @@ class DaTi(MhxyScript):
             # 用 locateAll导致返回的同个位置有重复
             heart = pyautogui.locateCenterOnScreen(r'resources/richang/quwen_heart.png',
                                                 region=(frame.left, frame.top, frameSize[0], frameSize[1]),
-                                                confidence=0.9)
+                                                confidence=0.8)
             # 颜色不同会被识别
             if heart is not None:
                 pyautogui.leftClick(heart.x, heart.y)
                 cooldown(1)
                 times += 1
-            pyautogui.moveTo(winRelativeX(7), winRelativeY(17))
-            pyautogui.dragTo(winRelativeX(7), winRelativeY(11), duration=0.5)
+            pyautogui.moveTo(winRelativeX(6), winRelativeY(12))
+            pyautogui.dragTo(winRelativeX(6), winRelativeY(7), duration=0.5)
             cooldown(2)
-        Util.leftClick(13, 10)
+        Util.leftClick(9.3, 7)
         cooldown(1)
 
     def do(self):

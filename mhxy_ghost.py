@@ -46,39 +46,21 @@ class Ghost(MhxyScript):
             self._doublePointNumPer100 = doublePointNumPer100
         log("读取配置：调整窗口大小：" + str(resize))
 
-        self._chaseWin = (-1, 3.5)
+        self._chaseWin = (-1, 2.7)
 
     def _chaseWinFix(self):
-        fix = 2 * self.chasepos
+        fix = 1.5 * self.chasepos
         return fix
-
-    def getDialog(self):
-        cooldown(1)
-        Util.leftClick(7.5, 1.5)
-        cooldown(1)
-        Util.leftClick(3, 4.5)
-        cooldown(2)
-        mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
-        i = 0
-        while mission is None and i in range(0, 2):
-            pyautogui.moveTo(winRelativeX(10), winRelativeY(12.5))
-            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-            cooldown(1)
-            mission = Util.locateCenterOnScreen(r'resources/ghost/mission.png')
-            i += 1
-        if mission is not None:
-            cooldown(1)
-            pyautogui.leftClick(mission.x + relativeX2Act(3.5), mission.y + relativeY2Act(0.2))
 
     def getPoint(self):
         cooldown(2)
-        Util.leftClick(11, 1.5)
+        Util.leftClick(7.6, 1.9)
         cooldown(2)
         for each in range(0, self._doublePointNumPer100):
-            Util.leftClick(20, 16)
+            Util.leftClick(14.5, 11.5)
             cooldown(0.2)
         cooldown(2)
-        Util.leftClick(23, 3.5)
+        Util.leftClick(16.3, 2.2)
         cooldown(2)
         pass
 
@@ -88,10 +70,10 @@ class Ghost(MhxyScript):
         # +3 整点第二个任务
         log("关闭对话框 ", self._chaseWin)
         cooldown(1)
-        five = Util.locateOnScreen(r'resources/ghost/team_not_full.png')
+        five = Util.locateCenterOnScreen(r'resources/ghost/team_not_full.png')
         if five is not None:
             # 按取消
-            pyautogui.leftClick(five.left + five.width - 120, five.top + five.height - 20)
+            pyautogui.leftClick(five.x, five.y + relativeY2Act(0.6))
             cooldown(1)
         # 校验双倍 self.__count % 25 == 0
         if self._count % 25 == 0 and self._doublePointNumPer100 != -1:
@@ -114,25 +96,7 @@ class Ghost(MhxyScript):
         Util.leftClick(-1, -3)
 
     def go(self):
-        cooldown(1)
-        Util.leftClick(6.8, 1.5)
-        cooldown(0.5)
-        Util.leftClick(3, 4.7)
-        cooldown(1)
-        tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
-        i = 0
-        while tag is None and i in range(0, 1):
-            pyautogui.moveTo(winRelativeX(10), winRelativeY(10))
-            pyautogui.dragTo(winRelativeX(10), winRelativeY(4.6), duration=0.8)
-            cooldown(2)
-            tag = Util.locateCenterOnScreen('resources/ghost/activity_tag.png')
-            i += 1
-        if tag is not None:
-            cooldown(1)
-            pyautogui.leftClick(tag.x + relativeX2Act(3.5), tag.y + relativeY2Act(0.2))
-            waitUtilFindPic('resources/ghost/start_ghost0.png')
-        else:
-            pl.playsound('resources/common/music.mp3')
+        gotoActivity(r'resources/ghost/activity_tag.png')
 
     def _startGhostDo(self):
         cooldown(5 * 60)
@@ -154,7 +118,7 @@ class Ghost(MhxyScript):
                 cooldown(10)
 
             # 是否继续捉鬼弹窗 虽然使用确定即可，但是截图截得长了，所以locateOnScreen获取相对截图右下点的位置
-            completeLocation = Util.locateOnScreen('resources/ghost/complete_ghost0.png')
+            completeLocation = Util.locateCenterOnScreen('resources/ghost/complete_ghost0.png')
             startLocation = None
 
             if completeLocation is None:
@@ -163,8 +127,8 @@ class Ghost(MhxyScript):
 
             if completeLocation is not None:
                 # 选择继续捉鬼
-                pyautogui.leftClick(completeLocation.left + completeLocation.width - 50,
-                                    completeLocation.top + completeLocation.height - 20)
+                pyautogui.leftClick(completeLocation.x,
+                                    completeLocation.y + relativeY2Act(0.6))
                 startLocation = initStartLocation()
                 log("结束抓鬼 ", completeLocation)
             if startLocation is not None:
@@ -174,7 +138,7 @@ class Ghost(MhxyScript):
                 if self._count > self.maxRound:
                     self._flag = False
                     # 关闭对话框用防止影响接下来的脚本
-                    Util.leftClick(11, 11)
+                    Util.leftClick(8, 8)
                     # pl.playsound('resources/common/music.mp3')
                 else:
                     self._startMission(startLocation)

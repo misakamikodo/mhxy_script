@@ -25,9 +25,9 @@ class Linlingshi(MhxyScript):
                 findAndUseInBag(r'resources/linlongshi/red.png')
             waitThenClickUtilFindPic(r'resources/linlongshi/start.png')
             cooldown(0.2)
-            Util.leftClick(-3.5, 10.6)
+            Util.leftClick(-3.5, 8)
             cooldown(0.5)
-            Util.leftClick(-3.5, 12.6)
+            Util.leftClick(-3.5, 9)
             waitUtilFindPic(r'resources/linlongshi/confirmed.png')
             # 关闭对话框用防止影响接下来的脚本
             Util.leftClick(11, 11)
@@ -35,15 +35,16 @@ class Linlingshi(MhxyScript):
             for i in range(0, 3):
                 # 有剧情 + 4
                 Util.leftClick(-1, 3.5 + 2 * self.chasepos)
-                waitThenClickUtilFindPic(r'resources/linlongshi/select.png')
+                waitUtilFindPic(r'resources/linlongshi/dialogpick.png')
+                Util.leftClick(-3.5, 10)
                 cooldown(1)
                 # 花果山
                 pyautogui.rightClick()
                 cooldown(0.2)
-                Util.leftClick(-1.2, -1.2)
+                Util.leftClick(-0.7, -0.7)
                 waitEscapeBattle()
                 # 关闭对话框用防止影响接下来的脚本
-                Util.leftClick(11, 11)
+                Util.leftClick(8, 8)
                 cooldown(0.2)
 
 

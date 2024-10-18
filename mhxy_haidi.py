@@ -11,7 +11,7 @@ class Haidi(MhxyScript):
             if datetime.datetime.now().minute >= 41:
                 self._flag=False
             def reach():
-                return Util.locateCenterOnScreen(r'resources/haidi/select.png')
+                return Util.locateCenterOnScreen(r'resources/haidi/dialogpick.png')
             Util.doubleClick(chaseWin[0], chaseWin[1])
             reachPos = reach()
             times = 0

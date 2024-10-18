@@ -16,7 +16,7 @@ class Mihunta(MhxyScript):
         conn = ConfigParser()
         conn.read(file_path)
         chasepos = float(conn.get('main', 'chasepos'))
-        self.chaseWin[1] = 3.8 + chasepos * 2
+        self.chaseWin[1] = 2.7 + chasepos * 1.5
 
     def _reach(self):
         r = Util.locateCenterOnScreen(r'resources/mihunta/chuansong.png')

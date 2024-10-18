@@ -20,24 +20,24 @@ class Baotu(MhxyScript):
         self._chasepos = chasepos
 
     def _find_baotu(self):
-        baotuLocation = Util.locateCenterOnScreen('resources/baotu/baotu_item.png', confidence=0.85)
+        baotuLocation = Util.locateCenterOnScreen('resources/richang/baotu_item.png', confidence=0.85)
         if baotuLocation is not None:
             return baotuLocation
         for _ in range(0, 2):
-            pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
-            pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
+            pyautogui.moveTo(winRelativeX(12), winRelativeY(5))
+            pyautogui.dragTo(winRelativeX(12), winRelativeY(10), duration=0.3)
             cooldown(1)
         for _ in range(0, 3):
-            pyautogui.moveTo(winRelativeX(17.3), winRelativeY(14))
-            pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
+            pyautogui.moveTo(winRelativeX(12), winRelativeY(10))
+            pyautogui.dragTo(winRelativeX(12), winRelativeY(5), duration=0.8)
             cooldown(1)
-            baotuLocation = Util.locateCenterOnScreen('resources/baotu/baotu_item.png')
+            baotuLocation = Util.locateCenterOnScreen('resources/richang/baotu_item.png')
             if baotuLocation is not None:
                 return baotuLocation
             cooldown(2)
 
     def _run_baotu(self):
-        Util.leftClick(23, 16)
+        Util.leftClick(-0.6, -2)
         cooldown(0.5)
         baotuLocation = self._find_baotu()
         if baotuLocation is None:
@@ -54,19 +54,19 @@ class Baotu(MhxyScript):
                                            int(frame.left + frameSize[0] / 2), frame.top, int(frameSize[0] / 2), frameSize[1]),
                                            confidence=0.8)
             return ms
-        cooldown(0.5)
+        cooldown(0.3)
         ms = locateBaotuMission()
         if ms is not None:
             pyautogui.leftClick(ms.x, ms.y)
         else:
-            waitUtilFindPic(r'resources/fuben/select.png')
-            Util.leftClick(-3, 12.2)
+            waitUtilFindPic(r'resources/small/dialogpick.png')
+            Util.leftClick(-2.5, -4.9)
         cooldown(0.5)
         ms = locateBaotuMission()
         if ms is not None:
             pyautogui.doubleClick(ms.x, ms.y)
         else:
-            Util.doubleClick(-3, 3.8 + self._chasepos * 2)
+            Util.doubleClick(-3, 2.7 + self._chasepos * 1.5)
         # 等待任务完成
         timep = datetime.datetime.now()
         btl = battling()
@@ -82,7 +82,7 @@ class Baotu(MhxyScript):
 
     def do(self):
         # 关闭九转、九幽地狱提示弹窗
-        # dialog = Util.locateCenterOnScreen('resources/baotu/baotu_dialog.png')
+        # dialog = Util.locateCenterOnScreen('resources/richang/baotu_dialog.png')
         # if dialog is not None:
         #     pyautogui.leftClick(dialog.x, dialog.y)
         cooldown(1)
@@ -90,13 +90,10 @@ class Baotu(MhxyScript):
             return
         i = 0
         while self._stopCheck():
-            useBaotuLocation = Util.locateCenterOnScreen('resources/baotu/use_baotu.png')
-            # 防止点到包裹
-            if useBaotuLocation is not None and useBaotuLocation.x < frame.right - relativeX2Act(1.8):
+            useBaotuLocation = Util.locateCenterOnScreen('resources/richang/use_baotu.png')
+            if useBaotuLocation is not None:
                 cooldown(0.5)
-                pyautogui.leftClick(useBaotuLocation.x,
-                                    useBaotuLocation.y + 50)
-                # log("挖宝图中 ", useBaotuLocation)
+                Util.leftClick(-2.5, -2.6)
                 i = 0
             cooldown(2)
             i += 1

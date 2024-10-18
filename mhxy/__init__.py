@@ -223,7 +223,7 @@ def waitThenClickUtilFindPic(pic):
 # 副本式任务
 def doNormFubenMission():
     def reach():
-        return Util.locateCenterOnScreen(r'resources/fuben/select.png')
+        return Util.locateCenterOnScreen(r'resources/small/dialogpick.png')
 
     # 流程任务
     def do():
@@ -243,17 +243,17 @@ def doNormFubenMission():
 # 日常活动
 def gotoActivity(picArr):
     def locatePic(picArr):
-        reg = (int(winRelativeX(5.5)), int(winRelativeY(4.2)),
-               int(relativeX2Act(17.3)), int(relativeY2Act(8.6)))
+        reg = (int(winRelativeX(3.5)), int(winRelativeY(2.8)),
+               int(relativeX2Act(13)), int(relativeY2Act(6.3)))
         for idx, pic in enumerate(picArr):
-            actPos = pyautogui.locateCenterOnScreen(pic, region=reg, confidence=0.9)
+            actPos = pyautogui.locateCenterOnScreen(pic, region=reg, confidence=0.8)
             if actPos is not None:
                 join_activity = pyautogui.locateCenterOnScreen(r'resources/small/join_activity.png',
                                                                region=(
-                                                                   int(actPos.x + relativeX2Act(4)),
-                                                                   int(actPos.y - relativeY2Act(1)),
-                                                                   int(relativeX2Act(4)), int(relativeY2Act(2.3))),
-                                                               confidence=0.9)
+                                                                   int(actPos.x + relativeX2Act(2)),
+                                                                   int(actPos.y - relativeY2Act(1.3)),
+                                                                   int(relativeX2Act(5)), int(relativeY2Act(2))),
+                                                               confidence=0.8)
                 if join_activity is not None:
                     return idx, join_activity
                 else:
@@ -266,8 +266,8 @@ def gotoActivity(picArr):
         i = 0
         idx, join_activity = locatePic(picArr)
         while join_activity is None and i in range(0, 3):
-            pyautogui.moveTo(winRelativeX(14.2), winRelativeY(10))
-            pyautogui.dragTo(winRelativeX(14.2), winRelativeY(4.6), duration=0.8)
+            pyautogui.moveTo(winRelativeX(10.1), winRelativeY(8.4))
+            pyautogui.dragTo(winRelativeX(10.1), winRelativeY(4.5), duration=0.8)
             cooldown(2)
             idx, join_activity = locatePic(picArr)
             i += 1
@@ -279,25 +279,26 @@ def gotoActivity(picArr):
 
     cooldown(0.5)
     times = 0
-    pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+    pos = Util.locateCenterOnScreen(r'resources/small/activity.png')
     while pos is None:
         log("请关闭弹窗等遮挡物")
         pyautogui.rightClick()
         cooldown(10)
-        pos = Util.locateCenterOnScreen(r'resources/fuben/activity.png')
+        pos = Util.locateCenterOnScreen(r'resources/small/activity.png')
         times += 1
         if times >= 20:
             naozhong = threading.Thread(target=pl.playsound('resources/common/music.mp3'))
             naozhong.start()
 
+    print(pos)
     # log("打开活动窗")
-    pyautogui.leftClick(pos.x, pos.y)
+    Util.leftClick(5.5, 1.4)
     cooldown(0.5)
     # 在地煞等时间点会切到挑战活动去
-    Util.leftClick(3, 4.5)
+    Util.leftClick(2.5, 3.5)
     cooldown(0.5)
-    pyautogui.moveTo(winRelativeX(14.2), winRelativeY(4.6))
-    pyautogui.dragTo(winRelativeX(14.2), winRelativeY(15), duration=0.15)
+    pyautogui.moveTo(winRelativeX(10.1), winRelativeY(3.5))
+    pyautogui.dragTo(winRelativeX(10.1), winRelativeY(8.4), duration=0.15)
     cooldown(2)
 
     idx, join_activity = findPic(picArr if isinstance(picArr, list) else [picArr])
@@ -308,7 +309,7 @@ def gotoActivity(picArr):
         log("任务已完成或找不到", picArr)
         cooldown(1)
         # log("关闭活动窗")
-        Util.leftClick(-1.5, 3.5)
+        Util.leftClick(-1.1, 2.6)
         return None if isinstance(picArr, list) else False
     cooldown(3)
     return idx if isinstance(picArr, list) else True
@@ -330,7 +331,7 @@ class Util:
         return __openCVEnable
 
     @staticmethod
-    def locateCenterOnScreen(pic, region=None, confidence=0.9):
+    def locateCenterOnScreen(pic, region=None, confidence=0.72):
         if region is None:
             region = (frame.left, frame.top, frameSize[0], frameSize[1])
         cfd = confidence if Util.__openCVEnable() else None
@@ -351,7 +352,7 @@ class Util:
                 return pyautogui.locateCenterOnScreen(pic, region=region)
 
     @staticmethod
-    def locateOnScreen(pic, confidence=0.9):
+    def locateOnScreen(pic, confidence=0.72):
         cfd = confidence if Util.__openCVEnable() else None
         if cfd is not None:
             return pyautogui.locateOnScreen(pic, region=(frame.left, frame.top, frameSize[0], frameSize[1]),
@@ -560,16 +561,16 @@ class __EscapeTeam(MhxyScript):
         if teamLeft is not None:
             pyautogui.leftClick(teamLeft.x, teamLeft.y)
             cooldown(2)
-        Util.leftClick(-2.35, 3.2)
+        Util.leftClick(-1.8, 2.5)
         cooldown(2)
         # 离开队可能动不了的bug
         if bugFix:
             cooldown(1)
-            Util.leftClick(-1, 1.5)
+            Util.leftClick(-0.6, 1.5)
             cooldown(1)
-            Util.leftClick(-1.5, 9)
+            Util.leftClick(-1, 6.7)
             cooldown(1)
-            Util.leftClick(-5, 4.5)
+            Util.leftClick(-3.5, 3.5)
 
 
 def allEscapeTeam(bugFix = False):
@@ -579,19 +580,19 @@ def allEscapeTeam(bugFix = False):
 
 # 使用背包的物品
 def findAndUseInBag(pic):
-    Util.leftClick(23, 16)
+    Util.leftClick(-0.6, -2)
     cooldown(1)
     loc = Util.locateCenterOnScreen(pic, confidence=0.85)
     if loc is not None:
         pyautogui.doubleClick(loc.x, loc.y)
         return
     for _ in range(0, 2):
-        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(6))
-        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(14), duration=0.3)
+        pyautogui.moveTo(winRelativeX(12), winRelativeY(5))
+        pyautogui.dragTo(winRelativeX(12), winRelativeY(10), duration=0.3)
         cooldown(1)
     for _ in range(0, 3):
-        pyautogui.moveTo(winRelativeX(17.3), winRelativeY(14))
-        pyautogui.dragTo(winRelativeX(17.3), winRelativeY(6), duration=0.8)
+        pyautogui.moveTo(winRelativeX(12), winRelativeY(10))
+        pyautogui.dragTo(winRelativeX(12), winRelativeY(5), duration=0.8)
         loc = Util.locateCenterOnScreen(pic)
         if loc is not None:
             pyautogui.doubleClick(loc.x, loc.y)

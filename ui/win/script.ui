@@ -246,6 +246,19 @@
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>10</y>
+        <width>281</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>多选20秒开启下一个，需要关闭小黑窗防止遮挡。</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="richangTab2">
      <attribute name="title">
@@ -495,12 +508,12 @@
        <rect>
         <x>130</x>
         <y>70</y>
-        <width>311</width>
-        <height>31</height>
+        <width>331</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>通常不需要勾选第一个副本，因为一般开始时已经进去了</string>
+       <string>通常不需要勾选第一个副本，因为一般开始位置已经进去了</string>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_3">
@@ -714,20 +727,7 @@
      <attribute name="title">
       <string>工具</string>
      </attribute>
-     <widget class="QPushButton" name="shopping2_btn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>55</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>收关注</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="shopping1_btn">
+     <widget class="QPushButton" name="bangpai_btn">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -737,79 +737,14 @@
        </rect>
       </property>
       <property name="text">
-       <string>收非珍品</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="shopping3_btn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>95</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>搜索截胡</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="shopping2_txt">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>55</y>
-        <width>111</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>注意提前解锁安全锁</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="shopping3_txt">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>90</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>需提前定好搜索条件</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="bangpai2_btn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>135</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
        <string>帮派任务</string>
       </property>
      </widget>
-     <widget class="QLabel" name="shopping1_txt">
-      <property name="geometry">
-       <rect>
-        <x>100</x>
-        <y>5</y>
-        <width>361</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>自行设计mhxy_shopping.py脚本细节</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="bangpai2_cfg_btn">
+     <widget class="QToolButton" name="bangpai_cfg_btn">
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>135</y>
+        <y>15</y>
         <width>37</width>
         <height>18</height>
        </rect>
@@ -822,7 +757,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>230</y>
+        <y>110</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -835,7 +770,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>220</y>
+        <y>100</y>
         <width>311</width>
         <height>41</height>
        </rect>
@@ -903,7 +838,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>280</y>
+        <y>160</y>
         <width>411</width>
         <height>51</height>
        </rect>
@@ -942,7 +877,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>60</y>
         <width>141</width>
         <height>21</height>
        </rect>
@@ -955,7 +890,7 @@
       <property name="geometry">
        <rect>
         <x>170</x>
-        <y>180</y>
+        <y>60</y>
         <width>37</width>
         <height>18</height>
        </rect>
@@ -1134,9 +1069,8 @@
       </rect>
      </property>
      <property name="text">
-      <string>多选执行
-完进行下
-一个窗口</string>
+      <string>多选一般
+逐个执行</string>
      </property>
     </widget>
    </widget>

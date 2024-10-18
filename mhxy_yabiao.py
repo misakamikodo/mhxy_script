@@ -9,19 +9,20 @@ class YaBiao(MhxyScript):
     def do(self):
         finishTimes = 0
         while True:
-            finish = Util.locateCenterOnScreen(r'resources/richang/yabiao_finish.png')
-            if finish is not None:
+            locate, idx =  waitUtilFindPic(r'resources/small/dialogpick.png')
+            cooldown(1)
+            if locate is not None:
                 cooldown(1)
-                pyautogui.leftClick(finish.x, finish.y)
+                pyautogui.leftClick(locate.x, locate.y + relativeY2Act(1))
                 cooldown(1)
-                Util.leftClick(14, 11)
+                Util.leftClick(10.5, 8.2)
                 finishTimes += 1
                 cooldown(0.5)
                 if Util.locateCenterOnScreen(r'resources/richang/yabiao_nopower.png') is not None:
                     log("活力不够50")
                     break
                 if finishTimes >= 3:
-                    while Util.locateCenterOnScreen(r'resources/fuben/activity.png') is None:
+                    while Util.locateCenterOnScreen(r'resources/small/activity.png') is None:
                         cooldown(30)
                     break
 

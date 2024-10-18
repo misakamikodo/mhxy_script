@@ -22,10 +22,10 @@ class AutoBattle:
                 if not click:
                     cooldown(1.5)
                     # 花果山
-                    pyautogui.moveTo(winRelativeX(-1.2), winRelativeY(-1.2))
+                    pyautogui.moveTo(winRelativeX(-0.7), winRelativeY(-0.7))
                     pyautogui.rightClick()
                     cooldown(0.2)
-                    Util.leftClick(-1.2, -1.2)
+                    Util.leftClick(-0.7, -0.7)
                     click = True
                 cooldown(2)
             else:
