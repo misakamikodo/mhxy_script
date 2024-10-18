@@ -1,3 +1,5 @@
+# 五开给封了个，游戏不玩了，脚本主人转让，有兴趣不盈利的可以发邮箱kisofdeath@qq.com
+
 # 脚本说明
 
 安装完包依赖后 需要opencv-python支持(pip install opencv-python)才能模糊匹配图片
