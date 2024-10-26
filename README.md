@@ -1,3 +1,5 @@
+# 脚本目前有被封风险，因为玩的很少了脚本主人转让，有想自己接着的不盈利的可以发邮箱kisofdeath@qq.com，附上github账号，
+
 # 脚本说明
 
 安装完包依赖后 需要opencv-python支持(pip install opencv-python)才能模糊匹配图片

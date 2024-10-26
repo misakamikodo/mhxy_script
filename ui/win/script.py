@@ -332,7 +332,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "梦幻手游助手"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "#%&%……%￥#"))
         self.label_2.setText(_translate("MainWindow", "本软件免费提供"))
         self.baotu_btn.setText(_translate("MainWindow", "宝图"))
         self.mijing_btn.setText(_translate("MainWindow", "秘境"))
