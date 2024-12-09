@@ -305,13 +305,13 @@ class MhxyApplication(QMainWindow, main_win):
         arr = []
         if self.target_rdo1.isChecked():
             arr.append('0')
-        elif self.target_rdo2.isChecked():
+        if self.target_rdo2.isChecked():
             arr.append('1')
-        elif self.target_rdo3.isChecked():
+        if self.target_rdo3.isChecked():
             arr.append('2')
-        elif self.target_rdo4.isChecked():
+        if self.target_rdo4.isChecked():
             arr.append('3')
-        elif self.target_rdo5.isChecked():
+        if self.target_rdo5.isChecked():
             arr.append('4')
         return ','.join(arr)
 
