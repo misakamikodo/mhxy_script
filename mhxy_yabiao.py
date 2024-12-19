@@ -33,7 +33,7 @@ if __name__ == '__main__':
     indexArr = args.idxArray.split(',')
 
     def func(idx):
-        YaBiao(idx=args.idx).do()
+        YaBiao(idx=idx).do()
 
     if len(indexArr) != 1:
         for each in indexArr:
