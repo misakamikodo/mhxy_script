@@ -59,8 +59,7 @@ class Baotu(MhxyScript):
         if ms is not None:
             pyautogui.leftClick(ms.x, ms.y)
         else:
-            waitUtilFindPic(r'resources/fuben/select.png')
-            Util.leftClick(-3, 12.2)
+            waitThenClickUtilFindPic(r'resources/richang/baotu_mission_start.png')
         cooldown(0.5)
         ms = locateBaotuMission()
         if ms is not None:
