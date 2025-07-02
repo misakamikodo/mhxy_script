@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>#%&%……%￥#</string>
+   <string>wywsnd</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label_2">
@@ -1004,7 +1004,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QCheckBox" name="target_rdo2">
+    <widget class="QRadioButton" name="target_rdo2">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1017,7 +1017,7 @@
       <string>第二窗口</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="target_rdo1">
+    <widget class="QRadioButton" name="target_rdo1">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1046,7 +1046,7 @@
       <string>执行目标</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="target_rdo3">
+    <widget class="QRadioButton" name="target_rdo3">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1072,7 +1072,7 @@
       <string>从左往右</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="target_rdo4">
+    <widget class="QRadioButton" name="target_rdo4">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -1085,7 +1085,7 @@
       <string>第四窗口</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="target_rdo5">
+    <widget class="QRadioButton" name="target_rdo5">
      <property name="geometry">
       <rect>
        <x>80</x>

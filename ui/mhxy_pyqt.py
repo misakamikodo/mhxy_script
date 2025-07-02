@@ -107,36 +107,40 @@ class MhxyApplication(QMainWindow, main_win):
         # print(content)
 
     def tabWidgetChange(self, evt):
-        self.singleChkMode = evt != 0
-        if self.singleChkMode:
-            rdo = [self.target_rdo1, self.target_rdo2, self.target_rdo3, self.target_rdo4, self.target_rdo5]
-            for radio in rdo:
-                if radio.isChecked():
-                    index = rdo.index(radio)
-                    for next_radio in rdo[index + 1:]:
-                        next_radio.setChecked(False)
-                    break
+        pass
+        # self.singleChkMode = evt != 0
+        # if self.singleChkMode:
+        #     rdo = [self.target_rdo1, self.target_rdo2, self.target_rdo3, self.target_rdo4, self.target_rdo5]
+        #     for radio in rdo:
+        #         if radio.isChecked():
+        #             index = rdo.index(radio)
+        #             for next_radio in rdo[index + 1:]:
+        #                 next_radio.setChecked(False)
+        #             break
 
     def allChk(self, evt):
-        self.target_rdo1.setChecked(True)
-        self.target_rdo2.setChecked(True)
-        self.target_rdo3.setChecked(True)
-        self.target_rdo4.setChecked(True)
-        self.target_rdo5.setChecked(True)
+        pass
+        # self.target_rdo1.setChecked(True)
+        # self.target_rdo2.setChecked(True)
+        # self.target_rdo3.setChecked(True)
+        # self.target_rdo4.setChecked(True)
+        # self.target_rdo5.setChecked(True)
 
     def noChk(self, evt):
-        self.target_rdo1.setChecked(False)
-        self.target_rdo2.setChecked(False)
-        self.target_rdo3.setChecked(False)
-        self.target_rdo4.setChecked(False)
-        self.target_rdo5.setChecked(False)
+        pass
+        # self.target_rdo1.setChecked(False)
+        # self.target_rdo2.setChecked(False)
+        # self.target_rdo3.setChecked(False)
+        # self.target_rdo4.setChecked(False)
+        # self.target_rdo5.setChecked(False)
 
     def chk(self, no):
-        if self.singleChkMode:
-            rdo = [self.target_rdo1,self.target_rdo2,self.target_rdo3,self.target_rdo4,self.target_rdo5]
-            for i in range(0, 5):
-                if i != no:
-                    rdo[i].setChecked(False)
+        pass
+        # if self.singleChkMode:
+        #     rdo = [self.target_rdo1,self.target_rdo2,self.target_rdo3,self.target_rdo4,self.target_rdo5]
+        #     for i in range(0, 5):
+        #         if i != no:
+        #             rdo[i].setChecked(False)
 
     def chk1(self, evt):
         self.chk(0)
